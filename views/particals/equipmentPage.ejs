@@ -1,4 +1,22 @@
 <div class="page">
-<h1><%= data.title %></h1>
-<p>Welcome to <%= data.title %></p>
+    <form class="suchleiste" role="search" method="GET" action="/">
+        <input name="q" type="search" aria-label="Suche auf selfhtml.org"/>
+        <input name="site" type="hidden" value="selfhtml.org"/>
+        <button>Suchen</button>
+    </form>
+    <h1><%= data.title %></h1>
+    <p>Welcome to <%= data.title %></p>
+    <div class="element">
+        <% data.equipment.forEach((equipment) => { %>
+        <div class="card">
+            <img src="<%= equipment.img %>" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title"><%= equipment.title %></h5>
+                <p class="card-text"><%= equipment.description %></p>
+                <p class="card-text">Verfügbar: <%= equipment.count %> Stück</p>
+                <p class="card-text">ID: <%= equipment.id %> || Article No.: <%= equipment.articlenumber %>  || UserID: <%= equipment.userid %> </p>
+                <a href="/equipment/<%= equipment.id %>" class="btn btn-primary">Ausleihen</a>
+            </div>
+        <% }); %>    
+    </div>
 </div>

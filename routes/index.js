@@ -15,9 +15,13 @@ router.route('/')
 
 //equipment routes
 router.route('/equipment')
-.get ((req,res,next) => {
-  let response = equipmentController.getEquipment();
-  res.render('equipment', { "data": response.data });
+.get(async (req, res, next) => {
+  try {
+      let response = await equipmentController.getEquipment();
+      res.render('equipment', { "data": response.data });
+  } catch (error) {
+      next(error);
+  }
 })
 .post ((req,res,next) => {
   let response = equipmentController.createEquipment();
