@@ -46,9 +46,22 @@ const createEquipment = async (equip) => {
 }
 
 
-const getSingleEquipment = () => {
-    let data = { "title": "Single Equipment"};
-    return {"status": 200, "data": data};
+const getSingleEquipment = async(id) => {
+    try {
+        const response = await fetch('http://localhost:3000/equipment/' + id, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        let data = await response.json();
+        console.log(data);
+        return { "status": 200, "data": data };
+    } catch (error) {
+        console.error('Error creating equipment:', error);
+        return { "status": 500, "data": { "title": "Error", "equipment": [] } };
+    }
 }
 
 module.exports = {

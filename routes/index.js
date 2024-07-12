@@ -36,8 +36,8 @@ router.route('/equipment')
 router.route('/equipment/:id')
 .get(async (req, res, next) => {
   try {
-      let response = await equipmentController.getSingleEquipment();
-      res.render('equipment', { "data": response.data });
+      let response = await equipmentController.getSingleEquipment(req.params.id);
+      res.render('singleEquipSite', { "data": response.data });
   } catch (error) {
       next(error);
   }
