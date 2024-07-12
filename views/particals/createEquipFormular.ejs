@@ -6,6 +6,10 @@
 
     <form action="/equipment" method="POST">
         <div class="mb-3">
+            <label for="userid" class="form-label">User</label>
+            <input type="text" class="form-control" id="userid" name="userid" required>
+        </div>
+        <div class="mb-3">
             <label for="title" class="form-label">Titel</label>
             <input type="text" class="form-control" id="title" name="title" required>
         </div>
@@ -17,15 +21,17 @@
             <label for="description" class="form-label">Beschreibung</label>
             <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
         </div>
+        <!--
         <div class="mb-3">
             <label for="img" class="img">Bild</label>
             <input class="form-control" type="file" id="img">
           </div>
+        -->
         <div class="mb-3">
             <label for="count" class="form-label">Anzahl</label>
             <input type="number" class="form-control" id="count" name="count" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button action="/" method="POST" type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

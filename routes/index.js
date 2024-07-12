@@ -23,9 +23,14 @@ router.route('/equipment')
       next(error);
   }
 })
-.post ((req,res,next) => {
-  let response = equipmentController.createEquipment();
+.post (async (req,res,next) => {
+ try {
+  let response = await equipmentController.createEquipment(req.body);
+  console.log(response);
   res.redirect('/equipment/' + response.data.id);
+ } catch (error) {
+   next(error);
+ }
 });
 
 router.route('/equipment/:id')

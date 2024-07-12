@@ -22,22 +22,29 @@ const getEquipment = async () => {
     }
 };
 
-const createEquipment = async () => { 
+const createEquipment = async (equip) => { 
     try {
         const response = await fetch('http://localhost:3000/equipment', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            body: JSON.stringify(equip) // Hier übergeben wir das 'equip' Objekt als JSON-String
         });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
         let data = await response.json();
-        //DOING SOMETING WITH THE RESPONSE
+        //DOING SOMETHING WITH THE RESPONSE
         return { "status": 200, "data": data };
     } catch (error) {
         console.error('Error creating equipment:', error);
         return { "status": 500, "data": { "title": "Error", "equipment": [] } };
     }
-}   
+}
+
 
 const getSingleEquipment = () => {
     let data = { "title": "Single Equipment"};
