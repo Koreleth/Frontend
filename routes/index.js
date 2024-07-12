@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-let indexController = require('../controller/indexController');
-let equipmentController = require('../controller/equipmentController');
+let indexController = require('../controllers/indexController');
+let equipmentController = require('../controllers/equipmentController');
 
 /* GET home page. */
 
@@ -25,7 +25,18 @@ router.route('/equipment')
 })
 .post ((req,res,next) => {
   let response = equipmentController.createEquipment();
-  res.render('equipment', { "data": response.data });
+  res.redirect('/equipment/' + response.data.id);
 });
 
+router.route('/equipment/:id')
+.get(async (req, res, next) => {
+  try {
+      let response = await equipmentController.getSingleEquipment();
+      res.render('equipment', { "data": response.data });
+  } catch (error) {
+      next(error);
+  }
+})
+
 module.exports = router;
+

@@ -1,0 +1,31 @@
+<div id="equipFormular" class="formular">
+
+    <div class="button">
+        <button id="closeButton" type="button" class="btn-close" aria-label="Close"></button>
+    </div>
+
+    <form action="/equipment" method="POST">
+        <div class="mb-3">
+            <label for="title" class="form-label">Titel</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        <div class="mb-3">
+            <label for="articlenumber" class="form-label">Artikelnummer</label>
+            <input type="text" class="form-control" id="articlenumber" name="articlenumber" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Beschreibung</label>
+            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="img" class="img">Bild</label>
+            <input class="form-control" type="file" id="img">
+          </div>
+        <div class="mb-3">
+            <label for="count" class="form-label">Anzahl</label>
+            <input type="number" class="form-control" id="count" name="count" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
