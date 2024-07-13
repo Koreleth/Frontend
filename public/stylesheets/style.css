@@ -63,7 +63,7 @@ footer {
   width: 15px;
 }
 
-#deleteConfirm {
+.deleteConfirm {
   display: none;
   position: absolute;
   width: 50%;

@@ -18,21 +18,14 @@ document.getElementById('closeButton').addEventListener('click', function() {
     }
 });
 
-document.getElementById('deleteButton').addEventListener('click', function() {
-    var button = document.getElementById('deleteConfirm');
-    if (button.style.display === 'none' || button.style.display === '') {
-        button.style.display = 'block';
-        
-    } else {
-        button.style.display = 'none';
-    }
-});
-document.getElementById('cancelDelete').addEventListener('click', function() {
-    var button = document.getElementById('deleteConfirm');
-    if (button.style.display === 'none' || button.style.display === '') {
-        button.style.display = 'block';
-        
-    } else {
-        button.style.display = 'none';
-    }
-});
+function deletefunction(id) {
+        var button = document.getElementById('deleteConfirm'+id);
+        var cancelButton = document.getElementById('cancelDelete'+id);
+        if (button.style.display === 'none' || button.style.display === '') {
+            button.style.display = 'block';
+            
+        } else {
+            button.style.display = 'none';
+        }
+};
+
