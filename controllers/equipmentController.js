@@ -14,7 +14,6 @@ async function saveFile(file) {
 const getEquipment = async () => {
     return axios.get('http://localhost:3000/equipment')
         .then(response => {
-        console.log(response.data)
         return { "status": 200, "data": response.data };;
     });
 };

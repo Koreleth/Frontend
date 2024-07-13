@@ -8,9 +8,8 @@
     </div>
 
     <div class="content">
-        <form class="suchleiste" role="search" method="GET" action="/">
-            <input name="q" type="search" aria-label="Suche auf selfhtml.org"/>
-            <input name="site" type="hidden" value="selfhtml.org"/>
+        <form class="suchleiste" role="search" method="GET" action="/equipment/">
+            <input name="search" type="search" />
             <button>Suchen</button>
         </form>
         <h1><%= data.title %></h1>
@@ -24,7 +23,25 @@
                     <p class="card-text">Verfügbar: <%= equipment.count %> Stück</p>
                     <p class="card-text">ID: <%= equipment.id %> || Article No.: <%= equipment.articlenumber %>  || UserID: <%= equipment.userid %> </p>
                     <a href="/equipment/<%= equipment.id %>" class="btn btn-primary">Ausleihen</a>
+                    <button id="editButton" class="btn btn-warning"><img src="../img/pencil.png"></button>
+                    <button id="deleteButton" class="btn btn-danger"><img src="../img/trash.png"></button>
+
+                    <!--this div is hidden-->
+                    <div id="deleteConfirm" >
+                        <div class="deleteTitle">
+                            <h1>Löschen</h1>
+                        </div>
+                        <div class="deleteText">
+                            <p>Wollen Sie <%= equipment.title %> wirklich löschen?</p>
+                        </div>
+                        <div class="confrimButtons">
+                            <button action="/equipment/<%= equipment.id %>" method="DELETE" type="submit" class="btn btn-danger">Ja</button>
+                            <button id="cancelDelete" class="btn btn-primary">Nein</button>
+                        </div>
+                    </div>
+
                 </div>
+            </div>
             <% }); %>    
         </div>
     </div>

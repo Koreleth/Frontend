@@ -6,7 +6,6 @@ let equipmentController = require('../controllers/equipmentController');
 router.route('/')
 .get(async (req, res, next) => {
       let response = await equipmentController.getEquipment();
-      console.log(response);
       res.render('equipment', { "data": response.data });
 })
 .post((req, res, next) => {
@@ -22,9 +21,17 @@ router.route('/')
 router.route('/:id')
 .get(async (req, res, next) => {
       let response = await equipmentController.getSingleEquipment(req.params.id);
-      console.log(response);
       res.render('singleEquipSite', { "data": response.data });
 })
+.delete((req, res, next) => {
+  equipmentController.deleteEquipment(req.params.id)
+    .then(response => {
+      res.redirect('/equipment');
+    })
+    .catch(error => {
+      next(error);
+    });
+});
 
 
 

@@ -17,3 +17,22 @@ document.getElementById('closeButton').addEventListener('click', function() {
         formular.style.display = 'none';
     }
 });
+
+document.getElementById('deleteButton').addEventListener('click', function() {
+    var button = document.getElementById('deleteConfirm');
+    if (button.style.display === 'none' || button.style.display === '') {
+        button.style.display = 'block';
+        
+    } else {
+        button.style.display = 'none';
+    }
+});
+document.getElementById('cancelDelete').addEventListener('click', function() {
+    var button = document.getElementById('deleteConfirm');
+    if (button.style.display === 'none' || button.style.display === '') {
+        button.style.display = 'block';
+        
+    } else {
+        button.style.display = 'none';
+    }
+});
