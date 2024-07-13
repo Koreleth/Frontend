@@ -12,21 +12,11 @@ async function saveFile(file) {
 
 //need to fix: 
 const getEquipment = async () => {
-    try {
-        const response = await fetch('http://localhost:3000/equipment', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        const equipment = await response.json();
-        let data = { "title": "All Equipments", 'equipment': equipment };
-        return { "status": 200, "data": data };
-    } catch (error) {
-        console.error('Error fetching equipment:', error);
-        return { "status": 500, "data": { "title": "Error", "equipment": [] } };
-    }
+    return axios.get('http://localhost:3000/equipment')
+        .then(response => {
+        console.log(response.data)
+        return { "status": 200, "data": response.data };;
+    });
 };
 
 const createEquipment = async (req) => { 

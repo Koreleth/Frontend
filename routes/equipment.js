@@ -5,12 +5,9 @@ let equipmentController = require('../controllers/equipmentController');
 //equipment routes
 router.route('/')
 .get(async (req, res, next) => {
-  try {
       let response = await equipmentController.getEquipment();
+      console.log(response);
       res.render('equipment', { "data": response.data });
-  } catch (error) {
-      next(error);
-  }
 })
 .post((req, res, next) => {
   equipmentController.createEquipment(req)
