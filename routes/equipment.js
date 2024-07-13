@@ -12,24 +12,23 @@ router.route('/')
       next(error);
   }
 })
-.post (async (req,res,next) => {
- try {
-  let response = await equipmentController.createEquipment(req.body);
-  console.log(response);
-  res.redirect('/' + response.data.id);
- } catch (error) {
-   next(error);
- }
+.post((req, res, next) => {
+  equipmentController.createEquipment(req)
+    .then(response => {
+      res.redirect('/equipment/' + response.data.id);
+    })
+    .catch(error => {
+      next(error);
+    });
 });
 
 router.route('/:id')
 .get(async (req, res, next) => {
-  try {
       let response = await equipmentController.getSingleEquipment(req.params.id);
+      console.log(response);
       res.render('singleEquipSite', { "data": response.data });
-  } catch (error) {
-      next(error);
-  }
 })
+
+
 
 module.exports = router;

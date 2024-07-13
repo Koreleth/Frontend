@@ -7,7 +7,6 @@ let indexController = require('../controllers/indexController');
 router.route('/')
 .get ((req,res,next) => {
   let response = indexController.getIndex();
-  console.log (response);
   res.render('index', { "data": response.data});
 });
 
