@@ -20,10 +20,10 @@ document.getElementById('closeButton').addEventListener('click', function() {
 
 function deletefunction(id) {
         var button = document.getElementById('deleteConfirm'+id);
-        var cancelButton = document.getElementById('cancelDelete'+id);
+        var backgroundPage = document.getElementById('backgroundPage');	
         if (button.style.display === 'none' || button.style.display === '') {
             button.style.display = 'block';
-            
+            //backgroundPage.style.filter = `blur(5px)`;
         } else {
             button.style.display = 'none';
         }

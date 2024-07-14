@@ -71,10 +71,17 @@ const getSingleEquipment = async(id) => {
             });
     }
 
+const deleteEquipment = async(id) => {
+    return axios.delete('http://localhost:3000/equipment/' + id)
+            .then(response => {
+                return {"status": 200, "data": response.data};
+            });
+    }
     
 
 module.exports = {
     getEquipment,
     createEquipment,
-    getSingleEquipment
+    getSingleEquipment,
+    deleteEquipment
 }

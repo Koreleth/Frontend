@@ -42,6 +42,7 @@ footer {
   height: 100%;
   padding: 3rem;
   z-index: 2;
+  top: 0;
 }
 
 .createButton {
@@ -68,11 +69,11 @@ footer {
   position: absolute;
   width: 50%;
   z-index: 2;
-  background-color: whitesmoke;
   border-style: solid;
   padding: 1rem;
   border-radius: 1rem;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-  margin-top: -20rem;
+  margin-top: -17rem;
   margin-left: 25%;
+  background-color: whitesmoke;
 }

@@ -22,7 +22,7 @@ router.route('/:id')
 .get(async (req, res, next) => {
       let response = await equipmentController.getSingleEquipment(req.params.id);
       res.render('singleEquipSite', { "data": response.data });
-})
+}) //delete function is in beta
 .delete((req, res, next) => {
   equipmentController.deleteEquipment(req.params.id)
     .then(response => {
