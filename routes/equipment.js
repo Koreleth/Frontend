@@ -31,6 +31,15 @@ router.route('/:id')
     .catch(error => {
       next(error);
     });
+})
+.put((req, res, next) => {
+  equipmentController.updateEquipment(req)
+    .then(response => {
+      res.redirect('/equipment/' + response.data.id);
+    })
+    .catch(error => {
+      next(error);
+    });
 });
 
 

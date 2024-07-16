@@ -14,35 +14,7 @@
         </form>
         <h1><%= data.title %></h1>
         <div class="element">
-            <% data.forEach((equipment) => { %>
-            <div class="card">
-                <img src="HTTP://localhost:3000<%= equipment.pic %>" class="card-img-top equipPic" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title"><%= equipment.title %></h5>
-                    <p class="card-text"><%= equipment.description %></p>
-                    <p class="card-text">Verfügbar: <%= equipment.count %> Stück</p>
-                    <p class="card-text"><p>ID: <%= equipment.id %> - Article No.: <%= equipment.articlenumber %> - UserID: <%= equipment.userid %> </p>
-                    <a href="/equipment/<%= equipment.id %>" class="btn btn-primary">Ausleihen</a>
-                    <button id="editButton" class="btn btn-warning"><img src="../img/pencil.png"></button>
-                    <button onclick=deletefunction(<%= equipment.id %>) id="deleteButton" class="btn btn-danger"><img src="../img/trash.png"></button>
-
-                    <!--this div is hidden-->
-                    <div class="deleteConfirm" id="deleteConfirm<%= equipment.id %>" >
-                        <div class="deleteTitle">
-                            <h1>Löschen</h1>
-                        </div>
-                        <div class="deleteText">
-                            <p>Wollen Sie <%= equipment.title %> wirklich löschen?</p>
-                        </div>
-                        <div class="confrimButtons">
-                            <button action="/equipment/<%= equipment.id %>" method="DELETE" type="submit" class="btn btn-danger">Ja</button>
-                            <button onclick=deletefunction(<%= equipment.id %>) id="cancelDelete" class="btn btn-primary">Nein</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <% }); %>    
+            <%- include ('cardItem', data) %>
         </div>
     </div>
 </div>
