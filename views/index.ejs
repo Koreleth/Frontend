@@ -1,4 +1,25 @@
-<%- include ('particals/header') %>
-<%- include ('particals/navbar') %>
-<%- include ('particals/homepage') %>
-<%- include ('particals/footer') %>
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startseite</title>
+</head>
+
+<body>
+
+    <%- include ('partials/header') %>
+        <%- include ('partials/navbar') %>
+            <div class="page">
+                <h1>
+                    <%= data.title %>
+                </h1>
+                <p>Welcome to <%= data.title %>
+                </p>
+            </div>
+            <%- include ('partials/footer') %>
+
+</body>
+
+</html>

@@ -1,4 +1,38 @@
-<%- include ('particals/header') %>
-<%- include ('particals/navbar') %>
-<%- include ('particals/equipmentPage') %>
-<%- include ('particals/footer') %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ausleihen</title>
+</head>
+
+<body>
+    <%- include ('partials/header') %>
+        <%- include ('partials/navbar') %>
+            <div class="page">
+                <!-- Hier der Code für die Kreirung eines neuen Equpments -->
+                <%- include('partials/createEquipFormular') %>
+
+                    <div class="createButton">
+                        <button id="singleButton" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            CREATE
+                    </div>
+                    <div class="content">
+                        <form class="suchleiste" role="search" method="GET" action="/equipment/">
+                            <input name="search" type="search" />
+                            <button>Suchen</button>
+                        </form>
+                        <h1>
+                            <%= data.title %>
+                        </h1>
+                        <div class="element">
+                            <%- include ('partials/cardItem', data) %>
+                        </div>
+                    </div>
+            </div>
+            <%- include ('partials/footer') %>
+</body>
+
+</html>
