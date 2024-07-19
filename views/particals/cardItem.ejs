@@ -19,11 +19,10 @@
                     <p>Wollen Sie <%= equipment.title %> wirklich löschen?</p>
                 </div>
                 <div class="confrimButtons">
-                    <button action="/equipment/<%= equipment.id %>" method="DELETE" type="submit" class="btn btn-danger">Ja</button>
+                    <button onclick=confirmDelete(<%= equipment.id %>) class="btn btn-danger">Ja</button>
                     <button onclick=deletefunction(<%= equipment.id %>) id="cancelDelete" class="btn btn-primary">Nein</button>
                 </div>
             </div>
-
         </div>
     </div>
     <% }); %>    

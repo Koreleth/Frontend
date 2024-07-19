@@ -6,7 +6,7 @@ let equipmentController = require('../controllers/equipmentController');
 router.route('/')
 .get(async (req, res, next) => {
       let response = await equipmentController.getEquipment();
-      res.render('equipment', { "data": response.data });
+      res.render('equipment', { "data": response.data, title: 'Ausleihen' });
 })
 .post((req, res, next) => {
   equipmentController.createEquipment(req)
@@ -18,15 +18,19 @@ router.route('/')
     });
 });
 
+
+
 router.route('/:id')
 .get(async (req, res, next) => {
       let response = await equipmentController.getSingleEquipment(req.params.id);
-      res.render('singleEquipSite', { "data": response.data });
+      res.render('singleEquipSite', { "data": response.data, title: response.data.title });
 }) //delete function is in beta
-.delete((req, res, next) => {
+.delete(async(req, res, next) => {
+  console.log("deleted");
   equipmentController.deleteEquipment(req.params.id)
     .then(response => {
-      res.redirect('/equipment');
+     console.log('checkpoint');
+     res.render('equipment', { "data": response.data, title: 'Ausleihen' });
     })
     .catch(error => {
       next(error);

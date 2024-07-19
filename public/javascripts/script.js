@@ -1,3 +1,5 @@
+
+
 document.getElementById('singleButton').addEventListener('click', function() {
     var formular = document.getElementById('equipFormular');
 
@@ -27,5 +29,11 @@ function deletefunction(id) {
         } else {
             button.style.display = 'none';
         }
+};
+
+function confirmDelete(id) {
+    fetch('http://localhost:3001/equipment/' + id, {
+        method: 'DELETE',
+    }) .then (deletefunction(id));
 };
 

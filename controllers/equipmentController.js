@@ -77,11 +77,19 @@ const deleteEquipment = async(id) => {
                 return {"status": 200, "data": response.data};
             });
     }
+
+const updateEquipment = async(req) => { 
+    return axios.put('http://localhost:3000/equipment/' + req.body.id, req.body)
+        .then(response => {
+            return { "status": 200, "data": response.data };
+        });
+    }
     
 
 module.exports = {
     getEquipment,
     createEquipment,
     getSingleEquipment,
-    deleteEquipment
+    deleteEquipment,
+    updateEquipment
 }
