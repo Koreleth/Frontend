@@ -37,3 +37,16 @@ function confirmDelete(id) {
     }) .then (deletefunction(id));
 };
 
+function editfunction(id) {
+    var infos = document.getElementById('infos');
+    var formular = document.getElementById('editInfos');
+    
+    if (infos.style.display === 'none' || infos.style.display === '') {
+        formular.style.display = 'none';
+        infos.style.display = 'block';
+    } else {
+        infos.style.display = 'none';
+        formular.style.display = 'block';
+    }
+    
+}

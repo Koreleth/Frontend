@@ -3,15 +3,16 @@
     <%- include('createEquipFormular') %>
 
     <div class="createButton">
-        <button id="singleButton" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            CREATE
+        <button id="singleButton" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> CREATE </button>
     </div>
 
     <div class="content">
-        <form class="suchleiste" role="search" method="GET" action="/equipment/">
-            <input name="search" type="search" />
-            <button>Suchen</button>
-        </form>
+        <div class="element">
+            <form class="suchleiste" role="search" method="GET" action="/equipment/">
+                <input name="search" type="search" />
+                <button>Suchen</button>
+            </form>
+        </div>
         <h1><%= data.title %></h1>
         <div class="element">
             <%- include ('cardItem', data) %>

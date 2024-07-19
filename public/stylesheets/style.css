@@ -52,8 +52,8 @@ footer {
 }
 
 .equipPic {
-  width: 100%;
-  height: 200px;
+  max-width: fit-content;
+  height: auto;
 }
 
 .singleEquip {
@@ -77,3 +77,21 @@ footer {
   margin-left: 25%;
   background-color: whitesmoke;
 }
+
+.card {
+  margin-bottom: 2rem;
+}
+.content {
+  width: 30%;
+}
+.singleEquipImage img{
+  width: auto;
+  height: 200px;
+}
+#editInfos {
+  display: none;
+}
+
+.abstand01rem {
+  margin-top: -1rem;
+} 
