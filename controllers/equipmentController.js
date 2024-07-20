@@ -7,6 +7,7 @@ async function saveFile(file) {
     await file.mv('public/uploads/' + file.name);
     //get the complete path of the file
     let filename = process.cwd() + '/public/uploads/' + file.name;
+    console.log("=========================" + filename + " Uploaded =========================");
     return filename;
 }
 
@@ -72,14 +73,17 @@ const deleteEquipment = (id) => {
 
 const updateEquipment = async (req, res) => {
 
-    // if (!req.files) {
-    let response = await axios.put('http://localhost:3000/equipment/' + req.body.id, req.body);
-    return { "status": 200 };
-    //return { "status": 200, "data": response };
-    // }
-    /* else {
+    //res.send(req.files.file.name);
+    if (!req.files) {
+        let response = await axios.put('http://localhost:3000/equipment/' + req.body.id, req.body);
+        return {
+            "status": 200
+        };
+    }
+    else {
         let filename = await saveFile(req.files.file);
         //we require fs to read the file as a stream
+        console.log("Filename: " + filename);
         var fs = require('fs');
 
         //we require form-data to send the file and other form fields
@@ -92,6 +96,7 @@ const updateEquipment = async (req, res) => {
         //append the other form fields
         formData.append("userid", req.body.userid);
         formData.append("title", req.body.title);
+        console.log("articlenumber: " + req.body.articlenumber);
         formData.append("articlenumber", req.body.articlenumber);
         formData.append("description", req.body.description);
         formData.append("count", req.body.count);
@@ -102,16 +107,16 @@ const updateEquipment = async (req, res) => {
             "Content-Length": formData.getLengthSync()
         };
 
-        return axios.put('http://localhost:3000/equipment', formData, { headers }) //Doppeltes return -> alles nach return wird nicht ausgeführt
+        return axios.put('http://localhost:3000/equipment/' + req.body.id, formData, { headers }) //Doppeltes return -> alles nach return wird nicht ausgeführt
             .then(function (response) {
                 //delete the file after sending
                 fs.unlinkSync(filename);
-                return { "status": 200, "data": response.data };
+                return { "status": 200 };
             })
             .catch(function (error) {
                 res.send(error)
             });
-    }*/
+    }
 
 }
 

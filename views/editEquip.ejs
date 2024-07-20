@@ -14,8 +14,8 @@
             <form action="/equipment/edit/<%=data.id%>" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="<%=data.id%>">
 
-                <label for="articlenumber" class="form-label">User</label>
-                <input type="text" id="articlenumber" name="articlenmber" value="<%=data.articlenumber%>" required>
+                <label for="articlenumber" class="form-label">Artikelnummer</label>
+                <input type="text" id="articlenumber" name="articlenumber" value="<%=data.articlenumber%>" required>
 
                 <label for="title" class="form-label">Titel</label>
                 <input type="text" id="title" name="title" value="<%=data.title%>" required>
@@ -31,6 +31,9 @@
 
                 <label for="userid" class="form-label">User ID</label>
                 <input type="text" id="userid" name="userid" value="<%=data.userid%>" required>
+
+                <label for="file" class="img">Bild</label>
+                <input class="form-control" type="file" id="file" name="file">
 
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
