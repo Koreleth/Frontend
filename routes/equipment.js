@@ -4,10 +4,13 @@ let equipmentController = require('../controllers/equipmentController');
 
 //equipment routes
 router.route('/')
+
+  //Alle Equipments anzeigen
   .get(async (req, res, next) => {
     let response = await equipmentController.getEquipment();
-    res.render('equipment', { "data": response.data });
+    res.render('allEquip', { "data": response.data });
   })
+  //Neues Equipment erstellen
   .post((req, res, next) => {
     equipmentController.createEquipment(req, res)
       .then(response => {
@@ -17,9 +20,16 @@ router.route('/')
         next(error);
       });
   });
-//Equipment löschen
+
+
+
 router.route('/delete/:id')
-  .get(async (req, res, nex) => {
+  //Wenn get aufgerufen wird equipment angezeigt
+  .get(async (req, res, next) => {
+    res.redirect('/equipment/' + req.params.id);
+  })
+  //Equipment löschen
+  .post(async (req, res, nex) => {
     equipmentController.deleteEquipment(req.params.id)
       .then(response => {
         res.redirect('/equipment');
@@ -30,14 +40,19 @@ router.route('/delete/:id')
   });
 
 router.route('/edit/:id')
+  //Wenn get aufgerufen wird equipment Bearbeitungs Seite angezeigt
   .get(async (req, res, next) => {
     let response = await equipmentController.getSingleEquipment(req.params.id);
     res.render('editEquip', { "data": response.data });
   })
+
+  //Equipment bearbeiten
   .post((req, res, next) => {
-    equipmentController.updateEquipment(req)
+    console.log("edit");
+    console.log(req.body);
+    equipmentController.updateEquipment(req, res)
       .then(response => {
-        res.redirect('/equipment/' + response.data.id);
+        res.redirect('/equipment/' + req.params.id);
       })
       .catch(error => {
         next(error);
@@ -48,7 +63,7 @@ router.route('/edit/:id')
 router.route('/:id')
   .get(async (req, res, next) => {
     let response = await equipmentController.getSingleEquipment(req.params.id);
-    res.render('singleEquipSite', { "data": response.data });
+    res.render('singleEquip', { "data": response.data });
   });
 
 

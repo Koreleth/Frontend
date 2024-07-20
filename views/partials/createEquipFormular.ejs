@@ -6,26 +6,32 @@
 
     <form action="/equipment" method="POST" enctype="multipart/form-data">
         <div class="mb-3">
+            <!--User ID-->
             <label for="userid" class="form-label">User</label>
             <input type="text" class="form-control" id="userid" name="userid" required>
         </div>
         <div class="mb-3">
+            <!--Artikel Titel-->
             <label for="title" class="form-label">Titel</label>
             <input type="text" class="form-control" id="title" name="title" required>
         </div>
         <div class="mb-3">
+            <!--Artikelnummer-->
             <label for="articlenumber" class="form-label">Artikelnummer</label>
             <input type="text" class="form-control" id="articlenumber" name="articlenumber" required>
         </div>
         <div class="mb-3">
+            <!--Beschreibung-->
             <label for="description" class="form-label">Beschreibung</label>
             <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
         </div>
         <div class="mb-3">
+            <!--Bild-->
             <label for="file" class="img">Bild</label>
             <input class="form-control" type="file" id="file" name="file">
-          </div>
+        </div>
         <div class="mb-3">
+            <!--Anzahl-->
             <label for="count" class="form-label">Anzahl</label>
             <input type="number" class="form-control" id="count" name="count" required>
         </div>

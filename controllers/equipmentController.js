@@ -71,12 +71,13 @@ const deleteEquipment = (id) => {
 }
 
 const updateEquipment = async (req, res) => {
-    if (!req.files) {
-        axios.put('http://localhost:3000/equipment/', req.body)
-            .then(response => {
-                return { "status": 200, "data": response };
-            });
-    } else {
+
+    // if (!req.files) {
+    let response = await axios.put('http://localhost:3000/equipment/' + req.body.id, req.body);
+    return { "status": 200 };
+    //return { "status": 200, "data": response };
+    // }
+    /* else {
         let filename = await saveFile(req.files.file);
         //we require fs to read the file as a stream
         var fs = require('fs');
@@ -110,7 +111,7 @@ const updateEquipment = async (req, res) => {
             .catch(function (error) {
                 res.send(error)
             });
-    }
+    }*/
 
 }
 
