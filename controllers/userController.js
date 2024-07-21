@@ -1,0 +1,34 @@
+var express = require('express');
+var router = express.Router();
+var axios = require('axios');
+
+const login = async (req, res) => {
+    console.log("==Frontend== getting user from Backend");
+    let response;
+    try {
+        response = await axios.get('http://localhost:3000/users/byName?username=' + req.body.username);
+    }
+    //Nutzer exisitert nicht
+    catch (error) {
+        //console.log(error);
+        console.log('\x1b[31m' + "==Frontend== USER NOT FOUND! EXITING WITH 404" + '\x1b[0m');
+        return { "status": 404 }
+    }
+    //Nutzer exisitert
+    console.log("==Frontend== Status: " + response.status);
+    console.log(response.data[0]);
+    //Abfrage ob Password richtig
+    if (response.data[0].password == req.body.password) {
+        //Benutzerdaten stimmen überein
+        return { "status": 200, "data": response.data[0] };
+    }
+    //Falsches Passwort -> normalerweise sollte man nicht zwischen falscher Name und falsches Passwort unterscheiden
+    //Aus Gründen der benutzbarkeit macht es hier aber Sinn, weil keine öffentliche Applikation ;)
+    console.log('\x1b[31m' + "==Frontend== WRONG PASSWORD! EXITING WITH 400" + '\x1b[0m');
+    return { "status": 400, "data": response.data };
+}
+
+
+module.exports = {
+    login
+}
