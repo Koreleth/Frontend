@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var axios = require('axios');
 
-const login = async (req, res) => {
+const login = async (req) => {
     console.log("==Frontend== getting user from Backend");
     let response;
     try {
@@ -28,7 +28,29 @@ const login = async (req, res) => {
     return { "status": 400, "data": response.data };
 }
 
+const register = async (req) => {
+    console.log('==Frontend== Sending POST request to Backend');
+    let response;
+    console.log("==Frontend== Body: ");
+    console.log(req.body);
+    try {
+        response = await axios.post('http://localhost:3000/users', req.body);
+    }
+    catch (error) {
+        //console.log(error);
+        console.log(error.response.data);
+        return { "status": 400, "data": error.response.data };
+    }
+
+    console.log("==Frontend== Backend status: " + response.status);
+    if (response.status != 201) {
+        return { "status": 400, "data": "FEHLER" };
+    }
+    console.log("==Frontend== User created!")
+    return { "status": 200, "data": "HURRAH" };
+}
 
 module.exports = {
-    login
+    login,
+    register
 }
