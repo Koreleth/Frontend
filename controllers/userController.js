@@ -50,7 +50,21 @@ const register = async (req) => {
     return { "status": 200, "data": "HURRAH" };
 }
 
+//MAN KANN SICH NUR SELER UPDATEN
+//NUR ADMINS KÖNNEN ANDERE KÖNNEN ANDERE UPDATEN
+//NUR ADMINS KÖNNEN ROLLE ÄNDERN
+const updateUser = async (req) => {
+
+}
+
+//NUR ADMINS KÖNNEN ANDERE NUTZER LÖSCHEN
+//NUTZER KÖNNEN NUR SICH SELBST LÖSCHEN
+const deleteUser = async (req) => {
+
+}
+
 module.exports = {
     login,
-    register
+    register,
+    updateUser
 }
