@@ -1,0 +1,22 @@
+<!-- Nutzerkarte -->
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">
+            <%= user.username %>
+        </h5>
+        <p class="card-text">ID: <%= user.id %>
+        </p>
+        <p class="card-text">E-Mail: <%= user.email %>
+        </p>
+        <p class="card-text">Rolle: <%= user.role %>
+        </p>
+        <p class="card-text">Erstellt am: <%= user.created %>
+        </p>
+        <!--Löschen und Bearbeiten Buttons-->
+        <a href="/users/edit/?id=<%= user.id %>" id="editButton" class="btn btn-warning"><img
+                src="../img/pencil.png"></a>
+        <a href="/users/delete/?id=<%= user.id %>" id="deleteButton" class="btn btn-danger"><img
+                src="../img/trash.png"></a>
+
+    </div>
+</div>

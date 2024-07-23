@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutzer löschen</title>
+</head>
+
+<body>
+    <!-- includes-->
+    <%- include ('partials/header') %>
+        <%- include ('partials/navbar') %>
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%= user.username %>
+                    </h5>
+                    <p class="card-text">ID: <%= user.id %>
+                    </p>
+                    <p class="card-text">E-Mail: <%= user.email %>
+                    </p>
+                    <p class="card-text">Rolle: <%= user.role %>
+                    </p>
+                    <p class="card-text">Erstellt am: <%= user.created %>
+                    </p>
+                </div>
+            </div>
+            <form action="/users/delete/?id=<%= user.id %>" method="POST">
+                <h1>Löschen</h1>
+                <p>Wollen Sie <%= user.username %> wirklich löschen?</p>
+                <button type="submit" class="btn btn-danger">Ja</button>
+                <input type="hidden" name="id" value="<%= user.id %>">
+                <a href="/users" class="btn btn-primary">Nein</a>
+            </form>
+
+            <!-- footer-->
+            <%- include ('partials/footer') %>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- include für bootstrap -->
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title>Liste aller Nutzer</title>
+</head>
+
+<body>
+    <!-- includes-->
+    <%- include ('partials/header') %>
+        <%- include ('partials/navbar') %>
+            <h1>Liste aller Nutzer</h1>
+            <div class="page">
+                <div class="content">
+                    <% users.forEach((user)=> { %>
+                        <!-- include für user cards-->
+                        <%- include ('partials/userCard', {user: user}) %>
+                            <%}); %>
+                </div>
+            </div>
+            <%- include ('partials/footer') %>
+</body>
+
+</html>

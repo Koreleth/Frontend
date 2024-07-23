@@ -24,19 +24,7 @@ router.route('/')
     });
 
 
-router.route('/register')
-    .get((req, res, next) => {
-        res.render('register');
-    })
-    .post(async (req, res, next) => {
-        let response = await usersController.register(req);
-        if (response.status == 400) {
-            res.send(response.data);
-        }
-        if (response.status == 200) {
-            res.send("HURRAH")
-        }
-    });
+
 
 
 module.exports = router;

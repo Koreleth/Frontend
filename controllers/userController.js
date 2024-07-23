@@ -2,6 +2,57 @@ var express = require('express');
 var router = express.Router();
 var axios = require('axios');
 
+
+const getAllUsers = async () => {
+    console.log("==Frontend== getting all users from Backend");
+    let response;
+    try {
+        response = await axios.get('http://localhost:3000/users');
+    }
+    catch (error) {
+        //console.log(error);
+        console.log('\x1b[31m' + "==Frontend== ERROR FINDING USERS" + '\x1b[0m');
+        return { "status": 404 };
+    }
+    console.log("==Frontend== Status: " + response.status);
+    console.log(response.data);
+    return { "status": 200, "data": response.data };
+
+};
+//User aus Backend holen
+const getUser = async (req) => {
+    let request;
+    if (req.query.username) {
+        request = "byName?username=" + req.query.username;
+    }
+    else if (req.query.id) {
+        request = req.query.id;
+    }
+    else {
+        return { "status": 400 };
+    }
+    console.log("==Frontend== getting user from Backend");
+    let response;
+    try {
+        response = await axios.get('http://localhost:3000/users/' + request);
+    }
+    catch (error) {
+        //console.log(error);
+        console.log('\x1b[31m' + "==Frontend== USER NOT FOUND! EXITING WITH 404" + '\x1b[0m');
+        return { "status": 404 }
+    }
+    console.log("==Frontend== Status: " + response.status);
+    console.log(response.data);
+
+    //Wenn Array, dann nur ein Element zurückgeben
+    if (Array.isArray(response.data)) {
+        return { "status": 200, "data": response.data[0] };
+    }
+    //Wenn Objekt, dann direkt zurückgeben
+    return { "status": 200, "data": response.data };
+
+}
+
 const login = async (req) => {
     console.log("==Frontend== getting user from Backend");
     let response;
@@ -50,21 +101,62 @@ const register = async (req) => {
     return { "status": 200, "data": "HURRAH" };
 }
 
-//MAN KANN SICH NUR SELER UPDATEN
+//MAN KANN SICH NUR SELBER UPDATEN
 //NUR ADMINS KÖNNEN ANDERE KÖNNEN ANDERE UPDATEN
 //NUR ADMINS KÖNNEN ROLLE ÄNDERN
 const updateUser = async (req) => {
-
+    //Nutzerdaten auf Backend updaten
+    console.log('==Frontend== Sending PUT request to Backend');
+    let response;
+    console.log("==Frontend== Body: ");
+    console.log(req.body);
+    let checkuser = await axios.get('http://localhost:3000/users/' + req.body.id);
+    if (checkuser.status == 404) {
+        return { "status": 404, "data": "Nutzer nicht gefunden" };
+    }
+    //PUT Request darf nicht selbern Nutzernamen enthalten wie existierender Nutzer
+    if (checkuser.data.username == req.body.username) {
+        delete req.body.username; //Nutzername aus Objekt löschen
+    }
+    try {
+        response = await axios.put('http://localhost:3000/users/' + req.body.id, req.body);
+    }
+    catch (error) {
+        //console.log(error);
+        console.log(error.response.data);
+        return { "status": 400, "data": error.response.data };
+    }
+    return { "status": 200, "data": "Nutzer bearbeitet" };
 }
 
 //NUR ADMINS KÖNNEN ANDERE NUTZER LÖSCHEN
 //NUTZER KÖNNEN NUR SICH SELBST LÖSCHEN
 const deleteUser = async (req) => {
-
+    //Nutzerdaten auf Backend updaten
+    console.log('==Frontend== Sending DELETE request to Backend');
+    let response;
+    console.log("==Frontend== Body: ");
+    console.log(req.body);
+    let checkuser = await axios.get('http://localhost:3000/users/' + req.body.id);
+    if (checkuser.status == 404) {
+        return { "status": 404, "data": "Nutzer nicht gefunden" };
+    }
+    try {
+        response = await axios.delete('http://localhost:3000/users/' + req.body.id);
+    }
+    catch (error) {
+        //console.log(error);
+        //console.log(error.response.data);
+        return { "status": 400, "data": error.response.data };
+    }
+    return { "status": 200, "data": "Nutzer gelöscht" };
 }
 
 module.exports = {
+    getAllUsers,
+    getUser,
     login,
     register,
-    updateUser
+    updateUser,
+    deleteUser
 }
