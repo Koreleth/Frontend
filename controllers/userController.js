@@ -1,17 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var axios = require('axios');
+var utils = require('./controllerUtils');
 
-const auth = (req) => {
-    if (req.session.user.role == "Administrator") {
-        return true;
-    }
-    if (req.session.user.id == req.params.id) {
-        return true;
-    }
-    return false;
 
-}
 const getAllUsers = async () => {
     console.log("==Frontend== getting all users from Backend");
     let response;
@@ -34,7 +26,7 @@ const getUser = async (req) => {
     if (!req.session.user) {
         return { "status": 401 };
     }
-    if (!auth(req)) {
+    if (!utils.auth(req)) {
         return { "status": 403 };
     }
 
@@ -50,13 +42,15 @@ const getUser = async (req) => {
     }
     console.log("==Frontend== Status: " + response.status);
     console.log(response.data);
-
+    let out;
     //Wenn Array, dann nur ein Element zurückgeben
     if (Array.isArray(response.data)) {
-        return { "status": 200, "data": response.data[0] };
+        out = { "status": 200, "data": response.data[0] };
     }
     //Wenn Objekt, dann direkt zurückgeben
-    return { "status": 200, "data": response.data };
+    out = { "status": 200, "data": response.data };
+    out.isSameUser = utils.isSameUser(req);
+    return out;
 
 }
 

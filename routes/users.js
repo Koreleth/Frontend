@@ -59,7 +59,8 @@ router.route('/delete/:id')
 
 router.get('/:id', async function (req, res, next) {
   let response = await usersController.getUser(req);
-  res.render('User/singleUser', { "user": response.data });
+  console.log(response);
+  res.render('User/singleUser', { "user": response.data, "isSameUser": response.isSameUser });
 });
 
 module.exports = router;
