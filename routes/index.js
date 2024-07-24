@@ -12,7 +12,7 @@ router.route('/')
 
 router.route('/register')
   .get((req, res, next) => {
-    res.render('register');
+    res.render('User/register');
   })
   .post(async (req, res, next) => {
     let response = await usersController.register(req);

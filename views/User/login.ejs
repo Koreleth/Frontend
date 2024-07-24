@@ -10,8 +10,8 @@
 
 <body>
 
-    <%- include ('partials/header') %>
-        <%- include ('partials/navbar') %>
+    <%- include ('../partials/header') %>
+        <%- include ('../partials/navbar') %>
             <form action="/login" method="POST">
                 <label for="username" class="form-label">Username</label>
                 <input type="text" id="username" name="username" required>
@@ -23,7 +23,7 @@
             </form>
             <p>Noch kein Nutzer?</p>
             <a href="/register" class="btn btn-primary">Registrieren</a>
-            <%- include ('partials/footer') %>
+            <%- include ('../partials/footer') %>
 </body>
 
 </html>

@@ -28,6 +28,9 @@ const getUser = async (req) => {
     else if (req.query.id) {
         request = req.query.id;
     }
+    else if (req.params.id) {
+        request = req.params.id;
+    }
     else {
         return { "status": 400 };
     }

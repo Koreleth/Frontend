@@ -5,7 +5,7 @@ var usersController = require('../controllers/userController');
 
 router.route('/')
     .get((req, res, next) => {
-        res.render('login');
+        res.render('User/login');
     })
     .post(async (req, res, next) => {
         let response = await usersController.login(req, res);

@@ -8,11 +8,11 @@
 </head>
 
 <body>
-    <%- include ('partials/header') %>
-        <%- include ('partials/navbar') %>
+    <%- include ('../partials/header') %>
+        <%- include ('../partials/navbar') %>
             <div class="page">
                 <!-- Hier der Code für die Kreirung eines neuen Equpments -->
-                <%- include('partials/createEquipFormular') %>
+                <%- include('../partials/createEquipFormular') %>
 
                     <div class="createButton">
                         <button id="singleButton" type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -28,11 +28,11 @@
                             <%= data.title %>
                         </h1>
                         <div class="element">
-                            <%- include ('partials/cardItem', data) %>
+                            <%- include ('../partials/cardItem', data) %>
                         </div>
                     </div>
             </div>
-            <%- include ('partials/footer') %>
+            <%- include ('../partials/footer') %>
 </body>
 
 </html>

@@ -62,8 +62,16 @@ const createEquipment = async (req, res) => {
 }
 
 //Holt einzelnes Equipment vom Backend
-const getSingleEquipment = (id) => {
-    return axios.get('http://localhost:3000/equipment/' + id);
+const getSingleEquipment = async (id) => {
+    let response
+    try {
+        reponse = await axios.get('http://localhost:3000/equipment/' + id);
+    }
+    catch (error) {
+        console.log(error);
+        return { "status": 404 }
+    }
+    return { "status": 200, "data": response.data }
 }
 
 //Löscht einzelne ID vom Backend

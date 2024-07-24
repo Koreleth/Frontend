@@ -8,7 +8,7 @@ router.route('/')
   //Alle Equipments anzeigen
   .get(async (req, res, next) => {
     let response = await equipmentController.getEquipment();
-    res.render('allEquip', { "data": response.data });
+    res.render('Equipment/allEquip', { "data": response.data });
   })
   //Neues Equipment erstellen
   .post((req, res, next) => {
@@ -43,7 +43,13 @@ router.route('/edit/:id')
   //Wenn get aufgerufen wird equipment Bearbeitungs Seite angezeigt
   .get(async (req, res, next) => {
     let response = await equipmentController.getSingleEquipment(req.params.id);
-    res.render('editEquip', { "data": response.data });
+    if (response.status != 200) {
+      console.log("==Frontend== Equipment does not exist");
+      res.redirect('/equipment');
+    }
+    else {
+      res.render('Equipment/editEquip', { "data": response.data });
+    }
   })
 
   //Equipment bearbeiten
@@ -63,7 +69,13 @@ router.route('/edit/:id')
 router.route('/:id')
   .get(async (req, res, next) => {
     let response = await equipmentController.getSingleEquipment(req.params.id);
-    res.render('singleEquip', { "data": response.data });
+    if (response.status != 200) {
+      console.log("==Frontend== Equipment does not exist");
+      res.redirect('/equipment/');
+    }
+    else {
+      res.render('Equipment/singleEquip', { "data": response.data });
+    }
   });
 
 

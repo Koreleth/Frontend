@@ -1,0 +1,29 @@
+<!-- Nutzerkarte -->
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">
+            <%= borrow.id %>
+        </h5>
+        <p class="card-text">Ausleiher: <a href="/users/<%=borrow.userid%>">
+                <%= borrow.userid %>
+            </a>
+        </p>
+        <p class="card-text">Equipment: <% borrow.equipmentids.forEach((equipmentid)=> { %>
+                <a href="/equipment/<%=equipmentid%>">
+                    <%=equipmentid%>
+                </a>
+                <%});%>
+        </p>
+        <p class="card-text">Startdatum: <%= borrow.start %>
+        </p>
+        <p class="card-text">Enddatum: <%= borrow.end %>
+        </p>
+        <!--Löschen und Bearbeiten Buttons-->
+        <!-- <a href="/users/edit/?id=<%=// user.id %>" id="editButton" class="btn btn-warning"><img
+                src="../img/pencil.png"></a>
+        <a href="/users/delete/?id=<%= // user.id %>" id="deleteButton" class="btn btn-danger"><img
+                src="../img/trash.png"></a>
+        -->
+
+    </div>
+</div>

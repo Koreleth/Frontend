@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- include für bootstrap -->
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title>Liste aller Ausleihen</title>
+</head>
+
+<body>
+    <!-- includes-->
+    <%- include ('../partials/header') %>
+        <%- include ('../partials/navbar') %>
+            <h1>Liste aller Ausleihen</h1>
+            <div class="page">
+                <div class="content">
+                    <% borrows.forEach((borrow)=> { %>
+                        <!-- include für user cards-->
+                        <%- include ('../partials/borrowCard', {borrow: borrow}) %>
+                            <%}); %>
+                </div>
+            </div>
+            <%- include ('../partials/footer') %>
+</body>
+
+</html>

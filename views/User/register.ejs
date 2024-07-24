@@ -9,8 +9,8 @@
 
 <body>
 
-    <%- include ('partials/header') %>
-        <%- include ('partials/navbar') %>
+    <%- include ('../partials/header') %>
+        <%- include ('../partials/navbar') %>
             <form action="/register" method="POST">
                 <label for="username" class="form-label">Username</label>
                 <input type="text" id="username" name="username" required>
@@ -24,7 +24,7 @@
                 <input type="hidden" name="role" value="2">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
-            <%- include ('partials/footer') %>
+            <%- include ('../partials/footer') %>
 </body>
 
 </html>

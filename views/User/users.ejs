@@ -12,18 +12,18 @@
 
 <body>
     <!-- includes-->
-    <%- include ('partials/header') %>
-        <%- include ('partials/navbar') %>
+    <%- include ('../partials/header') %>
+        <%- include ('../partials/navbar') %>
             <h1>Liste aller Nutzer</h1>
             <div class="page">
                 <div class="content">
                     <% users.forEach((user)=> { %>
                         <!-- include für user cards-->
-                        <%- include ('partials/userCard', {user: user}) %>
+                        <%- include ('../partials/userCard', {user: user}) %>
                             <%}); %>
                 </div>
             </div>
-            <%- include ('partials/footer') %>
+            <%- include ('../partials/footer') %>
 </body>
 
 </html>
