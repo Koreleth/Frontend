@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var usersController = require('../controllers/userController');
+var utils = require('../controllers/controllerUtils');
 /* GET users listing. */
 router.get('/', async function (req, res, next) {
   //Man kann nur auf die Seite zugreifen wenn man eingeloggt ist
@@ -8,8 +9,9 @@ router.get('/', async function (req, res, next) {
   if (!req.session.user) {
     res.redirect('/login');
   }
-  else if (req.session.user.role != 'Administrator') {
+  else if (!utils.isAdmin(req)) {
     console.log("==Frontend== User not allowed to see all users");
+    req.flash('error', 'Du bist nicht berechtigt, diese Aktion durchzuführen.');
     res.redirect('back');
   }
 
@@ -24,59 +26,94 @@ router.route('/edit/:id')
     let response = await usersController.getUser(req);
     //Wenn nicht eingeloggt
     if (response.status == 401) {
+      req.flash('error', 'Du bist nicht eingeloggt.');
       res.redirect('/login');
     }
     //Wenn nicht gefunden
     if (response.status == 404) {
-      res.send('Nutzer nicht gefunden');
+      req.flash('error', 'Nutzer nicht gefunden.');
+      res.redirect('back');
     }
     if (response.status == 403) {
       console.log("==Frontend== User not allowed to edit");
+      req.flash('error', 'Du bist nicht berechtigt, diese Aktion durchzuführen.');
       res.redirect('back');
     }
-
-    //res.send(response.data);
     res.render('User/editUser', { "user": response.data });
   })
+
   .post(async (req, res, next) => {
-    let response = await usersController.updateUser(req);
-    console.log(response);
-    res.send(response.data);
+    if (!utils.isAdmin(req)) {
+      console.log("==Frontend== User not allowed to edit");
+      req.flash('error', 'Du bist nicht berechtigt, diese Aktion durchzuführen.');
+      res.redirect('back');
+    }
+    else {
+      let response = await usersController.updateUser(req);
+      console.log(response);
+      if (response.status == 200) {
+        req.flash('success', 'Nutzer erfolgreich bearbeitet.');
+      }
+      else {
+        req.flash('error', 'Es ist ein Fehler aufgetreten.');
+      }
+      res.redirect('/users/' + req.params.id);
+    }
   });
 
 router.route('/delete/:id')
   .get(async (req, res, next) => {
     let response = await usersController.getUser(req);
     if (response.status == 404) {
-      res.send('Nutzer nicht gefunden');
+      req.flash('error', 'Nutzer nicht gefunden.');
+      res.redirect('back');
     }
     if (response.status == 403) {
       console.log("==Frontend== User not allowed to delete");
+      req.flash('error', 'Du bist nicht berechtigt, diese Aktion durchzuführen.');
       res.redirect('back');
     }
     if (response.status == 401) {
+      req.flash('error', 'Du bist nicht eingeloggt.');
       res.redirect('/login');
     }
     //res.send(response.data);
     res.render('User/deleteUser', { "user": response.data });
   })
   .post(async (req, res, next) => {
-    let response = await usersController.deleteUser(req);
-    console.log(response);
-    res.send(response.data);
+    if (!utils.isAdmin(req)) {
+      console.log("==Frontend== User not allowed to delete");
+      req.flash('error', 'Du bist nicht berechtigt, diese Aktion durchzuführen.');
+      res.redirect('back');
+    }
+    else {
+      let response = await usersController.deleteUser(req);
+      console.log(response);
+      if (response.status == 200) {
+        req.flash('success', 'Nutzer erfolgreich gelöscht.');
+      }
+      else {
+        req.flash('error', 'Es ist ein Fehler aufgetreten.');
+      }
+      res.redirect('/users');
+    }
   });
 
 router.get('/:id', async function (req, res, next) {
   let response = await usersController.getUser(req);
   console.log(response);
   if (response.status == 404) {
-    res.send('Nutzer nicht gefunden');
+    console.log("==Frontend== User not found");
+    req.flash('error', 'Nutzer nicht gefunden.');
+    res.redirect('back');
   }
   if (response.status == 403) {
     console.log("==Frontend== User not allowed to see");
+    req.flash('error', 'Du bist nicht berechtigt, diese Aktion durchzuführen.');
     res.redirect('back');
   }
   if (response.status == 401) {
+    req.flash('error', 'Du bist nicht eingeloggt.');
     res.redirect('/login');
   }
   res.render('User/singleUser', { "user": response.data, "isSameUser": response.isSameUser });
