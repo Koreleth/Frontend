@@ -9,7 +9,8 @@ router.get('/', async function (req, res, next) {
     res.redirect('/login');
   }
   else if (req.session.user.role != 'Administrator') {
-    res.send('Nicht berechtigt');
+    console.log("==Frontend== User not allowed to see all users");
+    res.redirect('back');
   }
 
   let users = await usersController.getAllUsers();
@@ -30,7 +31,8 @@ router.route('/edit/:id')
       res.send('Nutzer nicht gefunden');
     }
     if (response.status == 403) {
-      res.send('Nicht berechtigt');
+      console.log("==Frontend== User not allowed to edit");
+      res.redirect('back');
     }
 
     //res.send(response.data);
@@ -48,6 +50,13 @@ router.route('/delete/:id')
     if (response.status == 404) {
       res.send('Nutzer nicht gefunden');
     }
+    if (response.status == 403) {
+      console.log("==Frontend== User not allowed to delete");
+      res.redirect('back');
+    }
+    if (response.status == 401) {
+      res.redirect('/login');
+    }
     //res.send(response.data);
     res.render('User/deleteUser', { "user": response.data });
   })
@@ -60,6 +69,16 @@ router.route('/delete/:id')
 router.get('/:id', async function (req, res, next) {
   let response = await usersController.getUser(req);
   console.log(response);
+  if (response.status == 404) {
+    res.send('Nutzer nicht gefunden');
+  }
+  if (response.status == 403) {
+    console.log("==Frontend== User not allowed to see");
+    res.redirect('back');
+  }
+  if (response.status == 401) {
+    res.redirect('/login');
+  }
   res.render('User/singleUser', { "user": response.data, "isSameUser": response.isSameUser });
 });
 
