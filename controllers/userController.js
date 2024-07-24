@@ -2,7 +2,16 @@ var express = require('express');
 var router = express.Router();
 var axios = require('axios');
 
+const auth = (req) => {
+    if (req.session.user.role == "Administrator") {
+        return true;
+    }
+    if (req.session.user.id == req.params.id) {
+        return true;
+    }
+    return false;
 
+}
 const getAllUsers = async () => {
     console.log("==Frontend== getting all users from Backend");
     let response;
@@ -22,22 +31,17 @@ const getAllUsers = async () => {
 //User aus Backend holen
 const getUser = async (req) => {
     let request;
-    if (req.query.username) {
-        request = "byName?username=" + req.query.username;
+    if (!req.session.user) {
+        return { "status": 401 };
     }
-    else if (req.query.id) {
-        request = req.query.id;
+    if (!auth(req)) {
+        return { "status": 403 };
     }
-    else if (req.params.id) {
-        request = req.params.id;
-    }
-    else {
-        return { "status": 400 };
-    }
+
     console.log("==Frontend== getting user from Backend");
     let response;
     try {
-        response = await axios.get('http://localhost:3000/users/' + request);
+        response = await axios.get('http://localhost:3000/users/' + req.params.id);
     }
     catch (error) {
         //console.log(error);
@@ -122,12 +126,18 @@ const updateUser = async (req) => {
         delete req.body.username; //Nutzername aus Objekt löschen
     }
     try {
+        console.log("==Frontend== Sending PUT request to Backend");
+        if (req.session.user) {
+            if (checkuser.data.id == req.session.user.id) {
+                req.session.destroy();
+            }
+        }
         response = await axios.put('http://localhost:3000/users/' + req.body.id, req.body);
     }
     catch (error) {
         //console.log(error);
-        console.log(error.response.data);
-        return { "status": 400, "data": error.response.data };
+        console.log(error);
+        return { "status": 400, "data": error.response };
     }
     return { "status": 200, "data": "Nutzer bearbeitet" };
 }

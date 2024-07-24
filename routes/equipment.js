@@ -7,8 +7,8 @@ router.route('/')
 
   //Alle Equipments anzeigen
   .get(async (req, res, next) => {
-    let response = await equipmentController.getEquipment();
-    res.render('Equipment/allEquip', { "data": response.data });
+    let response = await equipmentController.getEquipment(req);
+    res.render('Equipment/allEquip', { "data": response.data, "auth": response.auth });
   })
   //Neues Equipment erstellen
   .post((req, res, next) => {

@@ -7,7 +7,7 @@ let usersController = require('../controllers/userController');
 router.route('/')
   .get((req, res, next) => {
     let response = indexController.getIndex();
-    res.render('index', { "data": response.data, title: 'Home' });
+    res.render('index', { "data": response.data, title: "Dein Name ist: " + (req.session.user ? req.session.user.username : "Nicht gesetzt") });
   });
 
 router.route('/register')

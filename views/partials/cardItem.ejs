@@ -13,25 +13,26 @@
             <p>ID: <%= equipment.id %> - Article No.: <%= equipment.articlenumber %> - UserID: <%= equipment.userid %>
             </p>
             <a href="/equipment/<%= equipment.id %>" class="btn btn-primary">Ausleihen</a>
-            <a href="/equipment/edit/<%= equipment.id %>" id="editButton" class="btn btn-warning"><img
-                    src="../img/pencil.png"></a>
-            <button onclick=deletefunction(<%=equipment.id %>) id="deleteButton" class="btn btn-danger"><img
-                    src="../img/trash.png"></button>
-
-            <!--this div is hidden-->
-            <div class="deleteConfirm" id="deleteConfirm<%= equipment.id %>">
-                <div class="deleteTitle">
-                    <h1>Löschen</h1>
-                </div>
-                <div class="deleteText">
-                    <p>Wollen Sie <%= equipment.title %> wirklich löschen?</p>
-                </div>
-                <div class="confrimButtons">
-                    <a href="/equipment/delete/<%= equipment.id %>" class="btn btn-danger">Ja</a>
-                    <button onclick=deletefunction(<%=equipment.id %>) id="cancelDelete" class="btn
-                        btn-primary">Nein</button>
-                </div>
-            </div>
+            <% if (equipment.edit){ %>
+                <a href="/equipment/edit/<%= equipment.id %>" id="editButton" class="btn btn-warning"><img
+                        src="../img/pencil.png"></a>
+                <button onclick=deletefunction(<%=equipment.id %>) id="deleteButton" class="btn btn-danger"><img
+                        src="../img/trash.png"></button>
+                <%}%>
+                    <!--this div is hidden-->
+                    <div class="deleteConfirm" id="deleteConfirm<%= equipment.id %>">
+                        <div class="deleteTitle">
+                            <h1>Löschen</h1>
+                        </div>
+                        <div class="deleteText">
+                            <p>Wollen Sie <%= equipment.title %> wirklich löschen?</p>
+                        </div>
+                        <div class="confrimButtons">
+                            <a href="/equipment/delete/<%= equipment.id %>" class="btn btn-danger">Ja</a>
+                            <button onclick=deletefunction(<%=equipment.id %>) id="cancelDelete" class="btn
+                                btn-primary">Nein</button>
+                        </div>
+                    </div>
 
         </div>
     </div>

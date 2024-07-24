@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var session = require('express-session');
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var equipmentRouter = require('./routes/equipment');
@@ -11,6 +13,16 @@ var loginRouter = require('./routes/login');
 var borrowsRouter = require('./routes/borrows.js');
 
 var app = express();
+
+app.use(session({
+  secret: 'your_secret_key', // Ersetze dies durch einen eigenen geheimen Schlüssel
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: false,
+    maxAge: 3600000
+  } // Setze auf true, wenn du HTTPS verwendest
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -12,8 +12,19 @@ async function saveFile(file) {
 }
 
 //Holt sich vom Backend alle Equipments
-const getEquipment = async () => {
-    return axios.get('http://localhost:3000/equipment')
+const getEquipment = async (req) => {
+    let response = await axios.get('http://localhost:3000/equipment');
+    response.auth = false;
+    //Wenn der User eingeloggt ist und Admin ist, dann wird der Edit Button angezeigt
+    //Und neue Einträge dürfen erstellt werden
+    if (req.session.user && req.session.user.role == "Administrator") {
+        response.data.forEach(element => {
+            element.edit = true;
+        });
+        response.auth = true;
+    }
+    return response;
+
 };
 
 
