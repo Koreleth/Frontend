@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var axios = require('axios');
+var utils = require('./controllerUtils');
 
 async function saveFile(file) {
     //move the file to the public/uploads folder
@@ -17,7 +18,7 @@ const getEquipment = async (req) => {
     response.auth = false;
     //Wenn der User eingeloggt ist und Admin ist, dann wird der Edit Button angezeigt
     //Und neue Einträge dürfen erstellt werden
-    if (req.session.user && req.session.user.role == "Administrator") {
+    if (utils.auth(req)) {
         response.data.forEach(element => {
             element.edit = true;
         });
@@ -29,7 +30,9 @@ const getEquipment = async (req) => {
 
 
 const createEquipment = async (req, res) => {
-
+    if (!utils.auth(req)) {
+        return { "status": 403, "data": "Not authorized" };
+    }
     if (!req.files) {
         axios.post('http://localhost:3000/equipment/', req.body)
             .then(response => {
@@ -76,7 +79,7 @@ const createEquipment = async (req, res) => {
 const getSingleEquipment = async (id) => {
     let response
     try {
-        reponse = await axios.get('http://localhost:3000/equipment/' + id);
+        response = await axios.get('http://localhost:3000/equipment/' + id);
     }
     catch (error) {
         console.log(error);
@@ -87,11 +90,16 @@ const getSingleEquipment = async (id) => {
 
 //Löscht einzelne ID vom Backend
 const deleteEquipment = (id) => {
+    if (!utils.auth(req)) {
+        return { "status": 403, "data": "Not authorized" };
+    }
     return axios.delete('http://localhost:3000/equipment/' + id);
 }
 
 const updateEquipment = async (req, res) => {
-
+    if (!utils.auth(req)) {
+        return { "status": 403, "data": "Not authorized" };
+    }
     //res.send(req.files.file.name);
     if (!req.files) {
         let response = await axios.put('http://localhost:3000/equipment/' + req.body.id, req.body);

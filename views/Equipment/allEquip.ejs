@@ -10,31 +10,32 @@
 <body>
     <%- include ('../partials/header') %>
         <%- include ('../partials/navbar') %>
-            <div class="page">
-                <!-- Hier der Code für die Kreirung eines neuen Equpments -->
-                <%- include('../partials/createEquipFormular') %>
+            <%- include ('../partials/alerts') %>
+                <div class="page">
+                    <!-- Hier der Code für die Kreirung eines neuen Equpments -->
+                    <%- include('../partials/createEquipFormular') %>
 
-                    <% if ( locals.auth ) { %>
-                        <div class="createButton">
-                            <button id="singleButton" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">
-                                CREATE
-                        </div>
-                        <% } %>
-                            <div class="content">
-                                <form class="suchleiste" role="search" method="GET" action="/equipment/">
-                                    <input name="search" type="search" />
-                                    <button>Suchen</button>
-                                </form>
-                                <h1>
-                                    <%= data.title %>
-                                </h1>
-                                <div class="element">
-                                    <%- include ('../partials/cardItem', data) %>
-                                </div>
+                        <% if ( locals.auth ) { %>
+                            <div class="createButton">
+                                <button id="singleButton" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                    CREATE
                             </div>
-            </div>
-            <%- include ('../partials/footer') %>
+                            <% } %>
+                                <div class="content">
+                                    <form class="suchleiste" role="search" method="GET" action="/equipment/">
+                                        <input name="search" type="search" />
+                                        <button>Suchen</button>
+                                    </form>
+                                    <h1>
+                                        <%= data.title %>
+                                    </h1>
+                                    <div class="element">
+                                        <%- include ('../partials/cardItem', data) %>
+                                    </div>
+                                </div>
+                </div>
+                <%- include ('../partials/footer') %>
 </body>
 
 </html>

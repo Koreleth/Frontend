@@ -14,7 +14,15 @@ router.route('/')
   .post((req, res, next) => {
     equipmentController.createEquipment(req, res)
       .then(response => {
-        res.redirect('/equipment/' + response.data.id);
+        if (response.status == 403) {
+          console.log("==Frontend== Not authorized");
+          req.flash('error', 'Du bist nicht berechtigt, diese Aktion durchzuführen.');
+          res.redirect('/equipment');
+        }
+        else {
+          req.flash('success', 'Equipment erfolgreich erstellt');
+          res.redirect('/equipment/' + response.data.id);
+        }
       })
       .catch(error => {
         next(error);
@@ -30,13 +38,21 @@ router.route('/delete/:id')
   })
   //Equipment löschen
   .post(async (req, res, nex) => {
-    equipmentController.deleteEquipment(req.params.id)
-      .then(response => {
-        res.redirect('/equipment');
-      })
-      .catch(error => {
-        next(error);
-      });
+    if (response.status == 403) {
+      console.log("==Frontend== Not authorized");
+      req.flash('error', 'Du bist nicht berechtigt, diese Aktion durchzuführen.');
+      res.redirect('/equipment');
+    }
+    else {
+      equipmentController.deleteEquipment(req.params.id)
+        .then(response => {
+          req.flash('success', 'Equipment erfolgreich gelöscht');
+          res.redirect('/equipment');
+        })
+        .catch(error => {
+          next(error);
+        });
+    }
   });
 
 router.route('/edit/:id')
@@ -54,11 +70,19 @@ router.route('/edit/:id')
 
   //Equipment bearbeiten
   .post((req, res, next) => {
-    console.log("edit");
-    console.log(req.body);
+    //console.log("edit");
+    // console.log(req.body);
     equipmentController.updateEquipment(req, res)
       .then(response => {
-        res.redirect('/equipment/' + req.params.id);
+        if (response.status == 403) {
+          console.log("==Frontend== Not authorized");
+          req.flash('error', 'Du bist nicht berechtigt, diese Aktion durchzuführen.');
+          res.redirect('/equipment');
+        }
+        else {
+          req.flash('success', 'Equipment erfolgreich bearbeitet');
+          res.redirect('/equipment/' + req.params.id);
+        }
       })
       .catch(error => {
         next(error);
@@ -71,6 +95,7 @@ router.route('/:id')
     let response = await equipmentController.getSingleEquipment(req.params.id);
     if (response.status != 200) {
       console.log("==Frontend== Equipment does not exist");
+      req.flash('error', 'Equipment nicht gefunden');
       res.redirect('/equipment/');
     }
     else {

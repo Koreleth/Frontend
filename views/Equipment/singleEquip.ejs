@@ -10,49 +10,49 @@
 <body>
     <%- include ('../partials/header') %>
         <%- include ('../partials/navbar') %>
+            <%- include ('../partials/alerts') %>
 
+                <div class="page">
+                    <div class="singleEquip">
+                        <div class="container">
+                            <div class="row">
 
-            <div class="page">
-                <div class="singleEquip">
-                    <div class="container">
-                        <div class="row">
-
-                            <!-- Hier wird das Bild des Equipments angezeigt -->
-                            <div class="col-md-6">
-                                <div class="singleEquipImage"> <img src="HTTP://localhost:3000<%= data.pic %>"
-                                        alt="equipment Bild">
+                                <!-- Hier wird das Bild des Equipments angezeigt -->
+                                <div class="col-md-6">
+                                    <div class="singleEquipImage"> <img src="HTTP://localhost:3000<%= data.pic %>"
+                                            alt="equipment Bild">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <!-- Hier werden die Infos des Equipments angezeigt -->
-                            <div class="col-md-6" id="infos">
-                                <h1>
-                                    <%= data.title %>
-                                </h1>
-                                <p>
-                                    <%= data.description %>
-                                </p>
-                                <p>Artikelnummer: <%= data.articlenumber %>
-                                </p>
-                                <p>Verfügbar: <%= data.count %>
-                                </p>
+                                <!-- Hier werden die Infos des Equipments angezeigt -->
+                                <div class="col-md-6" id="infos">
+                                    <h1>
+                                        <%= data.title %>
+                                    </h1>
+                                    <p>
+                                        <%= data.description %>
+                                    </p>
+                                    <p>Artikelnummer: <%= data.articlenumber %>
+                                    </p>
+                                    <p>Verfügbar: <%= data.count %>
+                                    </p>
 
-                                <!-- Ausleihen Button soll einen Ausleihvorgang erstellen -->
-                                <button class="btn btn-primary">Jetzt Ausleihen</button>
+                                    <!-- Ausleihen Button soll einen Ausleihvorgang erstellen -->
+                                    <button class="btn btn-primary">Jetzt Ausleihen</button>
 
-                                <!-- Bearbeiten Button -->
-                                <a href="/equipment/edit/<%= data.id %>" id="editButton" class="btn btn-warning"><img
-                                        src="../img/pencil.png"></a>
+                                    <!-- Bearbeiten Button -->
+                                    <a href="/equipment/edit/<%= data.id %>" id="editButton"
+                                        class="btn btn-warning"><img src="../img/pencil.png"></a>
 
-                                <!-- Löschen Button -->
-                                <button onclick=deletefunction(<%=data.id %>) id="deleteButton" class="btn
-                                    btn-danger"><img src="../img/trash.png"></button>
-                            </div>
-
+                                    <!-- Löschen Button -->
+                                    <button onclick=deletefunction(<%=data.id %>) id="deleteButton" class="btn
+                                        btn-danger"><img src="../img/trash.png"></button>
+                                </div>
 
 
-                            <!-- FORMULAR ZUM EDITIEREN -->
-                            <!-- LEGACY CODE
+
+                                <!-- FORMULAR ZUM EDITIEREN -->
+                                <!-- LEGACY CODE
                             <div class="col-md-6" id="editInfos">
                                 <form method="POST" action="/equipment/edit/<%=data.id%>">
                                     <div class="mb-3 abstand01rem">
@@ -82,11 +82,11 @@
                             </div>
                         -->
 
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <%- include ('../partials/footer') %>
+                <%- include ('../partials/footer') %>
 </body>
 
 </html>

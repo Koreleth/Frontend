@@ -11,33 +11,34 @@
 <body>
     <%- include ('../partials/header') %>
         <%- include ('../partials/navbar') %>
-            <form action="/equipment/edit/<%= data.id%>" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="id" value="<%=data.id%>">
+            <%- include ('../partials/alerts') %>
+                <form action="/equipment/edit/<%= data.id%>" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="<%=data.id%>">
 
-                <label for="articlenumber" class="form-label">Artikelnummer</label>
-                <input type="text" id="articlenumber" name="articlenumber" value="<%=data.articlenumber%>" required>
+                    <label for="articlenumber" class="form-label">Artikelnummer</label>
+                    <input type="text" id="articlenumber" name="articlenumber" value="<%=data.articlenumber%>" required>
 
-                <label for="title" class="form-label">Titel</label>
-                <input type="text" id="title" name="title" value="<%=data.title%>" required>
+                    <label for="title" class="form-label">Titel</label>
+                    <input type="text" id="title" name="title" value="<%=data.title%>" required>
 
-                <label for="description" class="form-label">Beschreibung</label>
-                <textarea id="description" name="description" rows="3" required><%=data.description%></textarea>
+                    <label for="description" class="form-label">Beschreibung</label>
+                    <textarea id="description" name="description" rows="3" required><%=data.description%></textarea>
 
-                <label for="file" class="img">Bild</label>
-                <input type="file" id="file" name="file" value="<%=data.pic%>">
+                    <label for="file" class="img">Bild</label>
+                    <input type="file" id="file" name="file" value="<%=data.pic%>">
 
-                <label for="count" class="form-label">Anzahl</label>
-                <input type="number" id="count" name="count" value="<%=data.count%>" required>
+                    <label for="count" class="form-label">Anzahl</label>
+                    <input type="number" id="count" name="count" value="<%=data.count%>" required>
 
-                <label for="userid" class="form-label">User ID</label>
-                <input type="text" id="userid" name="userid" value="<%=data.userid%>" required>
+                    <label for="userid" class="form-label">User ID</label>
+                    <input type="text" id="userid" name="userid" value="<%=data.userid%>" required>
 
-                <label for="file" class="img">Bild</label>
-                <input class="form-control" type="file" id="file" name="file">
+                    <label for="file" class="img">Bild</label>
+                    <input class="form-control" type="file" id="file" name="file">
 
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-            <%- include ('../partials/footer') %>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <%- include ('../partials/footer') %>
 </body>
 
 </html>

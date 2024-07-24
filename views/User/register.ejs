@@ -11,20 +11,21 @@
 
     <%- include ('../partials/header') %>
         <%- include ('../partials/navbar') %>
-            <form action="/register" method="POST">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" id="username" name="username" required>
+            <%- include ('../partials/alerts') %>
+                <form action="/register" method="POST">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" id="username" name="username" required>
 
-                <label for="password" class="form-label">Password</label>
-                <input type="password" id="password" name="password" required>
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" name="password" required>
 
-                <label for="email" class="form-label">Email Adresse</label>
-                <input type="email" id="email" name="email" required>
+                    <label for="email" class="form-label">Email Adresse</label>
+                    <input type="email" id="email" name="email" required>
 
-                <input type="hidden" name="role" value="2">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-            <%- include ('../partials/footer') %>
+                    <input type="hidden" name="role" value="2">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <%- include ('../partials/footer') %>
 </body>
 
 </html>

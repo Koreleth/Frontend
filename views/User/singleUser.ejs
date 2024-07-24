@@ -11,11 +11,12 @@
 
     <%- include ('../partials/header') %>
         <%- include ('../partials/navbar') %>
-            <% if(locals.isSameUser){ %>
-                <a href="/login/logout" class="btn btn-primary">Log Out</a>
-                <% } %>
-                    <%- include ('../partials/userCard',{"user":user}) %>
-                        <%- include ('../partials/footer') %>
+            <%- include ('../partials/alerts') %>
+                <% if(locals.isSameUser){ %>
+                    <a href="/login/logout" class="btn btn-primary">Log Out</a>
+                    <% } %>
+                        <%- include ('../partials/userCard',{"user":user}) %>
+                            <%- include ('../partials/footer') %>
 
 </body>
 
