@@ -12,6 +12,8 @@ var equipmentRouter = require('./routes/equipment');
 var loginRouter = require('./routes/login');
 var borrowsRouter = require('./routes/borrows.js');
 
+var flash = require('connect-flash');
+
 var app = express();
 
 app.use(session({
@@ -23,6 +25,27 @@ app.use(session({
     maxAge: 3600000
   } // Setze auf true, wenn du HTTPS verwendest
 }));
+app.use(flash());
+
+app.use(function (req, res, next) {
+  if (!req.session.isInitialized) {
+    req.session.isInitialized = true; // Setze eine benutzerdefinierte Variable
+  }
+  next();
+});
+
+// Middleware zum Setzen von lokalen Variablen
+app.use(function (req, res, next) {
+  res.locals.info = req.flash('info');
+  res.locals.error = req.flash('error');
+  res.locals.success = req.flash('success');
+  res.locals.warning = req.flash('warning');
+
+  next();
+});
+
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

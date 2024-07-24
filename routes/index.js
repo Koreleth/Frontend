@@ -10,6 +10,9 @@ router.route('/')
     res.render('index', { "data": response.data, title: "Dein Name ist: " + (req.session.user ? req.session.user.username : "Nicht gesetzt") });
   });
 
+
+
+
 router.route('/register')
   .get((req, res, next) => {
     res.render('User/register');

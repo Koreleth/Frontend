@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var usersController = require('../controllers/userController');
+const flash = require('express-flash');
 
 
 router.route('/')
@@ -19,25 +20,34 @@ router.route('/')
         if (response.status == 200) {
             req.session.user = response.data;
             //res.send('Hallo ' + req.session.user.username);
+            req.flash('success', 'Erfolgreich eingeloggt als ' + req.session.user.username);
             res.redirect('/');
+
         }
         else if (response.status == 404) {
-            res.send('Nutzer nicht gefunden');
+            req.flash('error', 'Nutzer nicht gefunden');
+            res.redirect('/');
         }
         else if (response.status == 400) {
-            res.send('Falsches Passwort');
+            req.flash('error', 'Fehlerhafte Eingabe');
+            res.redirect('/');
         }
         else {
-            res.send('unbekannter Fehler');
+            req.flash('error', 'Unbekannter Fehler');
+            res.redirect('/');
         }
+
     });
 
-router.route('/logout')
-    .get((req, res, next) => {
-        req.session.destroy();
-        console.log("==Frontend== Session destroyed");
-        res.redirect('/');
-    });
+router.get('/logout', function (req, res, next) {
+    // Flash-Nachricht setzen
+    req.flash('success', 'Erfolgreich ausgeloggt');
+
+    // Sitzung leeren, aber nicht zerstören
+    req.session.user = null;
+
+    res.redirect('/');
+});
 
 
 
