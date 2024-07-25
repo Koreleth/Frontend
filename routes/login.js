@@ -3,7 +3,6 @@ var router = express.Router();
 var usersController = require('../controllers/userController');
 const flash = require('express-flash');
 
-
 router.route('/')
     .get((req, res, next) => {
         console.log("==Frontend== Session: " + req.session.user);
@@ -11,6 +10,7 @@ router.route('/')
             res.redirect('users/' + req.session.user.id);
         }
         else {
+
             res.render('User/login');
         }
     })
@@ -26,15 +26,15 @@ router.route('/')
         }
         else if (response.status == 404) {
             req.flash('error', 'Nutzer nicht gefunden');
-            res.redirect('/');
+            res.redirect('back');
         }
         else if (response.status == 400) {
-            req.flash('error', 'Fehlerhafte Eingabe');
-            res.redirect('/');
+            req.flash('error', 'Falsches Passwort');
+            res.redirect('back');
         }
         else {
             req.flash('error', 'Unbekannter Fehler');
-            res.redirect('/');
+            res.redirect('back');
         }
 
     });

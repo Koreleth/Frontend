@@ -7,6 +7,7 @@ router.get('/', async function (req, res, next) {
   //Man kann nur auf die Seite zugreifen wenn man eingeloggt ist
   //Und Admin ist
   if (!req.session.user) {
+    req.flash('error', 'Du bist nicht eingeloggt.');
     res.redirect('/login');
   }
   else if (!utils.isAdmin(req)) {
@@ -14,10 +15,11 @@ router.get('/', async function (req, res, next) {
     req.flash('error', 'Du bist nicht berechtigt, diese Aktion durchzuführen.');
     res.redirect('back');
   }
-
-  let users = await usersController.getAllUsers();
-  //res.send(users);
-  res.render('User/users', { "users": users.data });
+  else {
+    let users = await usersController.getAllUsers();
+    //res.send(users);
+    res.render('User/users', { "users": users.data });
+  }
 });
 
 

@@ -39,14 +39,17 @@
 
                                     <!-- Ausleihen Button soll einen Ausleihvorgang erstellen -->
                                     <button class="btn btn-primary">Jetzt Ausleihen</button>
+                                    <% if (locals.data.edit){ %>
+                                        <!-- Bearbeiten Button -->
+                                        <a href="/equipment/edit/<%= data.id %>" id="editButton"
+                                            class="btn btn-warning"><img src="../img/pencil.png"></a>
 
-                                    <!-- Bearbeiten Button -->
-                                    <a href="/equipment/edit/<%= data.id %>" id="editButton"
-                                        class="btn btn-warning"><img src="../img/pencil.png"></a>
-
-                                    <!-- Löschen Button -->
-                                    <button onclick=deletefunction(<%=data.id %>) id="deleteButton" class="btn
-                                        btn-danger"><img src="../img/trash.png"></button>
+                                        <!-- Löschen Button -->
+                                        <form action="/equipment/delete/<%=data.id%>" method="post">
+                                            <button type="submit" class="btn btn-danger" id="deleteButton"
+                                                class="btn btn-danger"><img src="../img/trash.png"></button>
+                                        </form>
+                                        <% } %>
                                 </div>
 
 

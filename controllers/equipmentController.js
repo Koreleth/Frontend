@@ -34,10 +34,10 @@ const createEquipment = async (req, res) => {
         return { "status": 403, "data": "Not authorized" };
     }
     if (!req.files) {
-        axios.post('http://localhost:3000/equipment/', req.body)
-            .then(response => {
-                return { "status": 200, "data": response };
-            });
+        let response = await axios.post('http://localhost:3000/equipment/', req.body)
+
+        return { "status": 200, "data": response };
+
     } else {
         let filename = await saveFile(req.files.file);
         //we require fs to read the file as a stream
@@ -89,20 +89,30 @@ const getSingleEquipment = async (id) => {
 }
 
 //Löscht einzelne ID vom Backend
-const deleteEquipment = (id) => {
+const deleteEquipment = async (req) => {
     if (!utils.auth(req)) {
         return { "status": 403, "data": "Not authorized" };
     }
-    return axios.delete('http://localhost:3000/equipment/' + id);
+    else {
+        let response = await axios.delete('http://localhost:3000/equipment/' + req.params.id);
+        return response;
+    }
 }
 
 const updateEquipment = async (req, res) => {
     if (!utils.auth(req)) {
         return { "status": 403, "data": "Not authorized" };
     }
-    //res.send(req.files.file.name);
     if (!req.files) {
-        let response = await axios.put('http://localhost:3000/equipment/' + req.body.id, req.body);
+        //Wenn kein File hochgeladen wird, dann wird nur der Body geupdated
+        let response;
+        try {
+            await axios.put('http://localhost:3000/equipment/' + req.body.id, req.body);
+        }
+        catch (error) {
+            console.log(error);
+            return { "status": 404 }
+        }
         return {
             "status": 200
         };

@@ -16,10 +16,11 @@
             <% if (equipment.edit){ %>
                 <a href="/equipment/edit/<%= equipment.id %>" id="editButton" class="btn btn-warning"><img
                         src="../img/pencil.png"></a>
-                <button onclick=deletefunction(<%=equipment.id %>) id="deleteButton" class="btn btn-danger"><img
-                        src="../img/trash.png"></button>
+                <a href="/equipment/delete/<%=equipment.id%>" id="deleteButton" class="btn btn-danger"><img
+                        src="../img/trash.png"></a>
                 <%}%>
                     <!--this div is hidden-->
+                    <!--LEGACY CODE
                     <div class="deleteConfirm" id="deleteConfirm<%= equipment.id %>">
                         <div class="deleteTitle">
                             <h1>Löschen</h1>
@@ -33,7 +34,7 @@
                                 btn-primary">Nein</button>
                         </div>
                     </div>
-
+-->
         </div>
     </div>
     <% }); %>
