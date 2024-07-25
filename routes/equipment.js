@@ -8,6 +8,7 @@ router.route('/')
 
   //Alle Equipments anzeigen
   .get(async (req, res, next) => {
+    console.log(req.query)
     let response = await equipmentController.getEquipment(req);
     res.render('Equipment/allEquip', { "data": response.data, "auth": response.auth });
   })
