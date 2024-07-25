@@ -28,7 +28,7 @@
                         </p>
                     </div>
                 </div>
-                <form action="/users/delete/?id=<%= user.id %>" method="POST">
+                <form action="/users/delete/<%= user.id %>" method="POST">
                     <h1>Löschen</h1>
                     <p>Wollen Sie <%= user.username %> wirklich löschen?</p>
                     <button type="submit" class="btn btn-danger">Ja</button>

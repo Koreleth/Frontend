@@ -20,10 +20,12 @@ router.route('/register')
   .post(async (req, res, next) => {
     let response = await usersController.register(req);
     if (response.status == 400) {
-      res.send(response.data);
+      req.flash('error', response.data);
+      res.redirect('/');
     }
     if (response.status == 200) {
-      res.send("HURRAH")
+      req.flash('success', 'Registrierung erfolgreich');
+      res.redirect('/');
     }
   });
 module.exports = router;

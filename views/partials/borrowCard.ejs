@@ -4,13 +4,13 @@
         <h5 class="card-title">
             <%= borrow.id %>
         </h5>
-        <p class="card-text">Ausleiher: <a href="/users/<%=borrow.userid%>">
-                <%= borrow.userid %>
+        <p class="card-text">Ausleiher: <a href="/users/<%=borrow.manager.id%>">
+                <%= borrow.manager.name %>
             </a>
         </p>
-        <p class="card-text">Equipment: <% borrow.equipmentids.forEach((equipmentid)=> { %>
-                <a href="/equipment/<%=equipmentid%>">
-                    <%=equipmentid%>
+        <p class="card-text">Equipment: <% borrow.equipments.forEach((equipment)=> { %>
+                <a href="/equipment/<%=equipment.id%>">
+                    <%=equipment.title%>
                 </a>
                 <%});%>
         </p>
