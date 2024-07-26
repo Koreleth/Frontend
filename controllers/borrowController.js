@@ -13,7 +13,13 @@ const getBorrows = async (res) => {
         console.log(error);
         res.send(error.response.data);
     }
-    const borrows = response.data;
+    let borrows = response.data;
+    borrows = await formatBorrows(borrows);
+    console.log(borrows);
+    return { "status": 200, "data": borrows };
+}
+
+const formatBorrows = async (borrows) => {
     for (item of borrows) {
         userdata = await axios.get('http://localhost:3000/users/' + item.userid);
         item.manager = { id: userdata.data.id, name: userdata.data.username };
@@ -25,11 +31,8 @@ const getBorrows = async (res) => {
         delete item.equipmentids;
         delete item.userid;
     }
-    console.log(borrows);
-    return { "status": 200, "data": borrows };
+    return borrows;
 }
-
-
 
 const getCart = async (req) => {
     let cartItems = [];
@@ -227,10 +230,12 @@ const getSingleBorrow = async (req) => {
         console.log("Borrow found: " + req.params.id);
     }
     else {
+        console.log("RESPONSE DATA: ");
         console.log(response.data);
+        response.data = await formatBorrows([response.data]);
         return { "status": response.status, "data": response.data };
     }
-    return { "status": response.status, "data": response.data };
+    return { "status": response.status, "data": response.data[0] };
 
 }
 module.exports = {

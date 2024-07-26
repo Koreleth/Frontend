@@ -10,8 +10,8 @@
 </head>
 
 <body>
-    <%- include('partials/navbar') %>
-        <%- include('partials/alerts') %>
+    <%- include('../partials/navbar') %>
+        <%- include('../partials/alerts') %>
 
             <div class="container my-5">
                 <div class="row justify-content-center">
@@ -21,18 +21,13 @@
                                 <h2>Borrow Details</h2>
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title">Artikel: <%= borrow.title %>
-                                </h5>
-                                <p class="card-text">Beschreibung: <%= borrow.description %>
+                                <p class="card-text">ID: <%= borrow.id %>
                                 </p>
-                                <p class="card-text">Artikelnummer: <%= borrow.articlenumber %>
+                                <p class="card-text">Ausleiher: <%=borrow.manager.name%>
                                 </p>
-                                <p class="card-text">Verfügbarkeit: <%= borrow.count %> Stück</p>
-                                <p class="card-text">Ausleihdatum: <%= borrow.startDate %>
+                                <p class="card-text">Ausleihdatum: <%= borrow.start %>
                                 </p>
-                                <p class="card-text">Rückgabedatum: <%= borrow.endDate %>
-                                </p>
-                                <p class="card-text">Ausgeliehen von User ID: <%= borrow.userid %>
+                                <p class="card-text">Rückgabedatum: <%= borrow.end %>
                                 </p>
                             </div>
                             <div class="card-footer text-end">
@@ -47,7 +42,7 @@
                 </div>
             </div>
 
-            <%- include('partials/footer') %>
+            <%- include('../partials/footer') %>
                 <script src="/javascripts/bootstrap.min.js"></script>
                 <script src="/javascripts/script.js"></script>
 </body>

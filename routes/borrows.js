@@ -51,6 +51,10 @@ router.route('/delete/:id')
 router.route('/:id')
     .get(async (req, res, next) => {
         let response = await borrowController.getSingleBorrow(req);
+        console.log("RESPONSE von getSingleBorrow: ");
+        console.log(response.status);
+        console.log("DATA");
+        console.log(response.data);
         switch (response.status) {
             case 401:
                 req.flash('error', 'Du musst eingeloggt sein, um Ausleihen zu sehen');
@@ -64,8 +68,8 @@ router.route('/:id')
                 req.flash('error', 'Diese Ausleihe existiert nicht');
                 res.redirect('/borrows');
                 break;
-            case 200:
-                res.render('Borrow/singleBorrow', { "borrow": response.data });
+            case 201:
+                res.render('Borrow/singleBorrow', { "borrow": response.data[0] });
                 break;
             default:
                 req.flash('error', 'Ein Fehler ist aufgetreten');
