@@ -35,6 +35,9 @@ const getCart = async (req) => {
     if (!req.session.user) {
         return { "status": 401 };
     }
+    if (!req.session.user.cart || req.session.user.cart.length <= 0) {
+        req.session.user.cart = [];
+    }
     else {
         console.log("CART IDS: " + req.session.user.cart);
         for (item of req.session.user.cart) {

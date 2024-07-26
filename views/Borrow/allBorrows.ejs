@@ -11,20 +11,21 @@
 </head>
 
 <body>
-    <!-- includes-->
-    <%- include ('../partials/header') %>
-        <%- include ('../partials/navbar') %>
-            <%- include ('../partials/alerts') %>
-                <h1>Liste aller Ausleihvorgänge</h1>
-                <div class="page">
-                    <div class="content">
-                        <% borrows.forEach((borrow)=> { %>
-                            <!-- include für user cards-->
+    <!-- includes -->
+    <%- include ('../partials/navbar') %>
+        <%- include ('../partials/alerts') %>
+            <div class="container my-5">
+                <h1 class="text-center mb-4">Liste aller Ausleihvorgänge</h1>
+                <div class="row">
+                    <% //borrows.forEach((borrow)=> { %>
+                        <!-- include für user cards -->
+                        <div class="col-md-4 mb-4">
                             <%- include ('../partials/borrowCard', {borrow: borrow}) %>
-                                <%}); %>
-                    </div>
+                        </div>
+                        <% //}); %>
                 </div>
-                <%- include ('../partials/footer') %>
+            </div>
+            <%- include ('../partials/footer') %>
 </body>
 
 </html>

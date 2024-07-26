@@ -5,9 +5,10 @@ let usersController = require('../controllers/userController');
 /* GET home page. */
 
 router.route('/')
-  .get((req, res, next) => {
-    let response = indexController.getIndex();
-    res.render('index', { "data": response.data, title: "Dein Name ist: " + (req.session.user ? req.session.user.username : "Nicht gesetzt") });
+  .get(async (req, res, next) => {
+    let response = await indexController.getIndex();
+    console.log(response.data);
+    res.render('index', { "popularItems": response.data.items, title: response.title });
   });
 
 

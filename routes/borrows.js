@@ -3,12 +3,19 @@ var router = express.Router();
 let borrowController = require('../controllers/borrowController');
 let equipmentController = require('../controllers/equipmentController');
 var axios = require('axios');
+var utils = require('../controllers/controllerUtils');
 
 router.route('/')
     .get(async (req, res, next) => {
-        let response = await borrowController.getBorrows(req);
-        console.log(response.data);
-        res.render('Borrow/allBorrows', { "borrows": response.data });
+        if (!utils.isAdmin(req)) {
+            req.flash('error', 'Du hast keine Berechtigung, diese Seite zu sehen');
+            res.redirect('/');
+        }
+        else {
+            let response = await borrowController.getBorrows(req);
+            console.log(response.data);
+            res.render('Borrow/allBorrows', { "borrows": response.data });
+        }
     });
 
 router.route('/delete/:id')

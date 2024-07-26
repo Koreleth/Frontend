@@ -5,25 +5,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Startseite</title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <style>
+        .card {
+            width: 100%;
+            /* Ensures the card takes the full width of its column */
+        }
+
+        .col-md-4 {
+            flex: 0 0 30%;
+            /* Adjusts the column width to be wider */
+        }
+    </style>
 </head>
 
 <body>
+    <%- include('partials/navbar') %>
+        <%- include('partials/alerts') %>
 
-    <%- include ('partials/header') %>
-        <%- include ('partials/navbar') %>
-            <%- include ('partials/alerts') %>
+            <div class="container my-5">
+                <h1 class="text-center mb-4">
+                    <%= title %>
+                </h1>
+                <p class="text-center">Welcome to <%= title %>
+                </p>
 
-                <div class="page">
-                    <h1>
-                        <%= title %>
-                    </h1>
-                    <p>Welcome to <%= data.title %>
-                    </p>
+                <!-- Search Bar -->
+                <div class="row justify-content-center mb-4">
+                    <div class="col-md-8">
+                        <form action="equipment/?=search" method="GET" class="input-group">
+                            <input type="text" class="form-control" placeholder="Suchen sie nach Powerbanks"
+                                name="search" required>
+                            <button class="btn btn-primary" type="submit">Suchen</button>
+                        </form>
+                    </div>
                 </div>
 
+                <!-- Popular Items Section -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h2>Beliebte Artikel</h2>
+                        <div class="row">
+                            <div class="col-sm">
+                                <%- include('partials/carditem', { data: popularItems }) %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                <%- include ('partials/footer') %>
+                <!-- Call to Action Section -->
+                <div class="row mb-4">
+                    <div class="col-12 text-center">
+                        <h2>Machen Sie mit!</h2>
+                        <p>Erstellen Sie ein Konto, um Artikel auszuleihen</p>
+                        <a href="/register" class="btn btn-success">Jetzt registrieren</a>
+                    </div>
+                </div>
+            </div>
 
+            <%- include('partials/footer') %>
+                <script src="/javascripts/bootstrap.min.js"></script>
+                <script src="/javascripts/script.js"></script>
 </body>
 
 </html>

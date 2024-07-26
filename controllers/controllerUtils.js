@@ -28,6 +28,10 @@ const isSameUser = (req) => {
 }
 
 const isAdmin = (req) => {
+    if (!req.session.user) {
+        console.log("==Frontend== No user in session");
+        return false;
+    }
     if (req.session.user.role == "Administrator") {
         console.log("==Frontend== User is Admin");
         return true;

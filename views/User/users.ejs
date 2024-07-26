@@ -4,27 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- include für bootstrap -->
     <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <title>Liste aller Nutzer</title>
 </head>
 
 <body>
-    <!-- includes-->
-    <%- include ('../partials/header') %>
-        <%- include ('../partials/navbar') %>
-            <%- include ('../partials/alerts') %>
-                <h1>Liste aller Nutzer</h1>
-                <div class="page">
-                    <div class="content">
-                        <% users.forEach((user)=> { %>
-                            <!-- include für user cards-->
+    <%- include ('../partials/navbar') %>
+        <%- include ('../partials/alerts') %>
+
+            <div class="container my-5">
+                <h1 class="text-center mb-4">Liste aller Nutzer</h1>
+                <div class="row">
+                    <% users.forEach((user)=> { %>
+                        <div class="col-md-4 mb-4">
                             <%- include ('../partials/userCard', {user: user}) %>
-                                <%}); %>
-                    </div>
+                        </div>
+                        <% }); %>
                 </div>
-                <%- include ('../partials/footer') %>
+            </div>
+
+            <%- include ('../partials/footer') %>
+                <script src="/javascripts/bootstrap.min.js"></script>
+                <script src="/javascripts/script.js"></script>
 </body>
 
 </html>

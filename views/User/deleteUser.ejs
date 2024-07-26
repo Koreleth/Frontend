@@ -5,14 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nutzer löschen</title>
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 
 <body>
     <!-- includes-->
-    <%- include ('../partials/header') %>
-        <%- include ('../partials/navbar') %>
-            <%- include ('../partials/alerts') %>
+    <%- include ('../partials/navbar') %>
+        <%- include ('../partials/alerts') %>
 
+            <div class="container my-5">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">
@@ -28,16 +30,21 @@
                         </p>
                     </div>
                 </div>
-                <form action="/users/delete/<%= user.id %>" method="POST">
-                    <h1>Löschen</h1>
-                    <p>Wollen Sie <%= user.username %> wirklich löschen?</p>
-                    <button type="submit" class="btn btn-danger">Ja</button>
-                    <input type="hidden" name="id" value="<%= user.id %>">
-                    <a href="/users" class="btn btn-primary">Nein</a>
-                </form>
 
-                <!-- footer-->
-                <%- include ('../partials/footer') %>
+                <div class="mt-4">
+                    <h1>Löschen</h1>
+                    <p>Wollen Sie den Nutzer <%= user.username %> wirklich löschen?</p>
+                    <form action="/users/delete/<%= user.id %>" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-danger">Ja</button>
+                        <input type="hidden" name="id" value="<%= user.id %>">
+                    </form>
+                    <a href="/users" class="btn btn-primary">Nein</a>
+                    <a href="/users/edit/<%= user.id %>" class="btn btn-warning">Bearbeiten</a>
+                </div>
+            </div>
+
+            <!-- footer-->
+            <%- include ('../partials/footer') %>
 </body>
 
 </html>

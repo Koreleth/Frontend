@@ -5,19 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nutzer</title>
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 
 <body>
+    <%- include ('../partials/navbar') %>
+        <%- include ('../partials/alerts') %>
 
-    <%- include ('../partials/header') %>
-        <%- include ('../partials/navbar') %>
-            <%- include ('../partials/alerts') %>
+            <div class="container my-5">
                 <% if(locals.isSameUser){ %>
-                    <a href="/login/logout" class="btn btn-primary">Log Out</a>
+                    <div class="text-end mb-3">
+                        <a href="/login/logout" class="btn btn-primary">Log Out</a>
+                    </div>
                     <% } %>
-                        <%- include ('../partials/userCard',{"user":user}) %>
-                            <%- include ('../partials/footer') %>
+                        <div class="row justify-content-center">
+                            <div class="col-md-6">
+                                <%- include ('../partials/userCard', {"user": user}) %>
+                            </div>
+                        </div>
+            </div>
 
+            <%- include ('../partials/footer') %>
+                <script src="/javascripts/bootstrap.min.js"></script>
+                <script src="/javascripts/script.js"></script>
 </body>
 
 </html>

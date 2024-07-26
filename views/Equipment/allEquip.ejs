@@ -5,37 +5,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ausleihen</title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 
 <body>
-    <%- include ('../partials/header') %>
-        <%- include ('../partials/navbar') %>
-            <%- include ('../partials/alerts') %>
-                <div class="page">
-                    <!-- Hier der Code für die Kreirung eines neuen Equpments -->
-                    <%- include('../partials/createEquipFormular') %>
+    <%- include ('../partials/navbar') %>
+        <%- include ('../partials/alerts') %>
+            <%- include ('../partials/createEquipFormular') %>
+                <div class="container mt-4">
 
-                        <% if ( locals.auth ) { %>
-                            <div class="createButton">
-                                <button id="singleButton" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
-                                    CREATE
-                            </div>
-                            <% } %>
-                                <div class="content">
-                                    <form class="suchleiste" role="search" method="GET" action="/equipment/">
-                                        <input name="search" type="search" />
-                                        <button>Suchen</button>
-                                    </form>
-                                    <h1>
-                                        <%= data.title %>
-                                    </h1>
-                                    <div class="element">
-                                        <%- include ('../partials/cardItem', data) %>
-                                    </div>
+
+                    <% if (locals.auth) { %>
+                        <div class="text-right mb-3">
+                            <button id="singleButton" type="button" class="btn btn-primary">
+                                CREATE
+                            </button>
+                        </div>
+                        <% } %>
+
+                            <div class="content">
+                                <form class="d-flex" role="search" method="GET" action="/equipment/">
+                                    <input name="search" type="search" class="form-control me-2" placeholder="Suche..."
+                                        aria-label="Search">
+                                    <button class="btn btn-outline-success" type="submit">Suchen</button>
+                                </form>
+
+                                <h1>
+                                    <%= data.title %>
+                                </h1>
+                                <div class="row">
+                                    <% //data.forEach((equipment)=> { %>
+                                        <%- include ('../partials/cardItem', {data:data}) %>
+                                            <% // }); %>
                                 </div>
+                            </div>
                 </div>
                 <%- include ('../partials/footer') %>
+                    <script src=" /javascripts/script.js ">
+                    </script>
+                    <script src=" /javascripts/bootstrap.min.js">
+                    </script>
 </body>
 
 </html>

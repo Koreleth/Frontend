@@ -4,92 +4,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Equipment Details</title>
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 
 <body>
-    <%- include ('../partials/header') %>
-        <%- include ('../partials/navbar') %>
-            <%- include ('../partials/alerts') %>
+    <%- include ('../partials/navbar') %>
+        <%- include ('../partials/alerts') %>
 
-                <div class="page">
-                    <div class="singleEquip">
-                        <div class="container">
-                            <div class="row">
-
-                                <!-- Hier wird das Bild des Equipments angezeigt -->
-                                <div class="col-md-6">
-                                    <div class="singleEquipImage"> <img src="HTTP://localhost:3000<%= data.pic %>"
-                                            alt="equipment Bild">
-                                    </div>
-                                </div>
-
-                                <!-- Hier werden die Infos des Equipments angezeigt -->
-                                <div class="col-md-6" id="infos">
-                                    <h1>
-                                        <%= data.title %>
-                                    </h1>
-                                    <p>
-                                        <%= data.description %>
-                                    </p>
-                                    <p>Artikelnummer: <%= data.articlenumber %>
-                                    </p>
-                                    <p>Verfügbar: <%= data.count %>
-                                    </p>
-
-                                    <!-- Ausleihen Button soll einen Ausleihvorgang erstellen -->
-                                    <a href="/cart/add/<%=data.id %>" class="btn btn-primary">Jetzt Ausleihen</a>
-                                    <% if (locals.data.edit){ %>
-                                        <!-- Bearbeiten Button -->
-                                        <a href="/equipment/edit/<%= data.id %>" id="editButton"
-                                            class="btn btn-warning"><img src="../img/pencil.png"></a>
-
-                                        <!-- Löschen Button -->
-                                        <form action="/equipment/delete/<%=data.id%>" method="post">
-                                            <button type="submit" class="btn btn-danger" id="deleteButton"
-                                                class="btn btn-danger"><img src="../img/trash.png"></button>
-                                        </form>
-                                        <% } %>
-                                </div>
-
-
-
-                                <!-- FORMULAR ZUM EDITIEREN -->
-                                <!-- LEGACY CODE
-                            <div class="col-md-6" id="editInfos">
-                                <form method="POST" action="/equipment/edit/<%=data.id%>">
-                                    <div class="mb-3 abstand01rem">
-                                        <label for="title" class="form-label"></label>
-                                        <input type="text" class="form-control" id="title" name="title"
-                                            value="<%= data.title %>" required>
-                                    </div>
-                                    <div class="mb-3 abstand01rem">
-                                        <label for="description" class="form-label"></label>
-                                        <input type="text" class="form-control" id="description" name="description"
-                                            value="<%= data.description %>" required>
-                                    </div>
-                                    <div class="mb-3 abstand01rem">
-                                        <label for="articlenumber" class="form-label"></label>
-                                        <input type="text" class="form-control" id="description" name="articlenumber"
-                                            value="<%= data.articlenumber %>" required>
-                                    </div>
-                                    <div class="mb-3 abstand01rem">
-                                        <label for="count" class="form-label"></label>
-                                        <input type="number" class="form-control" id="description" name="description"
-                                            value="<%= data.count %>" required>
-                                    </div>
-                                    <input value="SPEICHERN" type="submit" class="btn btn-primary"></input>
-                                    <button onclick=editfunction(<%=data.id %>) id="editButton" class="btn
-                                        btn-warning">ABBR</button>
-                                </form>
-                            </div>
-                        -->
-
-                            </div>
+            <div class="container my-5">
+                <div class="row">
+                    <!-- Hier wird das Bild des Equipments angezeigt -->
+                    <div class="col-md-6">
+                        <div class="singleEquipImage">
+                            <img src="HTTP://localhost:3000<%= data.pic %>" alt="equipment Bild" class="img-fluid">
                         </div>
                     </div>
+
+                    <!-- Hier werden die Infos des Equipments angezeigt -->
+                    <div class="col-md-6" id="infos">
+                        <h1>
+                            <%= data.title %>
+                        </h1>
+                        <p>
+                            <%= data.description %>
+                        </p>
+                        <p>Artikelnummer: <%= data.articlenumber %>
+                        </p>
+                        <p>Verfügbar: <%= data.count %>
+                        </p>
+
+                        <!-- Ausleihen Button soll einen Ausleihvorgang erstellen -->
+                        <a href="/cart/add/<%=data.id %>" class="btn btn-primary">Jetzt Ausleihen</a>
+
+                        <% if (locals.data.edit) { %>
+                            <!-- Bearbeiten Button -->
+                            <a href="/equipment/edit/<%= data.id %>" class="btn btn-warning">
+                                <img src="../img/pencil.png" alt="Bearbeiten" class="img-icon">
+                            </a>
+
+                            <!-- Löschen Button -->
+                            <form action="/equipment/delete/<%=data.id%>" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-danger">
+                                    <img src="../img/trash.png" alt="Löschen" class="img-icon">
+                                </button>
+                            </form>
+                            <% } %>
+                    </div>
                 </div>
-                <%- include ('../partials/footer') %>
+            </div>
+
+            <%- include ('../partials/footer') %>
 </body>
 
 </html>

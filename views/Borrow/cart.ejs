@@ -12,19 +12,20 @@
 
 <body>
     <!-- includes-->
-    <%- include ('../partials/header') %>
-        <%- include ('../partials/navbar') %>
-            <%- include ('../partials/alerts') %>
-                <h1>Warenkorb</h1>
-                <div class="page">
-                    <div class="content">
+    <%- include ('../partials/navbar') %>
+        <%- include ('../partials/alerts') %>
+            <div class="container my-5">
+                <h1 class="text-center mb-4">Warenkorb</h1>
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
                         <% if (locals.cart && locals.cart.length> 0) { %>
-                            <table class="table">
-                                <thead>
+                            <table class="table table-striped table-hover">
+                                <thead class="table-dark">
                                     <tr>
                                         <th scope="col">Artikelnummer</th>
                                         <th scope="col">Titel</th>
                                         <th scope="col">Anzahl</th>
+                                        <th scope="col">Aktionen</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -33,17 +34,16 @@
                                             <td>
                                                 <%= item.articlenumber %>
                                             </td>
-                                            <td>
-                                                <a href="/equipment/<%= item.id %>">
+                                            <td><a href="/equipment/<%= item.id %>">
                                                     <%= item.title %>
-                                                </a>
-                                            </td>
+                                                </a></td>
                                             <td>
                                                 <%= item.count %>
                                             </td>
                                             <td>
-                                                <form action="/cart/remove/<%= item.id %>" method="POST">
-                                                    <button type="submit" class="btn btn-danger">Löschen</button>
+                                                <form action="/cart/remove/<%= item.id %>" method="POST"
+                                                    class="d-inline">
+                                                    <button type="submit" class="btn btn-danger btn-sm">Löschen</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -52,23 +52,26 @@
                             </table>
                             <!-- start and end date selector-->
                             <form action="/cart/checkout" method="POST">
-                                <div class="form-group">
-                                    <label for=" start">Startdatum</label>
+                                <div class="mb-3">
+                                    <label for="start" class="form-label">Startdatum</label>
                                     <input type="date" class="form-control" id="start" name="start" required>
                                 </div>
-                                <div class="form-group"></div>
-                                <label for="end">Enddatum</label>
-                                <input type="date" class="form-control" id="end" name="end" required>
+                                <div class="mb-3">
+                                    <label for="end" class="form-label">Enddatum</label>
+                                    <input type="date" class="form-control" id="end" name="end" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Ausleihen</button>
+                            </form>
+                            <% } else { %>
+                                <div class="alert alert-info text-center" role="alert">
+                                    Der Warenkorb ist leer
+                                </div>
+                                <% } %>
                     </div>
-                    <button type="submit" class="btn btn-primary">Ausleihen</button>
-                    </form>
-                    <% } else { %>
-                        <p>Der Warenkorb ist leer</p>
-                        <% } %>
                 </div>
-                </div>
+            </div>
 
-                <%- include ('../partials/footer') %>
+            <%- include ('../partials/footer') %>
 </body>
 
 </html>
