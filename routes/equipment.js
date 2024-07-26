@@ -10,7 +10,7 @@ router.route('/')
   .get(async (req, res, next) => {
     console.log(req.query)
     let response = await equipmentController.getEquipment(req);
-    res.render('Equipment/allEquip', { "data": response.data, "auth": response.auth });
+    res.render('Equipment/allEquip', { "data": response.data, "auth": response.auth, "user": req.session.user });
   })
   //Neues Equipment erstellen
   .post(async (req, res, next) => {
