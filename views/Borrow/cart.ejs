@@ -50,13 +50,22 @@
                                         <%}); %>
                                 </tbody>
                             </table>
+                            <!-- start and end date selector-->
                             <form action="/cart/checkout" method="POST">
-                                <button type="submit" class="btn btn-primary">Ausleihen</button>
-                            </form>
-                            <% } else { %>
-                                <p>Der Warenkorb ist leer</p>
-                                <% } %>
+                                <div class="form-group">
+                                    <label for=" start">Startdatum</label>
+                                    <input type="date" class="form-control" id="start" name="start" required>
+                                </div>
+                                <div class="form-group"></div>
+                                <label for="end">Enddatum</label>
+                                <input type="date" class="form-control" id="end" name="end" required>
                     </div>
+                    <button type="submit" class="btn btn-primary">Ausleihen</button>
+                    </form>
+                    <% } else { %>
+                        <p>Der Warenkorb ist leer</p>
+                        <% } %>
+                </div>
                 </div>
 
                 <%- include ('../partials/footer') %>

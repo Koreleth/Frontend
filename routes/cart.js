@@ -66,32 +66,14 @@ router.route('/remove/:id')
 router.route('/checkout')
     .post(async (req, res, next) => {
         let response = await borrowController.checkout(req);
-        switch (response.status) {
-            case 401:
-                req.flash('error', 'Du musst eingeloggt sein, um Geräte auszuleihen');
-                res.redirect('/login');
-                break;
-            case 404:
-                req.flash('error', 'Dein Warenkorb ist leer');
-                res.redirect('/equipment');
-                break;
-            case 400:
-                req.flash('error', 'Fehler beim Ausleihen');
-                res.redirect('/equipment');
-                break;
-            case 403:
-                req.flash('error', 'Du bist nicht berechtigt, diese Aktion durchzuführen');
-                res.redirect('/equipment');
-                break;
-            case 200:
-                req.flash('success', 'Equipment erfolgreich ausgeliehen');
-                res.redirect('/');
-                break;
-            default:
-                req.flash('error', 'Ein Fehler ist aufgetreten');
-                res.redirect('/equipment');
-                break;
+        if (response.status != 201) {
+            req.flash('error', response.data);
+            res.redirect('/cart');
         }
+        else {
+            req.flash('success', response.data);
+            res.redirect('/');
 
+        }
     });
 module.exports = router;

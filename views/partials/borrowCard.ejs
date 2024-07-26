@@ -19,6 +19,9 @@
         </p>
         <p class="card-text">Enddatum: <%= borrow.end %>
         </p>
+        <form action="/borrows/delete/<%= borrow.id %>" method="POST">
+            <button type="submit" class="btn btn-danger">Löschen</button>
+        </form>
         <!--Löschen und Bearbeiten Buttons-->
         <!-- <a href="/users/edit/?id=<%=// user.id %>" id="editButton" class="btn btn-warning"><img
                 src="../img/pencil.png"></a>

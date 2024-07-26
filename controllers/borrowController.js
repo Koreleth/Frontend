@@ -82,8 +82,8 @@ const removeFromCart = async (req) => {
 }
 
 const checkout = async (req) => {
-    if (!req.session.user) {
-        return { "status": 401 };
+    if (!utils.isAdmin(req)) {
+        return { "status": 403 };
     }
     if (!req.session.user.cart || req.session.user.cart.length <= 0) {
         return { "status": 404 };
@@ -93,24 +93,50 @@ const checkout = async (req) => {
         "equipmentids": req.session.user.cart,
         //heutiges datum als ISO date ohne uhrzeit
         //fälligkeitsdatum 2 wochen
-        "start": new Date().toISOString().split('T')[0],
-        "end": new Date(new Date().getTime() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+        /*"start": new Date().toISOString().split('T')[0],
+        "end": new Date(new Date().getTime() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]*/
+        "start": req.body.start,
+        "end": req.body.end
     }
-    let response = await axios.post('http://localhost:3000/borrows', borrow);
+    console.log(borrow);
+    let response;
+    try {
+        response = await axios.post('http://localhost:3000/borrows', borrow);
+    }
+    catch (error) {
+        console.log(error);
+        return { "status": error.response.status, "data": error.response.data };
+    }
     if (response.status == 201) {
         req.session.user.cart = [];
-        return { "status": 200 };
+        return { "status": 201, "data": "Ausleihe erfolgreich" };
     }
     else {
-        console.log(response);
-        return { "status": 400 };
+        console.log(response.data);
+        return { "status": response.status, "data": response.data };
     }
 }
 
+const deleteBorrow = async (req) => {
+    if (!req.session.user) {
+        return { "status": 401 };
+    }
+    let response;
+    try {
+        response = await axios.delete('http://localhost:3000/borrows/' + req.params.id);
+    }
+    catch (error) {
+        console.log(error);
+        return { "status": error.response.status, "data": error.response.data };
+    }
+    return { "status": response.status };
+
+}
 module.exports = {
     getBorrows,
     getCart,
     addToCart,
     removeFromCart,
     checkout,
+    deleteBorrow
 }
