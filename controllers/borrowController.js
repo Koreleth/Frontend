@@ -58,13 +58,23 @@ const addToCart = async (req) => {
         return { "status": 404 };
     }
     else {
-        let cart = req.session.user.cart;
-        if (!cart) {
-            cart = [];
+        if (!req.session.user.cart) {
+            req.session.user.cart = [];
         }
-        cart.push(req.params.id);
-        req.session.user.cart = cart;
-        return { "status": 200, "data": response.data };
+        let count = 0;
+        req.session.user.cart.forEach((v) => (v === req.params.id && count++));
+        if (count >= response.data.count) {
+            return { "status": 409, "data": "Nicht genügend Geräte auf Lager" };
+        }
+        else {
+            let cart = req.session.user.cart;
+            if (!cart) {
+                cart = [];
+            }
+            cart.push(req.params.id);
+            req.session.user.cart = cart;
+            return { "status": 200, "data": response.data };
+        }
     }
 }
 
@@ -99,7 +109,9 @@ const checkout = async (req) => {
         "start": req.body.start,
         "end": req.body.end
     }
-    console.log(borrow);
+    console.log("CART:");
+    console.log(req.session.user.cart);
+    await updateInventory(req.session.user.cart, true);
     let response;
     try {
         response = await axios.post('http://localhost:3000/borrows', borrow);
@@ -118,17 +130,74 @@ const checkout = async (req) => {
     }
 }
 
+const updateInventory = async (inventory, subtract) => {
+    if (!inventory || inventory.length <= 0 || !Array.isArray(inventory)) {
+        return;
+    }
+    for (item of inventory) {
+        let requestedItem = await axios.get('http://localhost:3000/equipment/' + item);
+        let targetItem = requestedItem.data;
+        console.log("TARGET ITEM: ");
+        console.log(targetItem);
+        let updatedItem = {
+            "title": targetItem.title,
+            "description": targetItem.description,
+            "articlenumber": targetItem.articlenumber,
+            "userid": targetItem.userid,
+        }
+        if (subtract) {
+            updatedItem.count = targetItem.count - 1;
+        }
+        else {
+            updatedItem.count = targetItem.count + 1;
+        }
+        console.log("UPDATE BODY: ");
+        console.log(updatedItem);
+
+        let response;
+        try {
+            response = await axios.put('http://localhost:3000/equipment/' + targetItem.id, updatedItem);
+        }
+        catch (error) {
+            //console.log(error);
+            console.log("Error updating equipment: " + item);
+            return { "status": error.response.status, "data": error.response.data };
+        }
+        if (response.status == 200) {
+            console.log("Equipment updated: " + item);
+            return { "status": 200 };
+        }
+        else if (response.status != 200) {
+            console.log("Error updating equipment: " + item);
+            return { "status": response.status, "data": response.data };
+            //console.log(response.data.data);
+        }
+
+    }
+    return;
+}
+
 const deleteBorrow = async (req) => {
     if (!req.session.user) {
         return { "status": 401 };
     }
     let response;
+    let borrow;
     try {
+        borrow = await axios.get('http://localhost:3000/borrows/' + req.params.id);
         response = await axios.delete('http://localhost:3000/borrows/' + req.params.id);
     }
     catch (error) {
         console.log(error);
         return { "status": error.response.status, "data": error.response.data };
+    }
+    if (response.status == 200) {
+        console.log("Borrow deleted: " + req.params.id);
+        await updateInventory(borrow.data.equipmentids, false);
+    }
+    else {
+        console.log(response.data);
+        return { "status": response.status, "data": response.data };
     }
     return { "status": response.status };
 

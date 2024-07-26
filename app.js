@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const axios = require('axios');
 
 var session = require('express-session');
 
@@ -72,6 +73,22 @@ app.use('/equipment', equipmentRouter);
 app.use('/login', loginRouter);
 app.use('/borrows', borrowsRouter);
 app.use('/cart', cartRouter);
+
+
+async function checkBackendServer() {
+  try {
+    const response = await axios.get('http://localhost:3000/'); // Ersetze '/health' durch einen gültigen Endpunkt deines Servers
+    if (response.status === 200) {
+      console.log('Backend server is running.');
+    }
+  } catch (error) {
+    console.error('\x1b[31m THE BACKEND SERVER IS NOT RUNNING. PLEASE START THE BACKEND SERVER. \x1b[0m');
+    process.exit(1);
+  }
+}
+
+// Rufe die Funktion auf, um den Status des Backend-Servers zu überprüfen
+checkBackendServer();
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

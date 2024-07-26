@@ -2,36 +2,51 @@
     <div class="row">
         <% data.forEach((equipment)=> { %>
             <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <% if (equipment.pic) { %>
-                        <img src="http://localhost:3000<%= equipment.pic %>" class="card-img-top equipPic"
-                            alt="Equipment Image">
-                        <% } %>
-                            <% if (!equipment.pic) { %>
-                                <img src="/img/Placeholder.png" class="card-img-top equipPic" alt="Equipment Image">
+                <% if (equipment.count <=0) { %>
+                    <div class="card h-100 bg-danger">
+                        <% } else{%>
+                            <div class="card h-100">
                                 <% } %>
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            <%= equipment.title %>
-                                        </h5>
-                                        <p class="card-text">
-                                            <%= equipment.description %>
-                                        </p>
-                                        <p class="card-text">Verfügbar: <%= equipment.count %> Stück</p>
-                                        <p class="card-text">ID: <%= equipment.id %> - Article No.: <%=
-                                                    equipment.articlenumber %> -
-                                                    UserID: <%= equipment.userid %>
-                                        </p>
-                                        <a href="/cart/add/<%= equipment.id %>" class="btn btn-primary">Ausleihen</a>
-                                        <% if (equipment.edit) { %>
-                                            <a href="/equipment/edit/<%= equipment.id %>" id="editButton"
-                                                class="btn btn-warning"><img src="../img/pencil.png" alt="Edit"></a>
-                                            <a href="/equipment/delete/<%= equipment.id %>" id="deleteButton"
-                                                class="btn btn-danger"><img src="../img/trash.png" alt="Delete"></a>
-                                            <% } %>
-                                    </div>
-                </div>
+                                    <% if (equipment.pic) { %>
+                                        <img src="http://localhost:3000<%= equipment.pic %>"
+                                            class="card-img-top equipPic" alt="Equipment Image">
+                                        <% } %>
+                                            <% if (!equipment.pic) { %>
+                                                <img src="/img/Placeholder.png" class="card-img-top equipPic"
+                                                    alt="Equipment Image">
+                                                <% } %>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">
+                                                            <%= equipment.title %>
+                                                        </h5>
+                                                        <p class="card-text">
+                                                            <%= equipment.description %>
+                                                        </p>
+                                                        <p class="card-text">Verfügbar: <%= equipment.count %> Stück
+                                                        </p>
+                                                        <p class="card-text">ID: <%= equipment.id %> - Article No.:
+                                                                <%= equipment.articlenumber %> -
+                                                                    UserID: <%= equipment.userid %>
+                                                        </p>
+                                                        <% if (equipment.count> 0) { %>
+                                                            <a href="/cart/add/<%= equipment.id %>"
+                                                                class="btn btn-primary">Ausleihen</a>
+                                                            <% } else{%>
+                                                                <a href="#" class="btn btn-secondary">Nicht
+                                                                    verfügbar</a>
+                                                                <% } %>
+                                                                    <% if (equipment.edit) { %>
+                                                                        <a href="/equipment/edit/<%= equipment.id %>"
+                                                                            id="editButton" class="btn btn-warning"><img
+                                                                                src="../img/pencil.png" alt="Edit"></a>
+                                                                        <a href="/equipment/delete/<%= equipment.id %>"
+                                                                            id="deleteButton"
+                                                                            class="btn btn-danger"><img
+                                                                                src="../img/trash.png" alt="Delete"></a>
+                                                                        <% } %>
+                                                    </div>
+                            </div>
+                    </div>
+                    <% }); %>
             </div>
-            <% }); %>
     </div>
-</div>

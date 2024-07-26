@@ -31,6 +31,10 @@ router.route('/add/:id')
                 req.flash('success', response.data.title + ' erfolgreich hinzugefügt');
                 res.redirect('/equipment');
                 break;
+            case 409:
+                req.flash('error', 'Du kannst nicht mehr Geräte ausleihen als verfügbar sind');
+                res.redirect('/equipment');
+                break;
             default:
                 req.flash('error', 'Ein Fehler ist aufgetreten');
                 res.redirect('/equipment');
