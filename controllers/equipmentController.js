@@ -32,6 +32,10 @@ const getEquipment = async (req) => {
         response.data = filteredData;
         console.log(response.data);
     }
+    for (item of response.data) {
+        let userdata = await axios.get('http://localhost:3000/users/' + item.userid);
+        item.manager = userdata.data.username;
+    }
     return response;
 
 };

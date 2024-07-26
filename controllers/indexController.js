@@ -3,10 +3,10 @@ var router = express.Router();
 var equipmentController = require('./equipmentController');
 var axios = require('axios');
 
-const getIndex = async () => {
+const getIndex = async (req) => {
     let data = {};
     data.items = [];
-    let response = await axios.get('http://localhost:3000/equipment');
+    let response = await equipmentController.getEquipment(req);
     data.items = response.data;
 
 

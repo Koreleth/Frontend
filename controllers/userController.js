@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var axios = require('axios');
 var utils = require('./controllerUtils');
+var borrowsController = require('./borrowController');
 
 
 const getAllUsers = async () => {
@@ -21,7 +22,7 @@ const getAllUsers = async () => {
 
 };
 //User aus Backend holen
-const getUser = async (req) => {
+const getUser = async (req, res) => {
     let request;
     if (!req.session.user) {
         return { "status": 401 };
@@ -50,8 +51,36 @@ const getUser = async (req) => {
     //Wenn Objekt, dann direkt zurückgeben
     out = { "status": 200, "data": response.data };
     out.isSameUser = utils.isSameUser(req);
+    out.borrows = await getUserborrows(req, res, response.data.id);
     return out;
 
+}
+
+const getUserborrows = async (req, res, userid) => {
+    let response;
+    try {
+        response = await borrowsController.getBorrows(res);
+    }
+    catch (error) {
+        console.log(error);
+        return { "status": 404 };
+    }
+    const borrows = response.data;
+    console.log("==Frontend== BORROWS: ");
+    console.log(borrows);
+    let out = [];
+    for (item of borrows) {
+        console.log("==Frontend==");
+        console.log(item.manager.id);
+        console.log(userid);
+
+        if (item.manager.id == userid) {
+            out.push(item);
+        }
+    }
+    console.log("==Frontend== USER BORROWS: ");
+    console.log(out);
+    return out;
 }
 
 const login = async (req) => {
@@ -98,7 +127,8 @@ const register = async (req) => {
     if (response.status != 201) {
         return { "status": 400, "data": "FEHLER" };
     }
-    console.log("==Frontend== User created!")
+    console.log("==Frontend== User created!");
+    delete req.session.user;
     return { "status": 200, "data": "HURRAH" };
 }
 

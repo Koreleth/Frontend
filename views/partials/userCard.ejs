@@ -2,7 +2,9 @@
 <div class="card">
     <div class="card-body">
         <h5 class="card-title">
-            <%= user.username %>
+            <a href="/users/<%= user.id %>">
+                <%= user.username %>
+            </a>
         </h5>
         <p class="card-text">ID: <%= user.id %>
         </p>

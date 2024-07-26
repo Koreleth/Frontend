@@ -6,7 +6,7 @@ let usersController = require('../controllers/userController');
 
 router.route('/')
   .get(async (req, res, next) => {
-    let response = await indexController.getIndex();
+    let response = await indexController.getIndex(req);
     console.log(response.data);
     res.render('index', { "popularItems": response.data.items, title: response.title });
   });

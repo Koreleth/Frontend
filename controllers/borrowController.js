@@ -111,7 +111,10 @@ const checkout = async (req) => {
     }
     console.log("CART:");
     console.log(req.session.user.cart);
-    await updateInventory(req.session.user.cart, true);
+    let invUpdate = await updateInventory(req.session.user.cart, true);
+    if (invUpdate.status != 200) {
+        return { "status": invUpdate.status, "data": invUpdate.data };
+    }
     let response;
     try {
         response = await axios.post('http://localhost:3000/borrows', borrow);
@@ -134,7 +137,10 @@ const updateInventory = async (inventory, subtract) => {
     if (!inventory || inventory.length <= 0 || !Array.isArray(inventory)) {
         return;
     }
+    console.log("INVENTORY: ");
+    console.log(inventory);
     for (item of inventory) {
+        console.log("ITEM: " + item);
         let requestedItem = await axios.get('http://localhost:3000/equipment/' + item);
         let targetItem = requestedItem.data;
         console.log("TARGET ITEM: ");
@@ -165,7 +171,6 @@ const updateInventory = async (inventory, subtract) => {
         }
         if (response.status == 200) {
             console.log("Equipment updated: " + item);
-            return { "status": 200 };
         }
         else if (response.status != 200) {
             console.log("Error updating equipment: " + item);
@@ -174,7 +179,7 @@ const updateInventory = async (inventory, subtract) => {
         }
 
     }
-    return;
+    return { "status": 200 };
 }
 
 const deleteBorrow = async (req) => {
@@ -202,11 +207,38 @@ const deleteBorrow = async (req) => {
     return { "status": response.status };
 
 }
+
+const getSingleBorrow = async (req) => {
+    let response;
+    if (!req.session.user) {
+        return { "status": 401 };
+    }
+    if (!utils.isAdmin(req) && !utils.isSameUser(req)) {
+        return { "status": 403 };
+    }
+    try {
+        response = await axios.get('http://localhost:3000/borrows/' + req.params.id);
+    }
+    catch (error) {
+        console.log(error);
+        return { "status": error.response.status, "data": error.response.data };
+    }
+    if (response.status == 200) {
+        console.log("Borrow found: " + req.params.id);
+    }
+    else {
+        console.log(response.data);
+        return { "status": response.status, "data": response.data };
+    }
+    return { "status": response.status, "data": response.data };
+
+}
 module.exports = {
     getBorrows,
     getCart,
     addToCart,
     removeFromCart,
     checkout,
-    deleteBorrow
+    deleteBorrow,
+    getSingleBorrow
 }

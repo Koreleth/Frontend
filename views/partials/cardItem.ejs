@@ -24,26 +24,40 @@
                                                         </p>
                                                         <p class="card-text">Verfügbar: <%= equipment.count %> Stück
                                                         </p>
-                                                        <p class="card-text">ID: <%= equipment.id %> - Article No.:
-                                                                <%= equipment.articlenumber %> -
-                                                                    UserID: <%= equipment.userid %>
-                                                        </p>
-                                                        <% if (equipment.count> 0) { %>
-                                                            <a href="/cart/add/<%= equipment.id %>"
-                                                                class="btn btn-primary">Ausleihen</a>
-                                                            <% } else{%>
-                                                                <a href="#" class="btn btn-secondary">Nicht
-                                                                    verfügbar</a>
-                                                                <% } %>
-                                                                    <% if (equipment.edit) { %>
-                                                                        <a href="/equipment/edit/<%= equipment.id %>"
-                                                                            id="editButton" class="btn btn-warning"><img
-                                                                                src="../img/pencil.png" alt="Edit"></a>
-                                                                        <a href="/equipment/delete/<%= equipment.id %>"
-                                                                            id="deleteButton"
-                                                                            class="btn btn-danger"><img
-                                                                                src="../img/trash.png" alt="Delete"></a>
+                                                        <% if (equipment.edit){ %>
+                                                            <p class="card-text">ID: <%= equipment.id %> - Article No.:
+                                                                    <%= equipment.articlenumber %>
+                                                            </p>
+                                                            <% } %>
+                                                                <p class="card-text">
+                                                                    <% if(equipment.edit){ %>
+                                                                        Verwalter:
+                                                                        <a href="/user/<%= equipment.userid %>">
+                                                                            <%= equipment.manager %>
+                                                                        </a>
+                                                                        <% }else{ %>
+                                                                            Verwalter: <%= equipment.manager %>
+                                                                                <% } %>
+                                                                </p>
+                                                                <% if (equipment.count> 0) { %>
+                                                                    <a href="/cart/add/<%= equipment.id %>"
+                                                                        class="btn btn-primary">Ausleihen</a>
+                                                                    <% } else{%>
+                                                                        <a href="#" class="btn btn-secondary">Nicht
+                                                                            verfügbar</a>
                                                                         <% } %>
+                                                                            <% if (equipment.edit) { %>
+                                                                                <a href="/equipment/edit/<%= equipment.id %>"
+                                                                                    id="editButton"
+                                                                                    class="btn btn-warning"><img
+                                                                                        src="../img/pencil.png"
+                                                                                        alt="Edit"></a>
+                                                                                <a href="/equipment/delete/<%= equipment.id %>"
+                                                                                    id="deleteButton"
+                                                                                    class="btn btn-danger"><img
+                                                                                        src="../img/trash.png"
+                                                                                        alt="Delete"></a>
+                                                                                <% } %>
                                                     </div>
                             </div>
                     </div>

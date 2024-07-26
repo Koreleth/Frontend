@@ -25,7 +25,7 @@ router.get('/', async function (req, res, next) {
 
 router.route('/edit/:id')
   .get(async (req, res, next) => {
-    let response = await usersController.getUser(req);
+    let response = await usersController.getUser(req, res);
     //Wenn nicht eingeloggt
     switch (response.status) {
       case 401:
@@ -69,7 +69,7 @@ router.route('/edit/:id')
 
 router.route('/delete/:id')
   .get(async (req, res, next) => {
-    let response = await usersController.getUser(req);
+    let response = await usersController.getUser(req, res);
     switch (response.status) {
       case 404:
         req.flash('error', 'Nutzer nicht gefunden.');
@@ -111,7 +111,7 @@ router.route('/delete/:id')
   });
 
 router.get('/:id', async function (req, res, next) {
-  let response = await usersController.getUser(req);
+  let response = await usersController.getUser(req, res);
   console.log(response);
   switch (response.status) {
     case 404:
@@ -129,7 +129,7 @@ router.get('/:id', async function (req, res, next) {
       res.redirect('/login');
       break;
     default:
-      res.render('User/singleUser', { "user": response.data, "isSameUser": response.isSameUser });
+      res.render('User/singleUser', { "user": response.data, "isSameUser": response.isSameUser, "borrows": response.borrows });
       break;
   }
 

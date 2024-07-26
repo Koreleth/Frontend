@@ -2,7 +2,9 @@
 <div class="card h-100">
     <div class="card-body">
         <h5 class="card-title">
-            <%= borrow.id %>
+            <a href="/borrows/<%= borrow.id %>">
+                <%= borrow.id %>
+            </a>
         </h5>
         <p class="card-text">Ausleiher: <a href="/users/<%=borrow.manager.id%>">
                 <%= borrow.manager.name %>

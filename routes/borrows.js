@@ -47,4 +47,31 @@ router.route('/delete/:id')
                 res.redirect('/borrows');
         }
     });
+
+router.route('/:id')
+    .get(async (req, res, next) => {
+        let response = await borrowController.getSingleBorrow(req);
+        switch (response.status) {
+            case 401:
+                req.flash('error', 'Du musst eingeloggt sein, um Ausleihen zu sehen');
+                res.redirect('/login');
+                break;
+            case 403:
+                req.flash('error', 'Du hast keine Berechtigung, diese Ausleihe zu sehen');
+                res.redirect('/');
+                break;
+            case 404:
+                req.flash('error', 'Diese Ausleihe existiert nicht');
+                res.redirect('/borrows');
+                break;
+            case 200:
+                res.render('Borrow/singleBorrow', { "borrow": response.data });
+                break;
+            default:
+                req.flash('error', 'Ein Fehler ist aufgetreten');
+                console.log("RESPONSE von getSingleBorrow: ");
+                console.log(response.status);
+                res.redirect('/borrows');
+        }
+    });
 module.exports = router;
