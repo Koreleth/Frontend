@@ -11,6 +11,8 @@ var usersRouter = require('./routes/users');
 var equipmentRouter = require('./routes/equipment');
 var loginRouter = require('./routes/login');
 var borrowsRouter = require('./routes/borrows.js');
+var cartRouter = require('./routes/cart');
+
 
 var flash = require('connect-flash');
 
@@ -69,6 +71,7 @@ app.use('/users', usersRouter);
 app.use('/equipment', equipmentRouter);
 app.use('/login', loginRouter);
 app.use('/borrows', borrowsRouter);
+app.use('/cart', cartRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

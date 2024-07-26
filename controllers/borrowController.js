@@ -27,21 +27,90 @@ const getBorrows = async (res) => {
 
     return { "status": 200, "data": borrows };
 }
-const createBorrow = async (req) => {
-    if (!utils.auth(req)) {
+
+
+
+const getCart = async (req) => {
+    let cartItems = [];
+    if (!req.session.user) {
         return { "status": 401 };
     }
-    let response;
-    try {
-        response = await axios.post('http://localhost:3000/borrows', req.body);
+    else {
+        console.log("CART IDS: " + req.session.user.cart);
+        for (item of req.session.user.cart) {
+            let response = await axios.get('http://localhost:3000/equipment/' + item);
+            cartItems.push(response.data);
+        }
     }
-    catch (error) {
-        console.log(error);
-        return { "status": 404 }
+    return { "status": 200, "data": cartItems };
+}
+const addToCart = async (req) => {
+    console.log("SESSION: " + req.session.user);
+    if (!req.session.user) {
+        return { "status": 401 };
     }
+    let response = await axios.get('http://localhost:3000/equipment/' + req.params.id);
+    if (response.status == 404) {
+        return { "status": 404 };
+    }
+    else {
+        let cart = req.session.user.cart;
+        if (!cart) {
+            cart = [];
+        }
+        cart.push(req.params.id);
+        req.session.user.cart = cart;
+        return { "status": 200, "data": response.data };
+    }
+}
+
+const removeFromCart = async (req) => {
+    if (!req.session.user) {
+        return { "status": 401 };
+    }
+    let cart = req.session.user.cart;
+    let index = cart.indexOf(req.params.id);
+    if (index > -1) {
+        cart.splice(index, 1);
+    }
+    else {
+        return { "status": 404 };
+    }
+    req.session.user.cart = cart;
     return { "status": 200 };
+
+}
+
+const checkout = async (req) => {
+    if (!req.session.user) {
+        return { "status": 401 };
+    }
+    if (!req.session.user.cart || req.session.user.cart.length <= 0) {
+        return { "status": 404 };
+    }
+    let borrow = {
+        "userid": req.session.user.id,
+        "equipmentids": req.session.user.cart,
+        //heutiges datum als ISO date ohne uhrzeit
+        //fälligkeitsdatum 2 wochen
+        "start": new Date().toISOString().split('T')[0],
+        "end": new Date(new Date().getTime() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+    }
+    let response = await axios.post('http://localhost:3000/borrows', borrow);
+    if (response.status == 201) {
+        req.session.user.cart = [];
+        return { "status": 200 };
+    }
+    else {
+        console.log(response);
+        return { "status": 400 };
+    }
 }
 
 module.exports = {
-    getBorrows
+    getBorrows,
+    getCart,
+    addToCart,
+    removeFromCart,
+    checkout,
 }

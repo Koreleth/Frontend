@@ -38,7 +38,7 @@
                                     </p>
 
                                     <!-- Ausleihen Button soll einen Ausleihvorgang erstellen -->
-                                    <button class="btn btn-primary">Jetzt Ausleihen</button>
+                                    <a href="/cart/add/<%=data.id %>" class="btn btn-primary">Jetzt Ausleihen</a>
                                     <% if (locals.data.edit){ %>
                                         <!-- Bearbeiten Button -->
                                         <a href="/equipment/edit/<%= data.id %>" id="editButton"

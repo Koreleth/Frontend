@@ -9,9 +9,10 @@
             </a>
         </p>
         <p class="card-text">Equipment: <% borrow.equipments.forEach((equipment)=> { %>
-                <a href="/equipment/<%=equipment.id%>">
-                    <%=equipment.title%>
-                </a>
+                <p><a href="/equipment/<%=equipment.id%>">
+                        <%=equipment.title%>
+                    </a>
+                </p>
                 <%});%>
         </p>
         <p class="card-text">Startdatum: <%= borrow.start %>

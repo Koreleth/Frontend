@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- include für bootstrap -->
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title>Warenkorb</title>
+</head>
+
+<body>
+    <!-- includes-->
+    <%- include ('../partials/header') %>
+        <%- include ('../partials/navbar') %>
+            <%- include ('../partials/alerts') %>
+                <h1>Warenkorb</h1>
+                <div class="page">
+                    <div class="content">
+                        <% if (locals.cart && locals.cart.length> 0) { %>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Artikelnummer</th>
+                                        <th scope="col">Titel</th>
+                                        <th scope="col">Anzahl</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% cart.forEach((item)=> { %>
+                                        <tr>
+                                            <td>
+                                                <%= item.articlenumber %>
+                                            </td>
+                                            <td>
+                                                <a href="/equipment/<%= item.id %>">
+                                                    <%= item.title %>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <%= item.count %>
+                                            </td>
+                                            <td>
+                                                <form action="/cart/remove/<%= item.id %>" method="POST">
+                                                    <button type="submit" class="btn btn-danger">Löschen</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <%}); %>
+                                </tbody>
+                            </table>
+                            <form action="/cart/checkout" method="POST">
+                                <button type="submit" class="btn btn-primary">Ausleihen</button>
+                            </form>
+                            <% } else { %>
+                                <p>Der Warenkorb ist leer</p>
+                                <% } %>
+                    </div>
+                </div>
+
+                <%- include ('../partials/footer') %>
+</body>
+
+</html>

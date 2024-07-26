@@ -12,7 +12,7 @@
             <p class="card-text">
             <p>ID: <%= equipment.id %> - Article No.: <%= equipment.articlenumber %> - UserID: <%= equipment.userid %>
             </p>
-            <a href="/equipment/<%= equipment.id %>" class="btn btn-primary">Ausleihen</a>
+            <a href="/cart/add/<%= equipment.id %>" class="btn btn-primary">Ausleihen</a>
             <% if (equipment.edit){ %>
                 <a href="/equipment/edit/<%= equipment.id %>" id="editButton" class="btn btn-warning"><img
                         src="../img/pencil.png"></a>

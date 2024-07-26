@@ -14,9 +14,6 @@ async function saveFile(file) {
 
 //Holt sich vom Backend alle Equipments
 const getEquipment = async (req) => {
-    console.log(req.query)
-    let search = "";
-    console.log("Search: " + search);
     let response = await axios.get('http://localhost:3000/equipment');
     response.auth = false;
     //Wenn der User eingeloggt ist und Admin ist, dann wird der Edit Button angezeigt

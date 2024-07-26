@@ -27,21 +27,25 @@ router.route('/edit/:id')
   .get(async (req, res, next) => {
     let response = await usersController.getUser(req);
     //Wenn nicht eingeloggt
-    if (response.status == 401) {
-      req.flash('error', 'Du bist nicht eingeloggt.');
-      res.redirect('/login');
+    switch (response.status) {
+      case 401:
+        req.flash('error', 'Du bist nicht eingeloggt.');
+        res.redirect('/login');
+        break;
+      case 404:
+        req.flash('error', 'Nutzer nicht gefunden.');
+        res.redirect('back');
+        break;
+      case 403:
+        console.log("==Frontend== User not allowed to edit");
+        req.flash('error', 'Du bist nicht berechtigt, diese Aktion durchzuführen.');
+        res.redirect('back');
+        break;
+      default:
+        res.render('User/editUser', { "user": response.data });
+        break;
     }
-    //Wenn nicht gefunden
-    if (response.status == 404) {
-      req.flash('error', 'Nutzer nicht gefunden.');
-      res.redirect('back');
-    }
-    if (response.status == 403) {
-      console.log("==Frontend== User not allowed to edit");
-      req.flash('error', 'Du bist nicht berechtigt, diese Aktion durchzuführen.');
-      res.redirect('back');
-    }
-    res.render('User/editUser', { "user": response.data });
+
   })
 
   .post(async (req, res, next) => {
@@ -66,22 +70,27 @@ router.route('/edit/:id')
 router.route('/delete/:id')
   .get(async (req, res, next) => {
     let response = await usersController.getUser(req);
-    if (response.status == 404) {
-      req.flash('error', 'Nutzer nicht gefunden.');
-      res.redirect('back');
+    switch (response.status) {
+      case 404:
+        req.flash('error', 'Nutzer nicht gefunden.');
+        res.redirect('back');
+        break;
+      case 403:
+        console.log("==Frontend== User not allowed to delete");
+        req.flash('error', 'Du bist nicht berechtigt, diese Aktion durchzuführen.');
+        res.redirect('back');
+        break;
+      case 401:
+        req.flash('error', 'Du bist nicht eingeloggt.');
+        res.redirect('/login');
+        break;
+      default:
+        res.render('User/deleteUser', { "user": response.data });
+        break;
     }
-    if (response.status == 403) {
-      console.log("==Frontend== User not allowed to delete");
-      req.flash('error', 'Du bist nicht berechtigt, diese Aktion durchzuführen.');
-      res.redirect('back');
-    }
-    if (response.status == 401) {
-      req.flash('error', 'Du bist nicht eingeloggt.');
-      res.redirect('/login');
-    }
-    //res.send(response.data);
-    res.render('User/deleteUser', { "user": response.data });
   })
+
+
   .post(async (req, res, next) => {
     if (!utils.isAdmin(req)) {
       console.log("==Frontend== User not allowed to delete");
@@ -104,21 +113,26 @@ router.route('/delete/:id')
 router.get('/:id', async function (req, res, next) {
   let response = await usersController.getUser(req);
   console.log(response);
-  if (response.status == 404) {
-    console.log("==Frontend== User not found");
-    req.flash('error', 'Nutzer nicht gefunden.');
-    res.redirect('back');
+  switch (response.status) {
+    case 404:
+      console.log("==Frontend== User not found");
+      req.flash('error', 'Nutzer nicht gefunden.');
+      res.redirect('back');
+      break;
+    case 403:
+      console.log("==Frontend== User not allowed to see");
+      req.flash('error', 'Du bist nicht berechtigt, diese Aktion durchzuführen.');
+      res.redirect('back');
+      break;
+    case 401:
+      req.flash('error', 'Du bist nicht eingeloggt.');
+      res.redirect('/login');
+      break;
+    default:
+      res.render('User/singleUser', { "user": response.data, "isSameUser": response.isSameUser });
+      break;
   }
-  if (response.status == 403) {
-    console.log("==Frontend== User not allowed to see");
-    req.flash('error', 'Du bist nicht berechtigt, diese Aktion durchzuführen.');
-    res.redirect('back');
-  }
-  if (response.status == 401) {
-    req.flash('error', 'Du bist nicht eingeloggt.');
-    res.redirect('/login');
-  }
-  res.render('User/singleUser', { "user": response.data, "isSameUser": response.isSameUser });
+
 });
 
 module.exports = router;

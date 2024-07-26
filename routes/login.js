@@ -17,24 +17,24 @@ router.route('/')
     .post(async (req, res, next) => {
 
         let response = await usersController.login(req, res);
-        if (response.status == 200) {
-            req.session.user = response.data;
-            //res.send('Hallo ' + req.session.user.username);
-            req.flash('success', 'Erfolgreich eingeloggt als ' + req.session.user.username);
-            res.redirect('/');
-
-        }
-        else if (response.status == 404) {
-            req.flash('error', 'Nutzer nicht gefunden');
-            res.redirect('back');
-        }
-        else if (response.status == 400) {
-            req.flash('error', 'Falsches Passwort');
-            res.redirect('back');
-        }
-        else {
-            req.flash('error', 'Unbekannter Fehler');
-            res.redirect('back');
+        switch (response.status) {
+            case 200:
+                req.session.user = response.data;
+                req.flash('success', 'Erfolgreich eingeloggt als ' + req.session.user.username);
+                res.redirect('/');
+                break;
+            case 404:
+                req.flash('error', 'Nutzer nicht gefunden');
+                res.redirect('back');
+                break;
+            case 400:
+                req.flash('error', 'Falsches Passwort');
+                res.redirect('back');
+                break;
+            default:
+                req.flash('error', 'Unbekannter Fehler');
+                res.redirect('back');
+                break;
         }
 
     });
