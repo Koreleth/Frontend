@@ -24,7 +24,6 @@
                                     <tr>
                                         <th scope="col">Artikelnummer</th>
                                         <th scope="col">Titel</th>
-                                        <th scope="col">Anzahl</th>
                                         <th scope="col">Aktionen</th>
                                     </tr>
                                 </thead>
@@ -38,9 +37,6 @@
                                                     <%= item.title %>
                                                 </a></td>
                                             <td>
-                                                <%= item.count %>
-                                            </td>
-                                            <td>
                                                 <form action="/cart/remove/<%= item.id %>" method="POST"
                                                     class="d-inline">
                                                     <button type="submit" class="btn btn-danger btn-sm">Löschen</button>
@@ -53,12 +49,15 @@
                             <!-- start and end date selector-->
                             <form action="/cart/checkout" method="POST">
                                 <div class="mb-3">
-                                    <label for="start" class="form-label">Startdatum</label>
-                                    <input type="date" class="form-control" id="start" name="start" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="end" class="form-label">Enddatum</label>
-                                    <input type="date" class="form-control" id="end" name="end" required>
+                                    <% let startDate=new Date().toISOString().split('T')[0]%>
+                                        <label for="start" class="form-label">Startdatum</label>
+                                        <input type="date" class="form-control" id="start" name="start"
+                                            value="<%=startDate%>" required>
+                                        <% let endDate=new Date(new Date().getTime() + 14 * 24 * 60 * 60 *
+                                            1000).toISOString().split('T')[0]%>
+                                            <label for="end" class="form-label">Enddatum</label>
+                                            <input type="date" class="form-control" id="end" name="end"
+                                                value="<%= endDate%>" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Ausleihen</button>
                             </form>

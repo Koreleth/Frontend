@@ -65,6 +65,7 @@ router.route('/remove/:id')
 
 router.route('/checkout')
     .post(async (req, res, next) => {
+        console.log("CHECKOUT");
         let response = await borrowController.checkout(req);
         if (response.status != 201) {
             req.flash('error', response.data);

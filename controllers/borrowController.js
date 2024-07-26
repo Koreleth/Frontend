@@ -11,6 +11,7 @@ const getBorrows = async (res) => {
     }
     catch (error) {
         console.log(error);
+        res.send(error.response.data);
     }
     const borrows = response.data;
     for (item of borrows) {
@@ -23,8 +24,8 @@ const getBorrows = async (res) => {
         };
         delete item.equipmentids;
         delete item.userid;
-    };
-
+    }
+    console.log(borrows);
     return { "status": 200, "data": borrows };
 }
 
@@ -85,9 +86,6 @@ const removeFromCart = async (req) => {
 }
 
 const checkout = async (req) => {
-    if (!utils.isAdmin(req)) {
-        return { "status": 403 };
-    }
     if (!req.session.user.cart || req.session.user.cart.length <= 0) {
         return { "status": 404 };
     }

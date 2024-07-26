@@ -17,12 +17,11 @@
             <div class="container my-5">
                 <h1 class="text-center mb-4">Liste aller Ausleihvorgänge</h1>
                 <div class="row">
-                    <% //borrows.forEach((borrow)=> { %>
-                        <!-- include für user cards -->
+                    <% borrows.forEach((borrow)=> { %>
                         <div class="col-md-4 mb-4">
                             <%- include ('../partials/borrowCard', {borrow: borrow}) %>
                         </div>
-                        <% //}); %>
+                        <% }); %>
                 </div>
             </div>
             <%- include ('../partials/footer') %>

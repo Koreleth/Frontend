@@ -7,13 +7,17 @@ var utils = require('../controllers/controllerUtils');
 
 router.route('/')
     .get(async (req, res, next) => {
-        if (!utils.isAdmin(req)) {
+        if (!req.session.user) {
+            req.flash('error', 'Du musst eingeloggt sein, um Ausleihen zu sehen');
+            res.redirect('/login');
+        }
+        else if (!utils.isAdmin(req)) {
             req.flash('error', 'Du hast keine Berechtigung, diese Seite zu sehen');
-            res.redirect('/');
+            res.redirect('back');
         }
         else {
             let response = await borrowController.getBorrows(req);
-            console.log(response.data);
+            console.log("RESPONSE " + response.data);
             res.render('Borrow/allBorrows', { "borrows": response.data });
         }
     });
