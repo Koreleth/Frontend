@@ -13,13 +13,15 @@
   --dunkelgrau: #393D41;
   --blau: #9AC8D5;
   --hellblau: #cfe8f3;
-  /* Neuer heller Blauton für besseren Kontrast */
 }
 
 body {
   font: 14px "Tahoma", Helvetica, Arial, sans-serif;
   background-color: var(--dunkelgrau) !important;
   color: var(--weiss);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
 }
 
 footer {
@@ -27,6 +29,7 @@ footer {
   color: var(--weiss);
   text-align: center;
   padding: 10px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
 }
 
 h1,
@@ -36,14 +39,46 @@ h4,
 h5,
 h6 {
   font-family: 'Bebas Neue', sans-serif;
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+  color: var(--weiss) !important;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
+p {
+  margin-bottom: 1rem;
 }
 
 nav {
   background-color: var(--schwarz);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .nav-link {
   color: var(--weiss);
+  transition: color 0.3s ease;
 }
 
 .nav-link:hover {
@@ -58,18 +93,25 @@ nav {
 .searchbar {
   background-color: var(--mittelgrau);
   color: var(--weiss);
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
 }
 
 .searchbar input {
   background-color: var(--weiss);
   color: var(--schwarz);
   border: 1px solid var(--hellgrau);
+  border-radius: 5px;
 }
 
 .searchbar button {
   background-color: var(--blau);
   color: var(--schwarz);
   border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .searchbar button:hover {
@@ -89,22 +131,35 @@ nav img {
 .card {
   background-color: var(--mittelgrau);
   color: var(--schwarz);
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
 }
 
 .card .card-body {
   background-color: var(--dunkelgrau);
   color: var(--weiss);
+  border-radius: 5px 5px 0 0;
 }
 
 .card .card-footer {
   background-color: var(--schwarz);
   color: var(--weiss);
+  border-radius: 0 0 5px 5px;
 }
 
 .card .btn-primary {
   background-color: var(--blau);
   border: none;
   color: var(--schwarz);
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .card .btn-primary:hover {
@@ -116,6 +171,8 @@ nav img {
   background-color: var(--schwarz);
   border: none;
   color: var(--weiss);
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .card .btn-secondary:hover {
@@ -127,6 +184,8 @@ nav img {
   background-color: #f0ad4e;
   border: none;
   color: var(--schwarz);
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .card .btn-warning:hover {
@@ -138,6 +197,8 @@ nav img {
   background-color: #d9534f;
   border: none;
   color: var(--weiss);
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .card .btn-danger:hover {
@@ -150,6 +211,7 @@ nav img {
   height: auto;
   max-height: 200px;
   object-fit: cover;
+  border-radius: 5px 5px 0 0;
 }
 
 #equipFormular {
@@ -159,6 +221,8 @@ nav img {
   border: 1px solid var(--hellgrau);
   padding: 20px;
   border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
 }
 
 .navbar-nav {
@@ -215,6 +279,13 @@ footer {
   background-color: var(--dunkelgrau);
   color: var(--weiss);
   border: 1px solid var(--hellgrau);
+  border-radius: 5px;
+}
+
+.form-control:focus {
+  border-color: var(--blau);
+  outline: none;
+  box-shadow: 0 0 5px var(--blau);
 }
 
 .form-control::placeholder {
@@ -225,6 +296,8 @@ footer {
   background-color: var(--blau);
   border: none;
   color: var(--schwarz);
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .btn-primary:hover {
@@ -236,6 +309,7 @@ footer {
 a {
   color: var(--hellblau);
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 a:hover {
@@ -247,11 +321,15 @@ a:hover {
   background-color: var(--blau);
   border: none;
   color: var(--schwarz);
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .btn-outline-success {
   border: 1px solid var(--blau);
   color: var(--blau);
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .btn-outline-success:hover {
