@@ -31,12 +31,23 @@ const getBorrows = async (res) => {
  */
 const formatBorrows = async (borrows) => {
     for (let item of borrows) {
-        let userdata = await axios.get('http://localhost:3000/users/' + item.userid);
-        item.manager = { id: userdata.data.id, name: userdata.data.username };
+        try {
+            let userdata = await axios.get('http://localhost:3000/users/' + item.userid);
+            item.manager = { id: userdata.data.id, name: userdata.data.username };
+        }
+        catch (error) {
+            item.manager = { id: item.userid, name: "Unbekannt" };
+        }
         item.equipments = [];
         for (let equipmentid of item.equipmentids) {
-            let equipmentdata = await axios.get('http://localhost:3000/equipment/' + equipmentid);
-            item.equipments.push({ id: equipmentdata.data.id, title: equipmentdata.data.title });
+            try {
+                let equipmentdata = await axios.get('http://localhost:3000/equipment/' + equipmentid);
+                item.equipments.push({ id: equipmentdata.data.id, title: equipmentdata.data.title });
+            }
+            catch (error) {
+                console.log("Error getting equipment data: " + equipmentid);
+                item.equipments.push({ id: equipmentid, title: "Unbekannt" });
+            }
         }
         delete item.equipmentids;
         delete item.userid;
