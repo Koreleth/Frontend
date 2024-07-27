@@ -1,8 +1,8 @@
 <!-- Nutzerkarte -->
 <% const today=new Date(); const end=new Date(locals.borrow.end); console.log(today); console.log(end); %>
 <% if (today>end) { %>
-<div class="card h-100 d-flex flex-column border-10 border-danger">
-  <h5 class="card-header text-center">Diese Ausleihe ist überfällig!</h5>
+<div class="card h-100 d-flex flex-column border-10">
+  <h5 class="card-header text-center bg-danger">Diese Ausleihe ist überfällig!</h5>
   <% } else { %>
   <div class="card h-100 d-flex flex-column">
     <% } %>
