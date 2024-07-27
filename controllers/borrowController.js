@@ -70,7 +70,13 @@ const getCart = async (req) => {
     } else {
         console.log("CART IDS: " + req.session.user.cart);
         for (let item of req.session.user.cart) {
-            let response = await axios.get('http://localhost:3000/equipment/' + item);
+            try {
+                let response = await axios.get('http://localhost:3000/equipment/' + item);
+            }
+            catch (error) {
+                console.log("Error getting cart item: " + item);
+                return { "status": error.response.status, "data": error.response.data };
+            }
             cartItems.push(response.data);
         }
     }
@@ -87,7 +93,14 @@ const addToCart = async (req) => {
     if (!req.session.user) {
         return { "status": 401 };
     }
-    let response = await axios.get('http://localhost:3000/equipment/' + req.params.id);
+    let response;
+    try {
+        response = await axios.get('http://localhost:3000/equipment/' + req.params.id);
+    }
+    catch (error) {
+        console.log("Error getting equipment: " + req.params.id);
+        return { "status": error.response.status, "data": error.response.data };
+    }
     if (response.status == 404) {
         return { "status": 404 };
     } else {
@@ -186,7 +199,14 @@ const updateInventory = async (inventory, subtract) => {
     console.log(inventory);
     for (let item of inventory) {
         console.log("ITEM: " + item);
-        let requestedItem = await axios.get('http://localhost:3000/equipment/' + item);
+        let requestedItem;
+        try {
+            requestedItem = await axios.get('http://localhost:3000/equipment/' + item);
+        }
+        catch (error) {
+            console.log("Error getting equipment: " + item);
+            return { "status": error.response.status, "data": error.response.data };
+        }
         let targetItem = requestedItem.data;
         console.log("TARGET ITEM: ");
         console.log(targetItem);
