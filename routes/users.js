@@ -1,32 +1,36 @@
+/**
+ * @file users.js
+ * @description Dieses Modul enthält die Routen für Benutzeraktionen wie Anzeigen, Bearbeiten und Löschen von Benutzern. Es kommuniziert mit dem Benutzer-Controller.
+ */
+
 var express = require('express');
 var router = express.Router();
 var usersController = require('../controllers/userController');
 var utils = require('../controllers/controllerUtils');
-/* GET users listing. */
+
+/**
+ * Route für die Benutzerliste
+ */
 router.get('/', async function (req, res, next) {
-  //Man kann nur auf die Seite zugreifen wenn man eingeloggt ist
-  //Und Admin ist
+  // Überprüft, ob der Benutzer eingeloggt ist und Admin-Rechte hat
   if (!req.session.user) {
     req.flash('error', 'Du bist nicht eingeloggt.');
     res.redirect('/login');
-  }
-  else if (!utils.isAdmin(req)) {
+  } else if (!utils.isAdmin(req)) {
     console.log("==Frontend== User not allowed to see all users");
     req.flash('error', 'Du bist nicht berechtigt, diese Aktion durchzuführen.');
     res.redirect('back');
-  }
-  else {
+  } else {
+    // Holt alle Benutzer und rendert die Benutzerliste
     let users = await usersController.getAllUsers();
-    //res.send(users);
     res.render('User/users', { "users": users.data });
   }
 });
 
-
 router.route('/edit/:id')
   .get(async (req, res, next) => {
     let response = await usersController.getUser(req, res);
-    //Wenn nicht eingeloggt
+    // Überprüft den Status der Antwort und handelt entsprechend
     switch (response.status) {
       case 401:
         req.flash('error', 'Du bist nicht eingeloggt.');
@@ -45,22 +49,20 @@ router.route('/edit/:id')
         res.render('User/editUser', { "user": response.data });
         break;
     }
-
   })
-
   .post(async (req, res, next) => {
+    // Überprüft, ob der Benutzer Admin-Rechte hat
     if (!utils.isAdmin(req)) {
       console.log("==Frontend== User not allowed to edit");
       req.flash('error', 'Du bist nicht berechtigt, diese Aktion durchzuführen.');
       res.redirect('back');
-    }
-    else {
+    } else {
+      // Aktualisiert die Benutzerdaten
       let response = await usersController.updateUser(req);
       console.log(response);
       if (response.status == 200) {
         req.flash('success', 'Nutzer erfolgreich bearbeitet.');
-      }
-      else {
+      } else {
         req.flash('error', 'Es ist ein Fehler aufgetreten.');
       }
       res.redirect('/users/' + req.params.id);
@@ -70,6 +72,7 @@ router.route('/edit/:id')
 router.route('/delete/:id')
   .get(async (req, res, next) => {
     let response = await usersController.getUser(req, res);
+    // Überprüft den Status der Antwort und handelt entsprechend
     switch (response.status) {
       case 404:
         req.flash('error', 'Nutzer nicht gefunden.');
@@ -89,21 +92,19 @@ router.route('/delete/:id')
         break;
     }
   })
-
-
   .post(async (req, res, next) => {
+    // Überprüft, ob der Benutzer Admin-Rechte hat
     if (!utils.isAdmin(req)) {
       console.log("==Frontend== User not allowed to delete");
       req.flash('error', 'Du bist nicht berechtigt, diese Aktion durchzuführen.');
       res.redirect('back');
-    }
-    else {
+    } else {
+      // Löscht den Benutzer
       let response = await usersController.deleteUser(req);
       console.log(response);
       if (response.status == 200) {
         req.flash('success', 'Nutzer erfolgreich gelöscht.');
-      }
-      else {
+      } else {
         req.flash('error', 'Es ist ein Fehler aufgetreten.');
       }
       res.redirect('/users');
@@ -113,6 +114,7 @@ router.route('/delete/:id')
 router.get('/:id', async function (req, res, next) {
   let response = await usersController.getUser(req, res);
   console.log(response);
+  // Überprüft den Status der Antwort und handelt entsprechend
   switch (response.status) {
     case 404:
       console.log("==Frontend== User not found");
@@ -132,7 +134,6 @@ router.get('/:id', async function (req, res, next) {
       res.render('User/singleUser', { "user": response.data, "isSameUser": response.isSameUser, "borrows": response.borrows });
       break;
   }
-
 });
 
 module.exports = router;

@@ -5,16 +5,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nutzer</title>
+  <!-- Einbinden der Bootstrap- und benutzerdefinierten CSS-Dateien -->
   <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link rel="icon" href="/img/logoGR.png" type="image/x-icon">
 </head>
 
 <body>
+  <!-- Einbinden der Navbar -->
   <%- include ('../partials/navbar') %>
+  <!-- Einbinden der Alerts für Benachrichtigungen -->
   <%- include ('../partials/alerts') %>
 
   <div class="container my-5">
+    <!-- Bedingte Anzeige des Logout-Buttons, wenn der Nutzer eingeloggt ist -->
     <% if(locals.isSameUser){ %>
     <div class="text-end mb-3">
       <a href="/login/logout" class="btn btn-primary">Log Out</a>
@@ -22,23 +26,26 @@
     <% } %>
     <div class="row justify-content-center">
       <div class="col-md-6">
+        <!-- Einbinden der Nutzerkarte -->
         <%- include ('../partials/userCard', {"user": user}) %>
       </div>
     </div>
   </div>
-  <!-- Liste an ausleihen -->
+
+  <!-- Liste der Ausleihen des Nutzers -->
   <div class="container my-5">
-    <h2 class="text-center">Ausleihen von <%=user.username%>:
-    </h2>
+    <h2 class="text-center">Ausleihen von <%=user.username%>:</h2>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
       <% borrows.forEach((borrow)=> { %>
+      <!-- Einbinden der Borrow-Karten -->
       <%- include ('../partials/borrowCard', {"borrow": borrow}) %>
-      <%}); %>
+      <% }); %>
     </div>
   </div>
 
-
+  <!-- Einbinden des Footers -->
   <%- include ('../partials/footer') %>
+  <!-- Einbinden der JavaScript-Dateien -->
   <script src="/javascripts/bootstrap.min.js"></script>
   <script src="/javascripts/script.js"></script>
 </body>

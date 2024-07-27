@@ -3,6 +3,11 @@ var router = express.Router();
 var axios = require('axios');
 var utils = require('./controllerUtils');
 
+/**
+ * Fetches all borrows from the backend.
+ * @param {Object} res - The response object.
+ * @returns {Object} - The status and formatted borrows data.
+ */
 const getBorrows = async (res) => {
     let response;
     try {
@@ -19,21 +24,31 @@ const getBorrows = async (res) => {
     return { "status": 200, "data": borrows };
 }
 
+/**
+ * Formats borrows by fetching and attaching related user and equipment data.
+ * @param {Array} borrows - The borrows data to format.
+ * @returns {Array} - The formatted borrows data.
+ */
 const formatBorrows = async (borrows) => {
-    for (item of borrows) {
-        userdata = await axios.get('http://localhost:3000/users/' + item.userid);
+    for (let item of borrows) {
+        let userdata = await axios.get('http://localhost:3000/users/' + item.userid);
         item.manager = { id: userdata.data.id, name: userdata.data.username };
         item.equipments = [];
-        for (equipmentid of item.equipmentids) {
+        for (let equipmentid of item.equipmentids) {
             let equipmentdata = await axios.get('http://localhost:3000/equipment/' + equipmentid);
             item.equipments.push({ id: equipmentdata.data.id, title: equipmentdata.data.title });
-        };
+        }
         delete item.equipmentids;
         delete item.userid;
     }
     return borrows;
 }
 
+/**
+ * Gets the current cart items for the logged-in user.
+ * @param {Object} req - The request object.
+ * @returns {Object} - The status and cart items data.
+ */
 const getCart = async (req) => {
     let cartItems = [];
     if (!req.session.user) {
@@ -41,16 +56,21 @@ const getCart = async (req) => {
     }
     if (!req.session.user.cart || req.session.user.cart.length <= 0) {
         req.session.user.cart = [];
-    }
-    else {
+    } else {
         console.log("CART IDS: " + req.session.user.cart);
-        for (item of req.session.user.cart) {
+        for (let item of req.session.user.cart) {
             let response = await axios.get('http://localhost:3000/equipment/' + item);
             cartItems.push(response.data);
         }
     }
     return { "status": 200, "data": cartItems };
 }
+
+/**
+ * Adds an item to the user's cart.
+ * @param {Object} req - The request object.
+ * @returns {Object} - The status and added item data.
+ */
 const addToCart = async (req) => {
     console.log("SESSION: " + req.session.user);
     if (!req.session.user) {
@@ -59,8 +79,7 @@ const addToCart = async (req) => {
     let response = await axios.get('http://localhost:3000/equipment/' + req.params.id);
     if (response.status == 404) {
         return { "status": 404 };
-    }
-    else {
+    } else {
         if (!req.session.user.cart) {
             req.session.user.cart = [];
         }
@@ -68,8 +87,7 @@ const addToCart = async (req) => {
         req.session.user.cart.forEach((v) => (v === req.params.id && count++));
         if (count >= response.data.count) {
             return { "status": 409, "data": "Nicht genügend Geräte auf Lager" };
-        }
-        else {
+        } else {
             let cart = req.session.user.cart;
             if (!cart) {
                 cart = [];
@@ -81,6 +99,11 @@ const addToCart = async (req) => {
     }
 }
 
+/**
+ * Removes an item from the user's cart.
+ * @param {Object} req - The request object.
+ * @returns {Object} - The status.
+ */
 const removeFromCart = async (req) => {
     if (!req.session.user) {
         return { "status": 401 };
@@ -89,15 +112,18 @@ const removeFromCart = async (req) => {
     let index = cart.indexOf(req.params.id);
     if (index > -1) {
         cart.splice(index, 1);
-    }
-    else {
+    } else {
         return { "status": 404 };
     }
     req.session.user.cart = cart;
     return { "status": 200 };
-
 }
 
+/**
+ * Checks out the items in the user's cart, creating a new borrow record.
+ * @param {Object} req - The request object.
+ * @returns {Object} - The status and message.
+ */
 const checkout = async (req) => {
     if (!req.session.user.cart || req.session.user.cart.length <= 0) {
         return { "status": 404 };
@@ -105,14 +131,10 @@ const checkout = async (req) => {
     let borrow = {
         "userid": req.session.user.id,
         "equipmentids": req.session.user.cart,
-        //heutiges datum als ISO date ohne uhrzeit
-        //fälligkeitsdatum 2 wochen
-        /*"start": new Date().toISOString().split('T')[0],
-        "end": new Date(new Date().getTime() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]*/
         "start": req.body.start,
         "end": req.body.end
     }
-    //wenn borrow anfang in der Vergangenheit liegt Fehlermeldung
+    // Check if the borrow start date is in the past
     if (new Date(borrow.start + 1) < new Date().setHours(0, 0, 0, 0)) {
         return { "status": 409, "data": "Startdatum liegt in der Vergangenheit" };
     }
@@ -133,20 +155,25 @@ const checkout = async (req) => {
     if (response.status == 201) {
         req.session.user.cart = [];
         return { "status": 201, "data": "Ausleihe erfolgreich" };
-    }
-    else {
+    } else {
         console.log(response.data);
         return { "status": response.status, "data": response.data };
     }
 }
 
+/**
+ * Updates the inventory count for the specified items.
+ * @param {Array} inventory - The list of inventory item IDs to update.
+ * @param {Boolean} subtract - Whether to subtract from the inventory count.
+ * @returns {Object} - The status and data.
+ */
 const updateInventory = async (inventory, subtract) => {
     if (!inventory || inventory.length <= 0 || !Array.isArray(inventory)) {
         return;
     }
     console.log("INVENTORY: ");
     console.log(inventory);
-    for (item of inventory) {
+    for (let item of inventory) {
         console.log("ITEM: " + item);
         let requestedItem = await axios.get('http://localhost:3000/equipment/' + item);
         let targetItem = requestedItem.data;
@@ -160,8 +187,7 @@ const updateInventory = async (inventory, subtract) => {
         }
         if (subtract) {
             updatedItem.count = targetItem.count - 1;
-        }
-        else {
+        } else {
             updatedItem.count = targetItem.count + 1;
         }
         console.log("UPDATE BODY: ");
@@ -172,23 +198,24 @@ const updateInventory = async (inventory, subtract) => {
             response = await axios.put('http://localhost:3000/equipment/' + targetItem.id, updatedItem);
         }
         catch (error) {
-            //console.log(error);
             console.log("Error updating equipment: " + item);
             return { "status": error.response.status, "data": error.response.data };
         }
         if (response.status == 200) {
             console.log("Equipment updated: " + item);
-        }
-        else if (response.status != 200) {
+        } else if (response.status != 200) {
             console.log("Error updating equipment: " + item);
             return { "status": response.status, "data": response.data };
-            //console.log(response.data.data);
         }
-
     }
     return { "status": 200 };
 }
 
+/**
+ * Deletes a borrow record.
+ * @param {Object} req - The request object.
+ * @returns {Object} - The status.
+ */
 const deleteBorrow = async (req) => {
     if (!req.session.user) {
         return { "status": 401 };
@@ -206,15 +233,18 @@ const deleteBorrow = async (req) => {
     if (response.status == 200) {
         console.log("Borrow deleted: " + req.params.id);
         await updateInventory(borrow.data.equipmentids, false);
-    }
-    else {
+    } else {
         console.log(response.data);
         return { "status": response.status, "data": response.data };
     }
     return { "status": response.status };
-
 }
 
+/**
+ * Gets a single borrow record by ID.
+ * @param {Object} req - The request object.
+ * @returns {Object} - The status and borrow data.
+ */
 const getSingleBorrow = async (req) => {
     let response;
     if (!req.session.user) {
@@ -232,17 +262,20 @@ const getSingleBorrow = async (req) => {
     }
     if (response.status == 200) {
         console.log("Borrow found: " + req.params.id);
-    }
-    else {
+    } else {
         console.log("RESPONSE DATA: ");
         console.log(response.data);
         response.data = await formatBorrows([response.data]);
         return { "status": response.status, "data": response.data };
     }
     return { "status": response.status, "data": response.data[0] };
-
 }
 
+/**
+ * Edits a borrow record.
+ * @param {Object} req - The request object.
+ * @returns {Object} - The status.
+ */
 const editBorrow = async (req) => {
     if (!req.session.user) {
         return { "status": 401 };
@@ -263,7 +296,6 @@ const editBorrow = async (req) => {
     console.log(input.start);
     console.log(input.end);
     try {
-
         response = await axios.put('http://localhost:3000/borrows/' + req.params.id, input);
     }
     catch (error) {
@@ -272,14 +304,13 @@ const editBorrow = async (req) => {
     }
     if (response.status == 200) {
         console.log("Borrow updated: " + req.params.id);
-    }
-    else {
+    } else {
         console.log(response.data);
         return { "status": response.status, "data": response.data };
     }
     return { "status": response.status };
-
 }
+
 module.exports = {
     getBorrows,
     getCart,

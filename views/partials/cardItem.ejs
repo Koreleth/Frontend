@@ -2,51 +2,48 @@
   <div class="row">
     <% data.forEach((equipment)=> { %>
     <div class="col-md-4 mb-4 d-flex">
+      <!-- Card container with conditional class for disabled state -->
       <div class="card h-100 w-100 d-flex flex-column position-relative <%= equipment.count <= 0 ? 'disabled' : '' %>">
+        <!-- Header for equipment availability -->
         <% if (equipment.count <=0) { %>
         <h5 class="card-header text-center bg-danger">Aktuell nicht verfügbar</h5>
         <% } else if (equipment.count <=5) { %>
-        <h5 class="card-header text-center bg-warning text-dark">Nur noch <%= equipment.count %>
-          Stück
-          verfügbar!</h5>
+        <h5 class="card-header text-center bg-warning text-dark">Nur noch <%= equipment.count %> Stück verfügbar!</h5>
         <% } else { %>
-        <h5 class="card-header text-center ">Noch auf Lager: <%= equipment.count %>
-        </h5>
+        <h5 class="card-header text-center">Noch auf Lager: <%= equipment.count %></h5>
         <% } %>
+        <!-- Equipment image -->
         <% if (equipment.pic) { %>
         <img src="http://localhost:3000<%= equipment.pic %>" class="card-img-top equipPic" alt="Equipment Image">
         <% } else { %>
         <img src="/img/Placeholder.png" class="card-img-top equipPic" alt="Equipment Image">
         <% } %>
+        <!-- Card body with equipment details -->
         <div class="card-body flex-grow-1">
-          <h5 class="card-title">
-            <%= equipment.title %>
-          </h5>
-          <p class="card-text">
-            <%= equipment.description %>
-          </p>
+          <h5 class="card-title"><%= equipment.title %></h5>
+          <p class="card-text"><%= equipment.description %></p>
           <p class="card-text">Verfügbar: <%= equipment.count %> Stück</p>
+          <!-- Conditional rendering for equipment edit info -->
           <% if (equipment.edit) { %>
-          <p class="card-text">ID: <%= equipment.id %> - Artikelnummer:
-            <%= equipment.articlenumber %>
-          </p>
+          <p class="card-text">ID: <%= equipment.id %> - Artikelnummer: <%= equipment.articlenumber %></p>
           <% } %>
           <p class="card-text">
+            <!-- Conditional rendering for manager info -->
             <% if (equipment.edit) { %>
-            Verwalter: <a href="/users/<%= equipment.userid %>">
-              <%= equipment.manager %>
-            </a>
+            Verwalter: <a href="/users/<%= equipment.userid %>"><%= equipment.manager %></a>
             <% } else { %>
             Verwalter: <%= equipment.manager %>
             <% } %>
           </p>
         </div>
+        <!-- Card footer with action buttons -->
         <div class="card-footer mt-auto">
           <% if (equipment.count> 0) { %>
           <a href="/cart/add/<%= equipment.id %>" class="btn btn-primary">Ausleihen</a>
           <% } else { %>
           <a href="#" class="btn btn-secondary">Nicht verfügbar</a>
           <% } %>
+          <!-- Edit and delete buttons for authorized users -->
           <% if (equipment.edit) { %>
           <a href="/equipment/edit/<%= equipment.id %>" id="editButton" class="btn btn-warning">
             <img src="../img/pencil.png" alt="Edit">
@@ -56,6 +53,7 @@
           </a>
           <% } %>
         </div>
+        <!-- Overlay for unavailable equipment -->
         <% if (equipment.count <=0) { %>
         <div class="card-overlay d-flex align-items-center justify-content-center">
           <span class="text-white">Nicht verfügbar</span>

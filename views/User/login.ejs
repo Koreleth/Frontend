@@ -5,30 +5,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
+  <!-- Einbinden der Bootstrap- und benutzerdefinierten CSS-Dateien -->
   <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link rel="icon" href="/img/logoGR.png" type="image/x-icon">
 </head>
 
 <body>
+  <!-- Einbinden der Navbar -->
   <%- include ('../partials/navbar') %>
+  <!-- Einbinden der Alerts für Benachrichtigungen -->
   <%- include ('../partials/alerts') %>
 
   <div class="container my-5">
     <div class="row justify-content-center">
       <div class="col-md-6">
+        <!-- Überschrift für die Login-Seite -->
         <h1 class="text-center mb-4">Login</h1>
+        <!-- Formular für den Login -->
         <form action="/login" method="POST">
+          <!-- Eingabefeld für den Benutzernamen -->
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>
             <input type="text" class="form-control" id="username" name="username" required>
           </div>
+          <!-- Eingabefeld für das Passwort -->
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <input type="password" class="form-control" id="password" name="password" required>
           </div>
+          <!-- Absenden-Button -->
           <button type="submit" class="btn btn-primary w-100">Submit</button>
         </form>
+        <!-- Link zur Registrierung, falls der Nutzer noch kein Konto hat -->
         <div class="mt-3 text-center">
           <p>Noch kein Nutzer?</p>
           <a href="/register" class="btn btn-secondary">Registrieren</a>
@@ -37,6 +46,7 @@
     </div>
   </div>
 
+  <!-- Einbinden des Footers -->
   <%- include ('../partials/footer') %>
 </body>
 

@@ -1,18 +1,26 @@
+/**
+ * @file equipment.js
+ * @description Dieses Modul enthält die Routen für die Verwaltung des Equipments.
+ * Es kommuniziert mit dem Equipment-Controller und stellt sicher, dass nur berechtigte Benutzer
+ * Zugriff auf bestimmte Funktionen haben.
+ */
+
 var express = require('express');
 var router = express.Router();
 let equipmentController = require('../controllers/equipmentController');
 let utils = require('../controllers/controllerUtils');
 
-//equipment routes
+// Route für alle Equipment-Operationen
 router.route('/')
 
-  //Alle Equipments anzeigen
+  // Alle Equipments anzeigen
   .get(async (req, res, next) => {
-    console.log(req.query)
+    console.log(req.query);
     let response = await equipmentController.getEquipment(req);
     res.render('Equipment/allEquip', { "data": response.data, "auth": response.auth, "user": req.session.user });
   })
-  //Neues Equipment erstellen
+
+  // Neues Equipment erstellen
   .post(async (req, res, next) => {
     let response = await equipmentController.createEquipment(req, res);
     if (response.status == 403) {
@@ -31,15 +39,15 @@ router.route('/')
     }
   });
 
-
-
+// Route zum Löschen eines Equipments
 router.route('/delete/:id')
-  //Wenn get aufgerufen wird equipment angezeigt
+  // Zeigt das Equipment an, wenn GET aufgerufen wird
   .get(async (req, res, next) => {
     res.redirect('/equipment/' + req.params.id);
   })
-  //Equipment löschen
-  .post(async (req, res, nex) => {
+
+  // Equipment löschen
+  .post(async (req, res, next) => {
     console.log("DIREKT VOR DEM REQUEST" + req.session);
     let response = await equipmentController.deleteEquipment(req);
     if (response.status == 403) {
@@ -54,8 +62,9 @@ router.route('/delete/:id')
     }
   });
 
+// Route zum Bearbeiten eines Equipments
 router.route('/edit/:id')
-  //Wenn get aufgerufen wird equipment Bearbeitungs Seite angezeigt
+  // Zeigt die Bearbeitungsseite für ein Equipment an
   .get(async (req, res, next) => {
     if (!utils.auth(req)) {
       console.log("==Frontend== Not authorized");
@@ -72,10 +81,8 @@ router.route('/edit/:id')
     }
   })
 
-  //Equipment bearbeiten
+  // Equipment bearbeiten
   .post((req, res, next) => {
-    //console.log("edit");
-    // console.log(req.body);
     equipmentController.updateEquipment(req, res)
       .then(response => {
         if (response.status == 403) {
@@ -93,7 +100,7 @@ router.route('/edit/:id')
       });
   });
 
-
+// Route zum Anzeigen eines einzelnen Equipments
 router.route('/:id')
   .get(async (req, res, next) => {
     let response = await equipmentController.getSingleEquipment(req.params.id);
@@ -109,7 +116,5 @@ router.route('/:id')
       res.render('Equipment/singleEquip', { "data": response.data });
     }
   });
-
-
 
 module.exports = router;

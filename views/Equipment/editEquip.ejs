@@ -5,52 +5,65 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bearbeiten</title>
+  <!-- Einbindung von Bootstrap und benutzerdefinierten CSS-Dateien -->
   <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link rel="icon" href="/img/logoGR.png" type="image/x-icon">
 </head>
 
 <body>
+  <!-- Einbindung der Navigationsleiste -->
   <%- include ('../partials/navbar') %>
+  <!-- Einbindung der Alert-Nachrichten -->
   <%- include ('../partials/alerts') %>
   <div class="container my-5">
     <h1 class="text-center mb-4">Bearbeiten</h1>
+    <!-- Formular zum Bearbeiten des Equipments -->
     <form action="/equipment/edit/<%= data.id %>" method="POST" enctype="multipart/form-data">
+      <!-- Verstecktes Feld für die ID des Equipments -->
       <input type="hidden" name="id" value="<%= data.id %>">
 
+      <!-- Feld für die Artikelnummer -->
       <div class="mb-3">
         <label for="articlenumber" class="form-label">Artikelnummer</label>
         <input type="text" class="form-control" id="articlenumber" name="articlenumber" value="<%= data.articlenumber %>" required>
       </div>
 
+      <!-- Feld für den Titel -->
       <div class="mb-3">
         <label for="title" class="form-label">Titel</label>
         <input type="text" class="form-control" id="title" name="title" value="<%= data.title %>" required>
       </div>
 
+      <!-- Feld für die Beschreibung -->
       <div class="mb-3">
         <label for="description" class="form-label">Beschreibung</label>
         <textarea class="form-control" id="description" name="description" rows="3" required><%= data.description %></textarea>
       </div>
 
+      <!-- Feld für das Bild -->
       <div class="mb-3">
         <label for="file" class="form-label">Bild</label>
         <input class="form-control" type="file" id="file" name="file" value="<%= data.pic %>">
       </div>
 
+      <!-- Feld für die Anzahl -->
       <div class="mb-3">
         <label for="count" class="form-label">Anzahl</label>
         <input type="number" class="form-control" id="count" name="count" value="<%= data.count %>" required>
       </div>
 
+      <!-- Feld für die User ID -->
       <div class="mb-3">
         <label for="userid" class="form-label">User ID</label>
         <input type="text" class="form-control" id="userid" name="userid" value="<%= data.userid %>" required>
       </div>
 
+      <!-- Submit-Button -->
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
+  <!-- Einbindung des Footers -->
   <%- include ('../partials/footer') %>
 </body>
 

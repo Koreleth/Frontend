@@ -11,40 +11,47 @@
 </head>
 
 <body>
-  <!-- includes-->
+  <!-- Einbinden der Navbar -->
   <%- include ('../partials/navbar') %>
+  <!-- Einbinden der Alert-Meldungen -->
   <%- include ('../partials/alerts') %>
 
   <div class="container my-5">
+    <!-- Karte zur Anzeige der Nutzerdetails -->
     <div class="card">
       <div class="card-body">
+        <!-- Anzeige des Benutzernamens -->
         <h5 class="card-title">
           <%= user.username %>
         </h5>
-        <p class="card-text">ID: <%= user.id %>
-        </p>
-        <p class="card-text">E-Mail: <%= user.email %>
-        </p>
-        <p class="card-text">Rolle: <%= user.role %>
-        </p>
-        <p class="card-text">Erstellt am: <%= user.created %>
-        </p>
+        <!-- Anzeige der Benutzer-ID -->
+        <p class="card-text">ID: <%= user.id %></p>
+        <!-- Anzeige der E-Mail-Adresse -->
+        <p class="card-text">E-Mail: <%= user.email %></p>
+        <!-- Anzeige der Rolle des Nutzers -->
+        <p class="card-text">Rolle: <%= user.role %></p>
+        <!-- Anzeige des Erstellungsdatums -->
+        <p class="card-text">Erstellt am: <%= user.created %></p>
       </div>
     </div>
 
     <div class="mt-4">
       <h1>Löschen</h1>
+      <!-- Sicherheitsabfrage, ob der Nutzer wirklich gelöscht werden soll -->
       <p>Wollen Sie den Nutzer <%= user.username %> wirklich löschen?</p>
+      <!-- Formular zur Löschung des Nutzers -->
       <form action="/users/delete/<%= user.id %>" method="POST" class="d-inline">
         <button type="submit" class="btn btn-danger">Ja</button>
         <input type="hidden" name="id" value="<%= user.id %>">
       </form>
+      <!-- Abbrechen-Button -->
       <a href="/users" class="btn btn-primary">Nein</a>
+      <!-- Bearbeiten-Button -->
       <a href="/users/edit/<%= user.id %>" class="btn btn-warning">Bearbeiten</a>
     </div>
   </div>
 
-  <!-- footer-->
+  <!-- Einbinden des Footers -->
   <%- include ('../partials/footer') %>
 </body>
 

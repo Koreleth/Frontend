@@ -1,26 +1,31 @@
+/**
+ * @file borrows.js
+ * @description Dieses Modul enthält die Routen für die Verwaltung von Ausleihen.
+ * Es kommuniziert mit dem Borrow-Controller und stellt sicher, dass nur berechtigte Benutzer
+ * Zugriff auf bestimmte Funktionen haben.
+ */
+
 var express = require('express');
 var router = express.Router();
 let borrowController = require('../controllers/borrowController');
-let equipmentController = require('../controllers/equipmentController');
-var axios = require('axios');
 var utils = require('../controllers/controllerUtils');
 
+// Route zum Abrufen aller Ausleihen
 router.route('/')
     .get(async (req, res, next) => {
         if (!req.session.user) {
             req.flash('error', 'Du musst eingeloggt sein, um Ausleihen zu sehen');
             res.redirect('/login');
-        }
-        else if (!utils.isAdmin(req)) {
+        } else if (!utils.isAdmin(req)) {
             req.flash('error', 'Du hast keine Berechtigung, diese Seite zu sehen');
             res.redirect('back');
-        }
-        else {
+        } else {
             let response = await borrowController.getBorrows(req);
             res.render('Borrow/allBorrows', { "borrows": response.data });
         }
     });
 
+// Route zum Löschen einer Ausleihe
 router.route('/delete/:id')
     .post(async (req, res, next) => {
         let response = await borrowController.deleteBorrow(req);
@@ -47,6 +52,7 @@ router.route('/delete/:id')
         }
     });
 
+// Route zum Abrufen einer einzelnen Ausleihe
 router.route('/:id')
     .get(async (req, res, next) => {
         let response = await borrowController.getSingleBorrow(req);
@@ -74,6 +80,7 @@ router.route('/:id')
         }
     });
 
+// Routen zum Bearbeiten einer Ausleihe
 router.route('/edit/:id')
     .get(async (req, res, next) => {
         let response = await borrowController.getSingleBorrow(req);
@@ -126,4 +133,5 @@ router.route('/edit/:id')
                 res.redirect('/borrows');
         }
     });
+
 module.exports = router;

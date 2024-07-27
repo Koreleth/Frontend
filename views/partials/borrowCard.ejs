@@ -1,18 +1,24 @@
-<!-- Nutzerkarte -->
+<!-- Konvertiere die aktuellen und das Enddatum der Ausleihe in Datumsobjekte -->
 <% const today=new Date(); const end=new Date(locals.borrow.end); console.log(today); console.log(end); %>
+<!-- Überprüfe, ob die Ausleihe überfällig ist -->
 <% if (today>end) { %>
+<!-- Falls überfällig, setze die Kartenüberschrift auf rot -->
 <div class="card h-100 d-flex flex-column border-10">
   <h5 class="card-header text-center bg-danger">Diese Ausleihe ist überfällig!</h5>
   <% } else { %>
+  <!-- Andernfalls, normale Kartendarstellung -->
   <div class="card h-100 d-flex flex-column">
     <% } %>
     <div class="card-body flex-grow-1">
+      <!-- Zeige die ID der Ausleihe an -->
       <p class="card-text">ID: <%=borrow.id%>
       </p>
+      <!-- Verlinke den Namen des Ausleihers zur Nutzerseite -->
       <p class="card-text">Ausleiher: <a href="/users/<%=borrow.manager.id%>">
           <%= borrow.manager.name %>
         </a>
       </p>
+      <!-- Zeige die Liste der ausgeliehenen Geräte an -->
       <p class="card-text">Equipment: <% borrow.equipments.forEach((equipment)=> { %>
       <p><a href="/equipment/<%=equipment.id%>">
           <%=equipment.title%>
@@ -20,17 +26,19 @@
       </p>
       <%});%>
       </p>
+      <!-- Zeige das Start- und Enddatum der Ausleihe an -->
       <p class="card-text">Startdatum: <%= borrow.start %>
       </p>
       <p class="card-text">Enddatum: <%= borrow.end %>
       </p>
     </div>
     <div class="card-footer mt-auto">
+      <!-- Formular zum Löschen der Ausleihe -->
       <form action="/borrows/delete/<%= borrow.id %>" method="POST">
+        <!-- Link zu den Details der Ausleihe -->
         <a href="/borrows/<%= borrow.id %>" class="btn btn-secondary">Details</a>
+        <!-- Button zum Zurückgeben der Ausleihe -->
         <button type="submit" class="btn btn-success">Zurückgeben</button>
       </form>
     </div>
   </div>
-  <script>
-  </script>

@@ -1,19 +1,26 @@
-<% if (success && success.length> 0) { %>
+<!-- Überprüfung und Anzeige von Erfolgsmeldungen -->
+<% if (success && success.length > 0) { %>
 <div class="alert alert-success" role="alert">
   <%= success %>
 </div>
 <% } %>
-<% if (error && error.length> 0) { %>
+
+<!-- Überprüfung und Anzeige von Fehlermeldungen -->
+<% if (error && error.length > 0) { %>
 <div class="alert alert-danger" role="alert">
   <%= error %>
 </div>
 <% } %>
-<% if (info && info.length> 0) { %>
+
+<!-- Überprüfung und Anzeige von Informationsmeldungen -->
+<% if (info && info.length > 0) { %>
 <div class="alert alert-info" role="alert">
   <%= info %>
 </div>
 <% } %>
-<% if (warning && warning.length> 0) { %>
+
+<!-- Überprüfung und Anzeige von Warnmeldungen -->
+<% if (warning && warning.length > 0) { %>
 <div class="alert alert-warning" role="alert">
   <%= warning %>
 </div>

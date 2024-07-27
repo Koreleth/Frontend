@@ -5,13 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Equipment Details</title>
+  <!-- Einbindung von Bootstrap und benutzerdefinierten CSS-Dateien -->
   <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link rel="icon" href="/img/logoGR.png" type="image/x-icon">
 </head>
 
 <body>
+  <!-- Einbindung der Navigationsleiste -->
   <%- include ('../partials/navbar') %>
+  <!-- Einbindung der Alert-Nachrichten -->
   <%- include ('../partials/alerts') %>
 
   <div class="container my-5">
@@ -20,24 +23,17 @@
       <div class="col-md-6">
         <% if (data.pic) { %>
         <img src="http://localhost:3000<%= data.pic %>" class="img-fluid" alt="Equipment Image">
-        <% } %>
-        <% if (!data.pic) { %>
+        <% } else { %>
         <img src="/img/Placeholder.png" class="img-fluid" alt="Equipment Image">
         <% } %>
       </div>
 
       <!-- Hier werden die Infos des Equipments angezeigt -->
       <div class="col-md-6" id="infos">
-        <h1>
-          <%= data.title %>
-        </h1>
-        <p>
-          <%= data.description %>
-        </p>
-        <p>Artikelnummer: <%= data.articlenumber %>
-        </p>
-        <p>Verfügbar: <%= data.count %>
-        </p>
+        <h1><%= data.title %></h1>
+        <p><%= data.description %></p>
+        <p>Artikelnummer: <%= data.articlenumber %></p>
+        <p>Verfügbar: <%= data.count %></p>
 
         <!-- Ausleihen Button soll einen Ausleihvorgang erstellen -->
         <a href="/cart/add/<%=data.id %>" class="btn btn-primary">Jetzt Ausleihen</a>
@@ -59,6 +55,7 @@
     </div>
   </div>
 
+  <!-- Einbindung des Footers -->
   <%- include ('../partials/footer') %>
 </body>
 

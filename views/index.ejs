@@ -5,13 +5,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Startseite</title>
+  <!-- Einbindung der Bootstrap- und benutzerdefinierten CSS-Dateien -->
   <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
   <link rel="stylesheet" href="/stylesheets/style.css">
+  <!-- Favicon für die Webseite -->
   <link rel="icon" href="/img/logoGR.png" type="image/x-icon">
 </head>
 
 <body>
+  <!-- Einbindung der Navigationsleiste -->
   <%- include('partials/navbar') %>
+  <!-- Einbindung der Alert-Nachrichten -->
   <%- include('partials/alerts') %>
 
   <div class="container my-5">
@@ -20,29 +24,33 @@
       <h1>Willkommen bei GadgetRent!</h1>
       <p>Finden und leihen Sie die besten PowerBanks für Ihre Bedürfnisse hier aus</p>
     </div>
-    <!-- Popular Items Section -->
+    <!-- Beliebte Artikel Sektion -->
     <div class="row mb-4">
       <div class="col-12">
         <h2>Beliebte Artikel</h2>
         <div class="row">
           <div class="col-sm">
+            <!-- Einbindung der Kartenartikel für beliebte Artikel -->
             <%- include('partials/carditem', { data: popularItems }) %>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Call to Action Section -->
+    <!-- Call to Action Sektion -->
     <div class="row mb-4">
       <div class="col-12 text-center">
         <h2>Machen Sie mit!</h2>
         <p>Erstellen Sie ein Konto, um Artikel auszuleihen</p>
+        <!-- Registrierungsbutton -->
         <a href="/register" class="btn btn-success">Jetzt registrieren</a>
       </div>
     </div>
   </div>
 
+  <!-- Einbindung des Footers -->
   <%- include('partials/footer') %>
+  <!-- Einbindung der Bootstrap- und benutzerdefinierten JavaScript-Dateien -->
   <script src="/javascripts/bootstrap.min.js"></script>
   <script src="/javascripts/script.js"></script>
 </body>

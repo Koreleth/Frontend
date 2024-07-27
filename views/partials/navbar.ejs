@@ -1,18 +1,25 @@
 <nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/"><img src="/img/logoGR.png" alt="Logo"> </a>
+    <!-- Logo and brand link -->
+    <a class="navbar-brand" href="/"><img src="/img/logoGR.png" alt="Logo"></a>
+    <!-- Navbar toggle button for mobile view -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    <!-- Collapsible part of the navbar -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Left-aligned navbar links -->
       <ul class="navbar-nav">
+        <!-- Home link -->
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">Startseite</a>
         </li>
+        <!-- Equipment link -->
         <li class="nav-item">
           <a class="nav-link" href="/equipment">Ausleihen</a>
         </li>
-        <% if (locals.role=="Administrator" ) { %>
+        <!-- Links visible only to Administrators -->
+        <% if (locals.role == "Administrator") { %>
         <li class="nav-item">
           <a class="nav-link" href="/borrows">Ausleihvorgänge</a>
         </li>
@@ -21,22 +28,27 @@
         </li>
         <% } %>
       </ul>
+      <!-- Right-aligned navbar items -->
       <ul class="navbar-nav ms-auto position-relative">
+        <!-- Search form -->
         <li class="nav-item align-self-center">
           <form action="equipment/?=search" method="GET" class="input-group">
             <input type="text" class="form-control" placeholder="Suche..." name="search" required>
             <button class="btn btn-primary" type="submit">Suchen</button>
           </form>
         </li>
+        <!-- Profile link -->
         <li class="nav-item">
           <a class="nav-link" href="/login"><img src="/img/profile-icon.png" alt="profile"></a>
         </li>
+        <!-- Cart link with badge for cart size -->
         <li class="nav-item">
           <a class="nav-link position-relative" href="/cart">
             <img style="border-radius:0" src="/img/cart.svg" alt="cart">
-            <% if (locals.cartSize> 0) { %>
+            <!-- Display badge if there are items in the cart -->
+            <% if (locals.cartSize > 0) { %>
             <span class="badge bg-danger position-absolute top-0 start-100 translate-middle badge rounded-pill">
-              <%= cartSize%>
+              <%= cartSize %>
             </span>
             <% } %>
           </a>
@@ -47,6 +59,7 @@
 </nav>
 
 <style>
+  /* Styles for the badge in the navbar */
   .navbar-nav .nav-item .badge {
     font-size: 0.75rem;
     padding: 0.5em 0.6em;

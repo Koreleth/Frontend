@@ -22,6 +22,7 @@ document.getElementById('closeButton').addEventListener('click', function () {
     }
 });
 /*
+LEGACY CODE
 function deletefunction(id) {
     var button = document.getElementById('deleteConfirm' + id);
     var backgroundPage = document.getElementById('backgroundPage');

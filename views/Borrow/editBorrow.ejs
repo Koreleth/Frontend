@@ -5,13 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ausleihe bearbeiten</title>
+  <!-- Einbindung von Bootstrap und benutzerdefinierten CSS-Dateien -->
   <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
   <link rel="stylesheet" href="/stylesheets/style.css">
   <link rel="icon" href="/img/logoGR.png" type="image/x-icon">
 </head>
 
 <body>
+  <!-- Einbindung der Navigationsleiste -->
   <%- include('../partials/navbar') %>
+  <!-- Einbindung der Alert-Nachrichten -->
   <%- include('../partials/alerts') %>
 
   <div class="container my-5">
@@ -22,10 +25,11 @@
             <h2>Ausleihe bearbeiten</h2>
           </div>
           <div class="card-body">
-            <% borrow.equipments.forEach((equipment)=> { %>
-            <p class="card-text">ID: <%=equipment.id%> Gerät: <%= equipment.title %>
-            </p>
+            <!-- Auflistung der ausgeliehenen Geräte -->
+            <% borrow.equipments.forEach((equipment) => { %>
+            <p class="card-text">ID: <%= equipment.id %> Gerät: <%= equipment.title %></p>
             <% }); %>
+            <!-- Formular zur Bearbeitung der Ausleihe -->
             <form action="/borrows/edit/<%= borrow.id %>" method="POST">
               <div class="mb-3">
                 <label for="start" class="form-label">Ausleihdatum</label>
@@ -38,8 +42,7 @@
               <div class="mb-3">
                 <label for="userid" class="form-label">Ausleiher ID:</label>
                 <input type="text" class="form-control" id="userid" name="userid" value="<%= borrow.manager.id %>" required>
-                <p>Aktueller Ausleiher ist: <%=borrow.manager.name%>
-                </p>
+                <p>Aktueller Ausleiher ist: <%= borrow.manager.name %></p>
               </div>
               <button type="submit" class="btn btn-primary">Speichern</button>
             </form>
@@ -49,6 +52,7 @@
     </div>
   </div>
 
+  <!-- Einbindung des Footers -->
   <%- include('../partials/footer') %>
   <script src="/javascripts/bootstrap.min.js"></script>
   <script src="/javascripts/script.js"></script>
