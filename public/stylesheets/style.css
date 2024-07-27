@@ -5,8 +5,28 @@
   font-style: normal;
 }
 
+:root {
+  --schwarz: #131516;
+  --weiss: #DEE1E3;
+  --hellgrau: #878F97;
+  --mittelgrau: #6b7279;
+  --dunkelgrau: #393D41;
+  --blau: #9AC8D5;
+  --hellblau: #cfe8f3;
+  /* Neuer heller Blauton für besseren Kontrast */
+}
+
 body {
   font: 14px "Tahoma", Helvetica, Arial, sans-serif;
+  background-color: var(--dunkelgrau) !important;
+  color: var(--weiss);
+}
+
+footer {
+  background-color: var(--schwarz);
+  color: var(--weiss);
+  text-align: center;
+  padding: 10px;
 }
 
 h1,
@@ -19,20 +39,42 @@ h6 {
 }
 
 nav {
-  background-color: #393D41;
+  background-color: var(--schwarz);
 }
 
 .nav-link {
-  color: white;
+  color: var(--weiss);
+}
+
+.nav-link:hover {
+  color: var(--blau);
 }
 
 .active {
-  background-color: #9AC8D5;
+  background-color: var(--blau);
   border-radius: 0.1rem;
 }
 
-.nav-link :hover {
-  color: #9AC8D5;
+.searchbar {
+  background-color: var(--mittelgrau);
+  color: var(--weiss);
+}
+
+.searchbar input {
+  background-color: var(--weiss);
+  color: var(--schwarz);
+  border: 1px solid var(--hellgrau);
+}
+
+.searchbar button {
+  background-color: var(--blau);
+  color: var(--schwarz);
+  border: none;
+}
+
+.searchbar button:hover {
+  background-color: var(--hellgrau);
+  color: var(--schwarz);
 }
 
 nav img {
@@ -44,18 +86,79 @@ nav img {
   width: 15px;
 }
 
+.card {
+  background-color: var(--mittelgrau);
+  color: var(--schwarz);
+}
+
+.card .card-body {
+  background-color: var(--dunkelgrau);
+  color: var(--weiss);
+}
+
+.card .card-footer {
+  background-color: var(--schwarz);
+  color: var(--weiss);
+}
+
+.card .btn-primary {
+  background-color: var(--blau);
+  border: none;
+  color: var(--schwarz);
+}
+
+.card .btn-primary:hover {
+  background-color: var(--hellgrau);
+  color: var(--schwarz);
+}
+
+.card .btn-secondary {
+  background-color: var(--schwarz);
+  border: none;
+  color: var(--weiss);
+}
+
+.card .btn-secondary:hover {
+  background-color: var(--blau);
+  color: var(--schwarz);
+}
+
+.card .btn-warning {
+  background-color: #f0ad4e;
+  border: none;
+  color: var(--schwarz);
+}
+
+.card .btn-warning:hover {
+  background-color: #ec971f;
+  color: var(--schwarz);
+}
+
+.card .btn-danger {
+  background-color: #d9534f;
+  border: none;
+  color: var(--weiss);
+}
+
+.card .btn-danger:hover {
+  background-color: #c9302c;
+  color: var(--weiss);
+}
+
 .card-img-top {
   width: 100%;
   height: auto;
   max-height: 200px;
-  /* Maximalhöhe der Bilder */
   object-fit: cover;
-  /* Bild proportional zuschneiden */
 }
-
 
 #equipFormular {
   display: none;
+  background-color: var(--dunkelgrau);
+  color: var(--weiss);
+  border: 1px solid var(--hellgrau);
+  padding: 20px;
+  border-radius: 5px;
 }
 
 .navbar-nav {
@@ -105,4 +208,53 @@ body {
 footer {
   flex-shrink: 0;
   /* Footer wird nicht verkleinert */
+}
+
+/* Zusätzliche Anpassungen */
+.form-control {
+  background-color: var(--dunkelgrau);
+  color: var(--weiss);
+  border: 1px solid var(--hellgrau);
+}
+
+.form-control::placeholder {
+  color: var(--hellgrau);
+}
+
+.btn-primary {
+  background-color: var(--blau);
+  border: none;
+  color: var(--schwarz);
+}
+
+.btn-primary:hover {
+  background-color: var(--hellgrau);
+  color: var(--schwarz);
+}
+
+/* Links ohne Klassen */
+a {
+  color: var(--hellblau);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--weiss);
+  text-decoration: underline;
+}
+
+.btn-success {
+  background-color: var(--blau);
+  border: none;
+  color: var(--schwarz);
+}
+
+.btn-outline-success {
+  border: 1px solid var(--blau);
+  color: var(--blau);
+}
+
+.btn-outline-success:hover {
+  background-color: var(--blau);
+  color: var(--schwarz);
 }

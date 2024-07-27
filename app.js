@@ -30,6 +30,7 @@ app.use(session({
 }));
 app.use(flash());
 
+// Middleware zum Initialisieren der Sitzung
 app.use(function (req, res, next) {
   if (!req.session) {
     req.session = {};
@@ -38,7 +39,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-
+//Macht Warenkorbgröße global verfügbar
 app.use(function (req, res, next) {
   if (!req.session.user) {
     req.session.cart = [];
