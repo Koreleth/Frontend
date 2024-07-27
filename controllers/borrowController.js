@@ -70,8 +70,9 @@ const getCart = async (req) => {
     } else {
         console.log("CART IDS: " + req.session.user.cart);
         for (let item of req.session.user.cart) {
+            let response;
             try {
-                let response = await axios.get('http://localhost:3000/equipment/' + item);
+                response = await axios.get('http://localhost:3000/equipment/' + item);
             }
             catch (error) {
                 console.log("Error getting cart item: " + item);
