@@ -174,7 +174,7 @@ const updateUser = async (req) => {
         console.log("==Frontend== Sending PUT request to Backend");
         if (req.session.user) {
             if (checkuser.data.id == req.session.user.id) {
-                req.session.destroy();
+                req.session.user = {};
             }
         }
         response = await axios.put('http://localhost:3000/users/' + req.body.id, req.body);
