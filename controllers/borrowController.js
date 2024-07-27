@@ -231,7 +231,7 @@ const updateInventory = async (inventory, subtract) => {
         }
         catch (error) {
             console.log("Error updating equipment: " + item);
-            return { "status": error.response.status, "data": error.response.data };
+            return { "status": 404, "data": "Fehler" };
         }
         if (response.status == 200) {
             console.log("Equipment updated: " + item);
