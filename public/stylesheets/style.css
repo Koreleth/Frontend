@@ -325,6 +325,11 @@ a:hover {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+.btn-success:hover {
+  background-color: var(--hellgrau);
+  color: var(--schwarz);
+}
+
 .btn-outline-success {
   border: 1px solid var(--blau);
   color: var(--blau);
@@ -335,4 +340,8 @@ a:hover {
 .btn-outline-success:hover {
   background-color: var(--blau);
   color: var(--schwarz);
+}
+
+.card {
+  padding: 0 !important;
 }
