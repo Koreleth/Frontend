@@ -2,61 +2,56 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bearbeiten</title>
-    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="icon" href="/img/logoGR.png" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bearbeiten</title>
+  <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="icon" href="/img/logoGR.png" type="image/x-icon">
 </head>
 
 <body>
-    <%- include ('../partials/navbar') %>
-        <%- include ('../partials/alerts') %>
-            <div class="container my-5">
-                <h1 class="text-center mb-4">Bearbeiten</h1>
-                <form action="/equipment/edit/<%= data.id %>" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="id" value="<%= data.id %>">
+  <%- include ('../partials/navbar') %>
+  <%- include ('../partials/alerts') %>
+  <div class="container my-5">
+    <h1 class="text-center mb-4">Bearbeiten</h1>
+    <form action="/equipment/edit/<%= data.id %>" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="id" value="<%= data.id %>">
 
-                    <div class="mb-3">
-                        <label for="articlenumber" class="form-label">Artikelnummer</label>
-                        <input type="text" class="form-control" id="articlenumber" name="articlenumber"
-                            value="<%= data.articlenumber %>" required>
-                    </div>
+      <div class="mb-3">
+        <label for="articlenumber" class="form-label">Artikelnummer</label>
+        <input type="text" class="form-control" id="articlenumber" name="articlenumber" value="<%= data.articlenumber %>" required>
+      </div>
 
-                    <div class="mb-3">
-                        <label for="title" class="form-label">Titel</label>
-                        <input type="text" class="form-control" id="title" name="title" value="<%= data.title %>"
-                            required>
-                    </div>
+      <div class="mb-3">
+        <label for="title" class="form-label">Titel</label>
+        <input type="text" class="form-control" id="title" name="title" value="<%= data.title %>" required>
+      </div>
 
-                    <div class="mb-3">
-                        <label for="description" class="form-label">Beschreibung</label>
-                        <textarea class="form-control" id="description" name="description" rows="3"
-                            required><%= data.description %></textarea>
-                    </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Beschreibung</label>
+        <textarea class="form-control" id="description" name="description" rows="3" required><%= data.description %></textarea>
+      </div>
 
-                    <div class="mb-3">
-                        <label for="file" class="form-label">Bild</label>
-                        <input class="form-control" type="file" id="file" name="file" value="<%= data.pic %>">
-                    </div>
+      <div class="mb-3">
+        <label for="file" class="form-label">Bild</label>
+        <input class="form-control" type="file" id="file" name="file" value="<%= data.pic %>">
+      </div>
 
-                    <div class="mb-3">
-                        <label for="count" class="form-label">Anzahl</label>
-                        <input type="number" class="form-control" id="count" name="count" value="<%= data.count %>"
-                            required>
-                    </div>
+      <div class="mb-3">
+        <label for="count" class="form-label">Anzahl</label>
+        <input type="number" class="form-control" id="count" name="count" value="<%= data.count %>" required>
+      </div>
 
-                    <div class="mb-3">
-                        <label for="userid" class="form-label">User ID</label>
-                        <input type="text" class="form-control" id="userid" name="userid" value="<%= data.userid %>"
-                            required>
-                    </div>
+      <div class="mb-3">
+        <label for="userid" class="form-label">User ID</label>
+        <input type="text" class="form-control" id="userid" name="userid" value="<%= data.userid %>" required>
+      </div>
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-            <%- include ('../partials/footer') %>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  <%- include ('../partials/footer') %>
 </body>
 
 </html>

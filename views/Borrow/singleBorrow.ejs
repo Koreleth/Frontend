@@ -2,50 +2,50 @@
 <html lang="de">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Borrow Details</title>
-    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
-    <link rel="stylesheet" href="/stylesheets/style.css">
-    <link rel="icon" href="/img/logoGR.png" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Borrow Details</title>
+  <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="icon" href="/img/logoGR.png" type="image/x-icon">
 </head>
 
 <body>
-    <%- include('../partials/navbar') %>
-        <%- include('../partials/alerts') %>
+  <%- include('../partials/navbar') %>
+  <%- include('../partials/alerts') %>
 
-            <div class="container my-5">
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="card-header">
-                                <h2>Borrow Details</h2>
-                            </div>
-                            <div class="card-body">
-                                <p class="card-text">ID: <%= borrow.id %>
-                                </p>
-                                <p class="card-text">Ausleiher: <%=borrow.manager.name%>
-                                </p>
-                                <p class="card-text">Ausleihdatum: <%= borrow.start %>
-                                </p>
-                                <p class="card-text">Rückgabedatum: <%= borrow.end %>
-                                </p>
-                            </div>
-                            <div class="card-footer text-end">
-                                <a href="/borrows/edit/<%= borrow.id %>" class="btn btn-warning">Bearbeiten</a>
-                                <form action="/borrows/delete/<%= borrow.id %>" method="POST" class="d-inline">
-                                    <button type="submit" class="btn btn-danger">Löschen</button>
-                                </form>
-                                <a href="/borrows" class="btn btn-secondary">Zurück zur Liste</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <div class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <h2>Borrow Details</h2>
+          </div>
+          <div class="card-body">
+            <p class="card-text">ID: <%= borrow.id %>
+            </p>
+            <p class="card-text">Ausleiher: <%=borrow.manager.name%>
+            </p>
+            <p class="card-text">Ausleihdatum: <%= borrow.start %>
+            </p>
+            <p class="card-text">Rückgabedatum: <%= borrow.end %>
+            </p>
+          </div>
+          <div class="card-footer text-end">
+            <a href="/borrows/edit/<%= borrow.id %>" class="btn btn-warning">Bearbeiten</a>
+            <form action="/borrows/delete/<%= borrow.id %>" method="POST" class="d-inline">
+              <button type="submit" class="btn btn-danger">Löschen</button>
+            </form>
+            <a href="/borrows" class="btn btn-secondary">Zurück zur Liste</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-            <%- include('../partials/footer') %>
-                <script src="/javascripts/bootstrap.min.js"></script>
-                <script src="/javascripts/script.js"></script>
+  <%- include('../partials/footer') %>
+  <script src="/javascripts/bootstrap.min.js"></script>
+  <script src="/javascripts/script.js"></script>
 </body>
 
 </html>

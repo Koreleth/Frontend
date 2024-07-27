@@ -2,30 +2,30 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- include für bootstrap -->
-    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="icon" href="/img/logoGR.png" type="image/x-icon">
-    <title>Liste aller Ausleihen</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- include für bootstrap -->
+  <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="icon" href="/img/logoGR.png" type="image/x-icon">
+  <title>Liste aller Ausleihen</title>
 </head>
 
 <body>
-    <!-- includes -->
-    <%- include ('../partials/navbar') %>
-        <%- include ('../partials/alerts') %>
-            <div class="container my-5">
-                <h1 class="text-center mb-4">Liste aller Ausleihvorgänge</h1>
-                <div class="row">
-                    <% borrows.forEach((borrow)=> { %>
-                        <div class="col-md-4 mb-4">
-                            <%- include ('../partials/borrowCard', {borrow: borrow}) %>
-                        </div>
-                        <% }); %>
-                </div>
-            </div>
-            <%- include ('../partials/footer') %>
+  <!-- includes -->
+  <%- include ('../partials/navbar') %>
+  <%- include ('../partials/alerts') %>
+  <div class="container my-5">
+    <h1 class="text-center mb-4">Liste aller Ausleihvorgänge</h1>
+    <div class="row">
+      <% borrows.forEach((borrow)=> { %>
+      <div class="col-md-4 mb-4">
+        <%- include ('../partials/borrowCard', {borrow: borrow}) %>
+      </div>
+      <% }); %>
+    </div>
+  </div>
+  <%- include ('../partials/footer') %>
 </body>
 
 </html>

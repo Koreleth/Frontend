@@ -5,6 +5,7 @@
   font-style: normal;
 }
 
+/* Farbvariablen definieren */
 :root {
   --schwarz: #131516;
   --weiss: #DEE1E3;
@@ -13,8 +14,10 @@
   --dunkelgrau: #393D41;
   --blau: #9AC8D5;
   --hellblau: #cfe8f3;
+  --highlight: #ffc107;
 }
 
+/* Grundstil für den Body */
 body {
   font: 14px "Tahoma", Helvetica, Arial, sans-serif;
   background-color: var(--dunkelgrau) !important;
@@ -22,16 +25,22 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1.6;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
+/* Stil für den Footer */
 footer {
   background-color: var(--schwarz);
   color: var(--weiss);
   text-align: center;
   padding: 10px;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
 }
 
+/* Schriftstile für Überschriften */
 h1,
 h2,
 h3,
@@ -71,11 +80,13 @@ p {
   margin-bottom: 1rem;
 }
 
+/* Stil für die Navigation */
 nav {
   background-color: var(--schwarz);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+/* Stil für Links in der Navigation */
 .nav-link {
   color: var(--weiss);
   transition: color 0.3s ease;
@@ -90,6 +101,7 @@ nav {
   border-radius: 0.1rem;
 }
 
+/* Suchleiste */
 .searchbar {
   background-color: var(--mittelgrau);
   color: var(--weiss);
@@ -104,6 +116,11 @@ nav {
   color: var(--schwarz);
   border: 1px solid var(--hellgrau);
   border-radius: 5px;
+  transition: border-color 0.3s ease;
+}
+
+.searchbar input:focus {
+  border-color: var(--blau);
 }
 
 .searchbar button {
@@ -115,10 +132,11 @@ nav {
 }
 
 .searchbar button:hover {
-  background-color: var(--hellgrau);
-  color: var(--schwarz);
+  background-color: var (--hellgrau);
+  color: var (--schwarz);
 }
 
+/* Stil für Bilder in der Navigation */
 nav img {
   width: 45px;
   border-radius: 50%;
@@ -128,6 +146,7 @@ nav img {
   width: 15px;
 }
 
+/* Stil für Karten */
 .card {
   background-color: var(--mittelgrau);
   color: var(--schwarz);
@@ -135,6 +154,8 @@ nav img {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   margin-bottom: 1rem;
+  border: 1px solid var(--hellgrau);
+  padding: 0;
 }
 
 .card:hover {
@@ -142,28 +163,37 @@ nav img {
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
 }
 
+/* Stil für den Karteninhalt */
 .card .card-body {
-  background-color: var(--dunkelgrau);
+  background-color: var(--mittelgrau);
   color: var(--weiss);
   border-radius: 5px 5px 0 0;
 }
 
+/* Stil für den Kartenfuß */
 .card .card-footer {
-  background-color: var(--schwarz);
+  background-color: var(--dunkelgrau);
   color: var(--weiss);
   border-radius: 0 0 5px 5px;
 }
 
+.card-header {
+  background-color: var(--dunkelgrau);
+  color: var(--weiss);
+}
+
+/* Buttons in Karten */
 .card .btn-primary {
   background-color: var(--blau);
   border: none;
   color: var(--schwarz);
   border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .card .btn-primary:hover {
-  background-color: var(--hellgrau);
+  background-color: var(--hellblau);
   color: var(--schwarz);
 }
 
@@ -181,7 +211,7 @@ nav img {
 }
 
 .card .btn-warning {
-  background-color: #f0ad4e;
+  background-color: var(--highlight);
   border: none;
   color: var(--schwarz);
   border-radius: 5px;
@@ -206,6 +236,7 @@ nav img {
   color: var(--weiss);
 }
 
+/* Stil für Bilder in Karten */
 .card-img-top {
   width: 100%;
   height: auto;
@@ -214,6 +245,7 @@ nav img {
   border-radius: 5px 5px 0 0;
 }
 
+/* Stil für Formular */
 #equipFormular {
   display: none;
   background-color: var(--dunkelgrau);
@@ -225,6 +257,7 @@ nav img {
   margin-bottom: 1rem;
 }
 
+/* Stil für Navigationsleisten */
 .navbar-nav {
   text-align: center;
 }
@@ -254,24 +287,10 @@ nav img {
   }
 }
 
-html,
-body {
-  height: 100%;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-}
-
+/* Flexbox-Anpassungen für Hauptinhalt und Footer */
 .content {
   flex: 1 0 auto;
   /* Hauptinhalt wächst und schrumpft, um den verfügbaren Platz zu füllen */
-}
-
-footer {
-  flex-shrink: 0;
-  /* Footer wird nicht verkleinert */
 }
 
 /* Zusätzliche Anpassungen */
@@ -280,6 +299,7 @@ footer {
   color: var(--weiss);
   border: 1px solid var(--hellgrau);
   border-radius: 5px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .form-control:focus {
@@ -292,29 +312,19 @@ footer {
   color: var(--hellgrau);
 }
 
+/* Buttons */
 .btn-primary {
   background-color: var(--blau);
   border: none;
   color: var(--schwarz);
   border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .btn-primary:hover {
-  background-color: var(--hellgrau);
+  background-color: var(--hellblau);
   color: var(--schwarz);
-}
-
-/* Links ohne Klassen */
-a {
-  color: var(--hellblau);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-a:hover {
-  color: var(--weiss);
-  text-decoration: underline;
 }
 
 .btn-success {
@@ -340,8 +350,61 @@ a:hover {
 .btn-outline-success:hover {
   background-color: var(--blau);
   color: var(--schwarz);
+  border: 1px solid var(--blau);
 }
 
-.card {
-  padding: 0 !important;
+/* Links ohne Klassen */
+a {
+  color: var(--hellblau);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--weiss);
+  text-decoration: underline;
+}
+
+/* Zusätzliche Änderungen */
+.gradient-bg {
+  background: linear-gradient(to bottom, var(--gradient-start), var(--gradient-end));
+}
+
+.navbar-toggler {
+  border-color: var(--blau);
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28154,200,213,1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+td {
+  color: var(--weiss) !important;
+  background-color: var(--mittelgrau) !important;
+}
+
+.card.disabled {
+  background-color: var(--mittelgrau);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 10;
+}
+
+.text-dark {
+  color: var(--dunkelgrau) !important;
 }

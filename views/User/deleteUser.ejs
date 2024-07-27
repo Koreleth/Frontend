@@ -2,50 +2,50 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nutzer löschen</title>
-    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="icon" href="/img/logoGR.png" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nutzer löschen</title>
+  <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="icon" href="/img/logoGR.png" type="image/x-icon">
 </head>
 
 <body>
-    <!-- includes-->
-    <%- include ('../partials/navbar') %>
-        <%- include ('../partials/alerts') %>
+  <!-- includes-->
+  <%- include ('../partials/navbar') %>
+  <%- include ('../partials/alerts') %>
 
-            <div class="container my-5">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <%= user.username %>
-                        </h5>
-                        <p class="card-text">ID: <%= user.id %>
-                        </p>
-                        <p class="card-text">E-Mail: <%= user.email %>
-                        </p>
-                        <p class="card-text">Rolle: <%= user.role %>
-                        </p>
-                        <p class="card-text">Erstellt am: <%= user.created %>
-                        </p>
-                    </div>
-                </div>
+  <div class="container my-5">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">
+          <%= user.username %>
+        </h5>
+        <p class="card-text">ID: <%= user.id %>
+        </p>
+        <p class="card-text">E-Mail: <%= user.email %>
+        </p>
+        <p class="card-text">Rolle: <%= user.role %>
+        </p>
+        <p class="card-text">Erstellt am: <%= user.created %>
+        </p>
+      </div>
+    </div>
 
-                <div class="mt-4">
-                    <h1>Löschen</h1>
-                    <p>Wollen Sie den Nutzer <%= user.username %> wirklich löschen?</p>
-                    <form action="/users/delete/<%= user.id %>" method="POST" class="d-inline">
-                        <button type="submit" class="btn btn-danger">Ja</button>
-                        <input type="hidden" name="id" value="<%= user.id %>">
-                    </form>
-                    <a href="/users" class="btn btn-primary">Nein</a>
-                    <a href="/users/edit/<%= user.id %>" class="btn btn-warning">Bearbeiten</a>
-                </div>
-            </div>
+    <div class="mt-4">
+      <h1>Löschen</h1>
+      <p>Wollen Sie den Nutzer <%= user.username %> wirklich löschen?</p>
+      <form action="/users/delete/<%= user.id %>" method="POST" class="d-inline">
+        <button type="submit" class="btn btn-danger">Ja</button>
+        <input type="hidden" name="id" value="<%= user.id %>">
+      </form>
+      <a href="/users" class="btn btn-primary">Nein</a>
+      <a href="/users/edit/<%= user.id %>" class="btn btn-warning">Bearbeiten</a>
+    </div>
+  </div>
 
-            <!-- footer-->
-            <%- include ('../partials/footer') %>
+  <!-- footer-->
+  <%- include ('../partials/footer') %>
 </body>
 
 </html>

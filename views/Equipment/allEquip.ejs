@@ -2,53 +2,52 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ausleihen</title>
-    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
-    <link rel="stylesheet" href="/stylesheets/style.css">
-    <link rel="icon" href="/img/logoGR.png" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ausleihen</title>
+  <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="icon" href="/img/logoGR.png" type="image/x-icon">
 </head>
 
 <body>
-    <%- include ('../partials/navbar') %>
-        <%- include ('../partials/alerts') %>
-            <% if (locals.auth) { %>
-                <%- include ('../partials/createEquipFormular',{user:user}) %>
-                    <% } %>
-                        <div class="container mt-4">
+  <%- include ('../partials/navbar') %>
+  <%- include ('../partials/alerts') %>
+  <% if (locals.auth) { %>
+  <%- include ('../partials/createEquipFormular',{user:user}) %>
+  <% } %>
+  <div class="container mt-4">
 
 
-                            <% if (locals.auth) { %>
-                                <div class="text-right mb-3">
-                                    <button id="singleButton" type="button" class="btn btn-primary">
-                                        Equipment hinzufügen
-                                    </button>
-                                </div>
-                                <% } %>
+    <% if (locals.auth) { %>
+    <div class="text-right mb-3">
+      <button id="singleButton" type="button" class="btn btn-primary">
+        Equipment hinzufügen
+      </button>
+    </div>
+    <% } %>
 
-                                    <div class="content">
-                                        <form class="d-flex" role="search" method="GET" action="/equipment/">
-                                            <input name="search" type="search" class="form-control me-2"
-                                                placeholder="Suche..." aria-label="Search">
-                                            <button class="btn btn-outline-success" type="submit">Suchen</button>
-                                        </form>
+    <div class="content">
+      <form class="d-flex" role="search" method="GET" action="/equipment/">
+        <input name="search" type="search" class="form-control me-2" placeholder="Suche..." aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Suchen</button>
+      </form>
 
-                                        <h1>
-                                            <%= data.title %>
-                                        </h1>
-                                        <div class="row">
-                                            <% //data.forEach((equipment)=> { %>
-                                                <%- include ('../partials/cardItem', {data:data}) %>
-                                                    <% // }); %>
-                                        </div>
-                                    </div>
-                        </div>
-                        <%- include ('../partials/footer') %>
-                            <script src=" /javascripts/script.js ">
-                            </script>
-                            <script src=" /javascripts/bootstrap.min.js">
-                            </script>
+      <h1>
+        <%= data.title %>
+      </h1>
+      <div class="row">
+        <% //data.forEach((equipment)=> { %>
+        <%- include ('../partials/cardItem', {data:data}) %>
+        <% // }); %>
+      </div>
+    </div>
+  </div>
+  <%- include ('../partials/footer') %>
+  <script src=" /javascripts/script.js ">
+  </script>
+  <script src=" /javascripts/bootstrap.min.js">
+  </script>
 </body>
 
 </html>

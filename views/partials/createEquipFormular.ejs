@@ -1,49 +1,47 @@
 <div id="equipFormular" class="formular container my-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-10">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between">
-                    <h5 class="card-title ">Neues Equipment anlegen</h5>
-                    <button id="closeButton" type="button" class="btn-close" aria-label="Close"></button>
-                </div>
-                <div class="card-body">
-                    <form action="/equipment" method="POST" enctype="multipart/form-data">
-                        <div class="mb-3">
-                            <!--User ID-->
-                            <label for="userid" class="form-label">User</label>
-                            <input value="<%=user.id%>" type="text" class="form-control" id="userid" name="userid"
-                                required>
-                        </div>
-                        <div class="mb-3">
-                            <!--Artikel Titel-->
-                            <label for="title" class="form-label">Titel</label>
-                            <input type="text" class="form-control" id="title" name="title" required>
-                        </div>
-                        <div class="mb-3">
-                            <!--Artikelnummer-->
-                            <label for="articlenumber" class="form-label">Artikelnummer</label>
-                            <input type="text" class="form-control" id="articlenumber" name="articlenumber" required>
-                        </div>
-                        <div class="mb-3">
-                            <!--Beschreibung-->
-                            <label for="description" class="form-label">Beschreibung</label>
-                            <textarea class="form-control" id="description" name="description" rows="3"
-                                required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <!--Bild-->
-                            <label for="file" class="form-label">Bild</label>
-                            <input class="form-control" type="file" id="file" name="file">
-                        </div>
-                        <div class="mb-3">
-                            <!--Anzahl-->
-                            <label for="count" class="form-label">Anzahl</label>
-                            <input type="number" class="form-control" id="count" name="count" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-            </div>
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-10">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between">
+          <h5 class="card-title ">Neues Equipment anlegen</h5>
+          <button id="closeButton" type="button" class="btn-close" aria-label="Close"></button>
         </div>
+        <div class="card-body">
+          <form action="/equipment" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+              <!--User ID-->
+              <label for="userid" class="form-label">User</label>
+              <input value="<%=user.id%>" type="text" class="form-control" id="userid" name="userid" required>
+            </div>
+            <div class="mb-3">
+              <!--Artikel Titel-->
+              <label for="title" class="form-label">Titel</label>
+              <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="mb-3">
+              <!--Artikelnummer-->
+              <label for="articlenumber" class="form-label">Artikelnummer</label>
+              <input type="text" class="form-control" id="articlenumber" name="articlenumber" required>
+            </div>
+            <div class="mb-3">
+              <!--Beschreibung-->
+              <label for="description" class="form-label">Beschreibung</label>
+              <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+              <!--Bild-->
+              <label for="file" class="form-label">Bild</label>
+              <input class="form-control" type="file" id="file" name="file">
+            </div>
+            <div class="mb-3">
+              <!--Anzahl-->
+              <label for="count" class="form-label">Anzahl</label>
+              <input type="number" class="form-control" id="count" name="count" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

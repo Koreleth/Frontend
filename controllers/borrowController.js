@@ -113,7 +113,7 @@ const checkout = async (req) => {
         "end": req.body.end
     }
     //wenn borrow anfang in der Vergangenheit liegt Fehlermeldung
-    if (new Date(borrow.start) < new Date().setHours(0, 0, 0, 0)) {
+    if (new Date(borrow.start + 1) < new Date().setHours(0, 0, 0, 0)) {
         return { "status": 409, "data": "Startdatum liegt in der Vergangenheit" };
     }
     console.log("CART:");

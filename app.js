@@ -48,6 +48,7 @@ app.use(function (req, res, next) {
   if (req.session.user) {
     req.session.cart = req.session.user.cart;
     res.locals.cartSize = req.session.user.cart.length || 0;
+    res.locals.role = req.session.user.role;
   }
   next();
 });

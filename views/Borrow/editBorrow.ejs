@@ -2,59 +2,56 @@
 <html lang="de">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ausleihe bearbeiten</title>
-    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
-    <link rel="stylesheet" href="/stylesheets/style.css">
-    <link rel="icon" href="/img/logoGR.png" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ausleihe bearbeiten</title>
+  <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="icon" href="/img/logoGR.png" type="image/x-icon">
 </head>
 
 <body>
-    <%- include('../partials/navbar') %>
-        <%- include('../partials/alerts') %>
+  <%- include('../partials/navbar') %>
+  <%- include('../partials/alerts') %>
 
-            <div class="container my-5">
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <div class="card">
-                            <div class="card-header">
-                                <h2>Ausleihe bearbeiten</h2>
-                            </div>
-                            <div class="card-body">
-                                <% borrow.equipments.forEach((equipment)=> { %>
-                                    <p class="card-text">ID: <%=equipment.id%> Gerät: <%= equipment.title %>
-                                    </p>
-                                    <% }); %>
-                                        <form action="/borrows/edit/<%= borrow.id %>" method="POST">
-                                            <div class="mb-3">
-                                                <label for="start" class="form-label">Ausleihdatum</label>
-                                                <input type="date" class="form-control" id="start" name="start"
-                                                    value="<%= borrow.start %>" required>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="end" class="form-label">Rückgabedatum</label>
-                                                <input type="date" class="form-control" id="end" name="end"
-                                                    value="<%= borrow.end %>" required>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="userid" class="form-label">Verwalter ID:</label>
-                                                <input type="text" class="form-control" id="userid" name="userid"
-                                                    value="<%= borrow.manager.id %>" required>
-                                                <p>Aktueller Verwalter ist: <%=borrow.manager.name%>
-                                                </p>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Speichern</button>
-                                        </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <div class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <h2>Ausleihe bearbeiten</h2>
+          </div>
+          <div class="card-body">
+            <% borrow.equipments.forEach((equipment)=> { %>
+            <p class="card-text">ID: <%=equipment.id%> Gerät: <%= equipment.title %>
+            </p>
+            <% }); %>
+            <form action="/borrows/edit/<%= borrow.id %>" method="POST">
+              <div class="mb-3">
+                <label for="start" class="form-label">Ausleihdatum</label>
+                <input type="date" class="form-control" id="start" name="start" value="<%= borrow.start %>" required>
+              </div>
+              <div class="mb-3">
+                <label for="end" class="form-label">Rückgabedatum</label>
+                <input type="date" class="form-control" id="end" name="end" value="<%= borrow.end %>" required>
+              </div>
+              <div class="mb-3">
+                <label for="userid" class="form-label">Verwalter ID:</label>
+                <input type="text" class="form-control" id="userid" name="userid" value="<%= borrow.manager.id %>" required>
+                <p>Aktueller Verwalter ist: <%=borrow.manager.name%>
+                </p>
+              </div>
+              <button type="submit" class="btn btn-primary">Speichern</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-            <%- include('../partials/footer') %>
-                <script src="/javascripts/bootstrap.min.js"></script>
-                <script src="/javascripts/script.js"></script>
+  <%- include('../partials/footer') %>
+  <script src="/javascripts/bootstrap.min.js"></script>
+  <script src="/javascripts/script.js"></script>
 </body>
 
 </html>

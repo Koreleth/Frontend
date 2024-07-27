@@ -2,45 +2,45 @@
 <html lang="de">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nutzer</title>
-    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="icon" href="/img/logoGR.png" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nutzer</title>
+  <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="icon" href="/img/logoGR.png" type="image/x-icon">
 </head>
 
 <body>
-    <%- include ('../partials/navbar') %>
-        <%- include ('../partials/alerts') %>
+  <%- include ('../partials/navbar') %>
+  <%- include ('../partials/alerts') %>
 
-            <div class="container my-5">
-                <% if(locals.isSameUser){ %>
-                    <div class="text-end mb-3">
-                        <a href="/login/logout" class="btn btn-primary">Log Out</a>
-                    </div>
-                    <% } %>
-                        <div class="row justify-content-center">
-                            <div class="col-md-6">
-                                <%- include ('../partials/userCard', {"user": user}) %>
-                            </div>
-                        </div>
-            </div>
-            <!-- Liste an ausleihen -->
-            <div class="container my-5">
-                <h2 class="text-center">Ausleihen von <%=user.username%>:
-                </h2>
-                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                    <% borrows.forEach((borrow)=> { %>
-                        <%- include ('../partials/borrowCard', {"borrow": borrow}) %>
-                            <%}); %>
-                </div>
-            </div>
+  <div class="container my-5">
+    <% if(locals.isSameUser){ %>
+    <div class="text-end mb-3">
+      <a href="/login/logout" class="btn btn-primary">Log Out</a>
+    </div>
+    <% } %>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <%- include ('../partials/userCard', {"user": user}) %>
+      </div>
+    </div>
+  </div>
+  <!-- Liste an ausleihen -->
+  <div class="container my-5">
+    <h2 class="text-center">Ausleihen von <%=user.username%>:
+    </h2>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <% borrows.forEach((borrow)=> { %>
+      <%- include ('../partials/borrowCard', {"borrow": borrow}) %>
+      <%}); %>
+    </div>
+  </div>
 
 
-            <%- include ('../partials/footer') %>
-                <script src="/javascripts/bootstrap.min.js"></script>
-                <script src="/javascripts/script.js"></script>
+  <%- include ('../partials/footer') %>
+  <script src="/javascripts/bootstrap.min.js"></script>
+  <script src="/javascripts/script.js"></script>
 </body>
 
 </html>

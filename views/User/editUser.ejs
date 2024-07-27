@@ -2,50 +2,47 @@
 <html lang="de">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nutzer bearbeiten</title>
-    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="icon" href="/img/logoGR.png" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nutzer bearbeiten</title>
+  <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="icon" href="/img/logoGR.png" type="image/x-icon">
 </head>
 
 <body>
-    <%- include ('../partials/navbar') %>
-        <%- include ('../partials/alerts') %>
+  <%- include ('../partials/navbar') %>
+  <%- include ('../partials/alerts') %>
 
-            <div class="container my-5">
-                <h1 class="text-center mb-4">Nutzer bearbeiten</h1>
-                <form action="/users/edit/<%= user.id %>" method="POST">
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username"
-                            value="<%= user.username %>" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password"
-                            value="<%= user.password %>" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email Adresse</label>
-                        <input type="email" class="form-control" id="email" name="email" value="<%= user.email %>"
-                            required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="role" class="form-label">Rolle</label>
-                        <select class="form-select" name="role" id="role">
-                            <option value="1" <% if (user.role=="Administrator" ) { %> selected <% } %>>Admin</option>
-                            <option value="2" <% if (user.role=="Standard" ) { %> selected <% } %>>User</option>
-                            <option value="3" <% if (user.role=="Gast" ) { %> selected <% } %>>Gast</option>
-                        </select>
-                    </div>
-                    <input type="hidden" name="id" value="<%= user.id %>">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
+  <div class="container my-5">
+    <h1 class="text-center mb-4">Nutzer bearbeiten</h1>
+    <form action="/users/edit/<%= user.id %>" method="POST">
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" name="username" value="<%= user.username %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password" value="<%= user.password %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email Adresse</label>
+        <input type="email" class="form-control" id="email" name="email" value="<%= user.email %>" required>
+      </div>
+      <div class="mb-3">
+        <label for="role" class="form-label">Rolle</label>
+        <select class="form-select" name="role" id="role">
+          <option value="1" <% if (user.role=="Administrator" ) { %> selected <% } %>>Admin</option>
+          <option value="2" <% if (user.role=="Standard" ) { %> selected <% } %>>User</option>
+          <option value="3" <% if (user.role=="Gast" ) { %> selected <% } %>>Gast</option>
+        </select>
+      </div>
+      <input type="hidden" name="id" value="<%= user.id %>">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
 
-            <%- include ('../partials/footer') %>
+  <%- include ('../partials/footer') %>
 </body>
 
 </html>
