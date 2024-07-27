@@ -36,9 +36,9 @@
                 <input type="date" class="form-control" id="end" name="end" value="<%= borrow.end %>" required>
               </div>
               <div class="mb-3">
-                <label for="userid" class="form-label">Verwalter ID:</label>
+                <label for="userid" class="form-label">Ausleiher ID:</label>
                 <input type="text" class="form-control" id="userid" name="userid" value="<%= borrow.manager.id %>" required>
-                <p>Aktueller Verwalter ist: <%=borrow.manager.name%>
+                <p>Aktueller Ausleiher ist: <%=borrow.manager.name%>
                 </p>
               </div>
               <button type="submit" class="btn btn-primary">Speichern</button>

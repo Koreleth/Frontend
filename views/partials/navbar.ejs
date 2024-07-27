@@ -22,6 +22,12 @@
         <% } %>
       </ul>
       <ul class="navbar-nav ms-auto position-relative">
+        <li class="nav-item align-self-center">
+          <form action="equipment/?=search" method="GET" class="input-group">
+            <input type="text" class="form-control" placeholder="Suchen sie nach Powerbanks" name="search" required>
+            <button class="btn btn-primary" type="submit">Suchen</button>
+          </form>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="/login"><img src="/img/profile-icon.png" alt="profile"></a>
         </li>
