@@ -112,6 +112,10 @@ const checkout = async (req) => {
         "start": req.body.start,
         "end": req.body.end
     }
+    //wenn borrow anfang in der Vergangenheit liegt Fehlermeldung
+    if (new Date(borrow.start) < new Date().setHours(0, 0, 0, 0)) {
+        return { "status": 409, "data": "Startdatum liegt in der Vergangenheit" };
+    }
     console.log("CART:");
     console.log(req.session.user.cart);
     let invUpdate = await updateInventory(req.session.user.cart, true);
@@ -238,6 +242,44 @@ const getSingleBorrow = async (req) => {
     return { "status": response.status, "data": response.data[0] };
 
 }
+
+const editBorrow = async (req) => {
+    if (!req.session.user) {
+        return { "status": 401 };
+    }
+    if (!utils.isAdmin(req) && !utils.isSameUser(req)) {
+        return { "status": 403 };
+    }
+    let response;
+    let borrow = await axios.get('http://localhost:3000/borrows/' + req.params.id);
+    let equipmentids = borrow.data.equipmentids;
+    let input = {
+        "userid": req.body.userid,
+        "equipmentids": equipmentids,
+        "start": req.body.start,
+        "end": req.body.end
+    }
+    console.log("INPUT: ");
+    console.log(input.start);
+    console.log(input.end);
+    try {
+
+        response = await axios.put('http://localhost:3000/borrows/' + req.params.id, input);
+    }
+    catch (error) {
+        console.log(error);
+        return { "status": error.response.status, "data": error.response.data };
+    }
+    if (response.status == 200) {
+        console.log("Borrow updated: " + req.params.id);
+    }
+    else {
+        console.log(response.data);
+        return { "status": response.status, "data": response.data };
+    }
+    return { "status": response.status };
+
+}
 module.exports = {
     getBorrows,
     getCart,
@@ -245,5 +287,6 @@ module.exports = {
     removeFromCart,
     checkout,
     deleteBorrow,
-    getSingleBorrow
+    getSingleBorrow,
+    editBorrow
 }

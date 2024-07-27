@@ -17,7 +17,6 @@ router.route('/')
         }
         else {
             let response = await borrowController.getBorrows(req);
-            console.log("RESPONSE " + response.data);
             res.render('Borrow/allBorrows', { "borrows": response.data });
         }
     });
@@ -51,10 +50,6 @@ router.route('/delete/:id')
 router.route('/:id')
     .get(async (req, res, next) => {
         let response = await borrowController.getSingleBorrow(req);
-        console.log("RESPONSE von getSingleBorrow: ");
-        console.log(response.status);
-        console.log("DATA");
-        console.log(response.data);
         switch (response.status) {
             case 401:
                 req.flash('error', 'Du musst eingeloggt sein, um Ausleihen zu sehen');
@@ -75,6 +70,59 @@ router.route('/:id')
                 req.flash('error', 'Ein Fehler ist aufgetreten');
                 console.log("RESPONSE von getSingleBorrow: ");
                 console.log(response.status);
+                res.redirect('/borrows');
+        }
+    });
+
+router.route('/edit/:id')
+    .get(async (req, res, next) => {
+        let response = await borrowController.getSingleBorrow(req);
+        switch (response.status) {
+            case 401:
+                req.flash('error', 'Du musst eingeloggt sein, um Ausleihen zu sehen');
+                res.redirect('/login');
+                break;
+            case 403:
+                req.flash('error', 'Du hast keine Berechtigung, diese Ausleihe zu sehen');
+                res.redirect('/');
+                break;
+            case 404:
+                req.flash('error', 'Diese Ausleihe existiert nicht');
+                res.redirect('/borrows');
+                break;
+            case 201:
+                console.log("RESPONSE von getSingleBorrow: ");
+                console.log(response.data[0]);
+                res.render('Borrow/editBorrow', { "borrow": response.data[0] });
+                break;
+            default:
+                req.flash('error', 'Ein Fehler ist aufgetreten');
+                console.log("RESPONSE von getSingleBorrow: ");
+                console.log(response.status);
+                res.redirect('/borrows');
+        }
+    })
+    .post(async (req, res, next) => {
+        let response = await borrowController.editBorrow(req);
+        switch (response.status) {
+            case 401:
+                req.flash('error', 'Du musst eingeloggt sein, um Ausleihen zu bearbeiten');
+                res.redirect('/login');
+                break;
+            case 403:
+                req.flash('error', 'Du hast keine Berechtigung, diese Ausleihe zu bearbeiten');
+                res.redirect('/');
+                break;
+            case 404:
+                req.flash('error', 'Diese Ausleihe existiert nicht');
+                res.redirect('/borrows');
+                break;
+            case 200:
+                req.flash('success', 'Ausleihe erfolgreich bearbeitet');
+                res.redirect('/borrows');
+                break;
+            default:
+                req.flash('error', 'Ein Fehler ist aufgetreten');
                 res.redirect('/borrows');
         }
     });

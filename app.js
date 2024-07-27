@@ -31,8 +31,22 @@ app.use(session({
 app.use(flash());
 
 app.use(function (req, res, next) {
-  if (!req.session.isInitialized) {
+  if (!req.session) {
+    req.session = {};
     req.session.isInitialized = true; // Setze eine benutzerdefinierte Variable
+  }
+  next();
+});
+
+
+app.use(function (req, res, next) {
+  if (!req.session.user) {
+    req.session.cart = [];
+    res.locals.cartSize = 0;
+  }
+  if (req.session.user) {
+    req.session.cart = req.session.user.cart;
+    res.locals.cartSize = req.session.user.cart.length || 0;
   }
   next();
 });
@@ -86,6 +100,7 @@ async function checkBackendServer() {
     process.exit(1);
   }
 }
+
 
 // Rufe die Funktion auf, um den Status des Backend-Servers zu überprüfen
 checkBackendServer();

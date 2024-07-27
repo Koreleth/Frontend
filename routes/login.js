@@ -20,6 +20,7 @@ router.route('/')
         switch (response.status) {
             case 200:
                 req.session.user = response.data;
+                req.session.user.cart = [];
                 req.flash('success', 'Erfolgreich eingeloggt als ' + req.session.user.username);
                 res.redirect('/');
                 break;

@@ -51,6 +51,11 @@ const createEquipment = async (req, res) => {
         return { "status": 200, "data": response };
 
     } else {
+        let extensionName = req.files.file.name;
+        const extension = extensionName.slice((extensionName.lastIndexOf(".") - 1 >>> 0) + 2)
+        if (extension != "jpg" && extension != "jpeg" && extension != "png") {
+            return { "status": 400, "data": "File must be a jpg, jpeg or png" };
+        }
         let filename = await saveFile(req.files.file);
         //we require fs to read the file as a stream
         var fs = require('fs');

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#"><img src="../img/logoGR.png" alt="Logo"> </a>
+    <a class="navbar-brand" href="#"><img src="/img/logoGR.png" alt="Logo"> </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -14,20 +14,36 @@
           <a class="nav-link" href="/equipment">Ausleihen</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/borrows">Ausleihvorg&aumlnge</a>
+          <a class="nav-link" href="/borrows">Ausleihvorgänge</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/users">Nutzer</a>
         </li>
       </ul>
-      <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav ms-auto position-relative">
         <li class="nav-item">
-          <a class="nav-link" href="/login"><img src="../img/profile-icon.png" alt="profile"></a>
+          <a class="nav-link" href="/login"><img src="/img/profile-icon.png" alt="profile"></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/cart"><img style="border-radius:0" src="../img/cart.svg" alt="cart"></a>
+          <a class="nav-link position-relative" href="/cart">
+            <img style="border-radius:0" src="/img/cart.svg" alt="cart">
+            <% if (locals.cartSize> 0) { %>
+              <span class="badge bg-danger position-absolute top-0 start-100 translate-middle badge rounded-pill">
+                <%= cartSize%>
+              </span>
+              <% } %>
+          </a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
+
+<style>
+  .navbar-nav .nav-item .badge {
+    font-size: 0.75rem;
+    padding: 0.5em 0.6em;
+    margin-top: 20%;
+    margin-left: -20%;
+  }
+</style>

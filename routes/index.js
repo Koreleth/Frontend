@@ -8,6 +8,7 @@ router.route('/')
   .get(async (req, res, next) => {
     let response = await indexController.getIndex(req);
     console.log(response.data);
+    console.log("CART SIZE:" + res.locals.cartSize);
     res.render('index', { "popularItems": response.data.items, title: response.title });
   });
 

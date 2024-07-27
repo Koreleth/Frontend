@@ -14,10 +14,15 @@ router.route('/')
   })
   //Neues Equipment erstellen
   .post(async (req, res, next) => {
-    let response = await equipmentController.createEquipment(req, res)
+    let response = await equipmentController.createEquipment(req, res);
     if (response.status == 403) {
       console.log("==Frontend== Not authorized");
       req.flash('error', 'Du bist nicht berechtigt, diese Aktion durchzuführen.');
+      res.redirect('/equipment');
+    }
+    else if (response.status == 400) {
+      console.log("==Frontend== Bad request");
+      req.flash('error', response.data);
       res.redirect('/equipment');
     }
     else {
