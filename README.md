@@ -1,7 +1,6 @@
 # Frontend
-<h1>Endabgabe in Weprogrammierung (2. Semester)</h1>
+<h1>Endabgabe in Webprogrammierung (2. Semester)</h1>
 <p>Für die nutzung des Frontends Servers wurde uns ein Bacekend Server zur verfügung gestellt. Auf Grundlage der Funktionen und gegebenen nutzungsanforderung musste ein Frontend Server aufgebaut werden</p>
-<p>Die Abgabe war eine Gruppenabgabe und wurde mit 1.0 Bewertet</p>
 
 <h3>Login</h3>
 ![screencapture-localhost-3001-login-2025-06-24-20_42_15](https://github.com/user-attachments/assets/e5e437b7-7c1c-4249-bc7b-6b9e7fc7932c)
